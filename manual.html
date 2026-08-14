@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Supervivencia - C.F. Biología UNSAAC</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="hero-container">
+    <header class="header-trapezoid">
+      <div class="header-content">
+        <div class="logo">
+          <p>Portal Biología</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="bloque_msg">
+      <div class="bloque_msg_overlay"></div>
+      <div class="bloque_msg_consejo">
+        <p>Busca a tu profe:</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards-grid2">
+    <div class="card">
+        <div class="card-img">
+            <img href="nada.png">
+        </div>
+        <div class="card-text">
+            <div class="card-tag"> Muy tranca </div>
+            <h1>Nombre</h1>
+            <p> Descripcion masiva</p>
+        </div>
+        <div class="card-text-cursos">
+            <nav>
+                <p>Pollito</p>
+                <p>No hay</p>
+                <p>Su rico suri</p>
+            </nav>
+        </div>
+        <div class="graficasos">
+            <div style="width: 400px; margin: 40px auto;">
+    <canvas id="miGrafico"></canvas>
+  </div>
+
+  <script>
+    // Mis 2 números/valores
+    const valor1 = 45;
+    const valor2 = 80;
+
+    const ctx = document.getElementById('miGrafico').getContext('2d');
+    
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Categoría A', 'Categoría B'], // Nombres de tus 2 barras
+        datasets: [{
+          label: 'Comparativa',
+          data: [valor1, valor2],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)', // Color Barra 1
+            'rgba(255, 99, 132, 0.6)'  // Color Barra 2
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+        </div>
+    </div>
+  </div>
+
+
+    <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
+  </footer>
+</body>
