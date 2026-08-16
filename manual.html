@@ -1,95 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manual de Supervivencia - C.F. Biología UNSAAC</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Supervivencia - C.F. Biología UNSAAC</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-  <div class="hero-container">
-    <header class="header-trapezoid">
-      <div class="header-content">
-        <div class="logo">
-          <p>Portal Biología</p>
-        </div>
-      </div>
-    </header>
 
-    <div class="bloque_msg">
-      <div class="bloque_msg_overlay"></div>
-      <div class="bloque_msg_consejo">
-        <p>Busca a tu profe:</p>
-      </div>
-    </div>
-  </div>
+    <div class="hero-container">
+        <header class="header-trapezoid">
+            <div class="header-content">
+                <div class="logo"><p>Manual</p></div>
+            </div>
+        </header>
 
-  <div class="cards-grid2">
-    <div class="card">
-        <div class="card-img">
-            <img href="nada.png">
-        </div>
-        <div class="card-text">
-            <div class="card-tag"> Muy tranca </div>
-            <h1>Nombre</h1>
-            <p> Descripcion masiva</p>
-        </div>
-        <div class="card-text-cursos">
-            <nav>
-                <p>Pollito</p>
-                <p>No hay</p>
-                <p>Su rico suri</p>
-            </nav>
-        </div>
-        <div class="graficasos">
-            <div style="width: 400px; margin: 40px auto;">
-    <canvas id="miGrafico"></canvas>
-  </div>
-
-  <script>
-    // Mis 2 números/valores
-    const valor1 = 45;
-    const valor2 = 80;
-
-    const ctx = document.getElementById('miGrafico').getContext('2d');
-    
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Categoría A', 'Categoría B'], // Nombres de tus 2 barras
-        datasets: [{
-          label: 'Comparativa',
-          data: [valor1, valor2],
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.6)', // Color Barra 1
-            'rgba(255, 99, 132, 0.6)'  // Color Barra 2
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  </script>
-
+        <div class="bloque_msg">
+            <div class="bloque_msg_overlay"></div>
+            <div class="bloque_msg_consejo">
+                <p>Sobrevive a la carrera. Aprende de quienes ya sobrevivieron.</p>
+            </div>
         </div>
     </div>
-  </div>
 
+    <section class="manual-profesores">
 
-    <!-- PIE DE PÁGINA -->
-  <footer>
-    <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
-  </footer>
+        <div class="profesores-header">
+            <span class="manual-label">MANUAL DE SUPERVIVENCIA</span>
+            <h2>Busca a tu profe</h2>
+            <p>Consulta los cursos, dificultad y estadísticas de aprobación de los docentes.</p>
+
+            <div class="buscador-profesor">
+                <span class="buscador-icon">⌕</span>
+                <input type="search" id="busquedaProfesor" placeholder="Escribe el nombre del profesor..." autocomplete="off" aria-label="Buscar profesor">
+                <button type="button" id="btnBuscar">Buscar</button>
+            </div>
+        </div>
+
+        <div class="profesor-card" id="profesorCard">
+
+            <div class="profesor-card-header">
+
+                <div class="profesor-identidad">
+                    <div class="profesor-foto">
+                        <img src="nada.png" alt="Foto del profesor">
+                    </div>
+
+                    <div class="profesor-info">
+                        <span class="card-tag">MUY TRANCA</span>
+                        <h2>Nombre del profesor</h2>
+                        <p class="profesor-descripcion">Docente de la Escuela Profesional de Biología. Aquí puedes colocar una descripción breve, experiencia o comentarios generales.</p>
+                    </div>
+                </div>
+
+                <div class="profesor-rango">
+                    <span>DIFICULTAD</span>
+                    <div class="dificultad-bar">
+                        <div class="dificultad-fill"></div>
+                    </div>
+                    <strong>80%</strong>
+                </div>
+
+            </div>
+
+            <div class="profesor-card-body">
+
+                <div class="profesor-cursos">
+                    <div class="seccion-titulo">
+                        <span>01</span>
+                        <h3>Cursos</h3>
+                    </div>
+
+                    <div class="curso-lista">
+
+                        <div class="curso-item">
+                            <span class="curso-numero">01</span>
+                            <div>
+                                <strong>Pollito</strong>
+                                <small>Biología</small>
+                            </div>
+                        </div>
+
+                        <div class="curso-item">
+                            <span class="curso-numero">02</span>
+                            <div>
+                                <strong>No hay</strong>
+                                <small>Biología</small>
+                            </div>
+                        </div>
+
+                        <div class="curso-item">
+                            <span class="curso-numero">03</span>
+                            <div>
+                                <strong>Su rico suri</strong>
+                                <small>Biología</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="profesor-estadisticas">
+                    <div class="seccion-titulo">
+                        <span>02</span>
+                        <h3>Estadísticas</h3>
+                    </div>
+
+                    <div class="estadisticas-grid">
+
+                        <div class="stat-box">
+                            <strong>45%</strong>
+                            <span>Aprobados</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>55%</strong>
+                            <span>Desaprobados</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>12.4</strong>
+                            <span>Promedio</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="profesor-grafica">
+
+                <div class="seccion-titulo">
+                    <span>03</span>
+                    <div>
+                        <h3>Aprobación por curso</h3>
+                        <p>Porcentaje histórico de estudiantes aprobados</p>
+                    </div>
+                </div>
+
+                <div class="grafica-container">
+                    <canvas id="miGrafico"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
+    </footer>
+
+    <script src="./js/grafico.js"></script>
 </body>
+</html>
