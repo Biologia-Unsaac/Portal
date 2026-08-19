@@ -278,6 +278,341 @@ body {
   line-height: 1.5;
 }
 
+a.card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* ==========================================================================
+   CENTRO FEDERADO (CF.HTML)
+   ========================================================================== */
+.cf-estructura {
+  padding: 60px 20px 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cf-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
+}
+
+.cf-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.cf-header h2 {
+  font-size: 2rem;
+  color: #1c2826;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.cf-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Presidente y Vicepresidente */
+.cf-miembro {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ed 100%);
+  padding: 28px 32px;
+  border-radius: 16px;
+  border: 2px solid #0c7120;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(12, 113, 32, 0.1);
+  transition: transform 0.25s ease;
+}
+
+.cf-miembro:hover {
+  transform: translateY(-3px);
+}
+
+.cf-miembro-badge {
+  background: linear-gradient(135deg, #0c7120, #095418);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.cf-miembro-info h3 {
+  font-size: 1.3rem;
+  color: #1c2826;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.cf-miembro-info p {
+  font-size: 0.92rem;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+/* Secretarías */
+.cf-secretarias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.cf-secretaria {
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cf-secretaria:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(12, 113, 32, 0.08);
+}
+
+.cf-secretaria-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e6ede4;
+}
+
+.cf-secretaria-num {
+  background: linear-gradient(135deg, #0c7120, #095418);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cf-secretaria-header h3 {
+  font-size: 1.05rem;
+  color: #1c2826;
+  font-weight: 700;
+}
+
+.cf-secretaria-miembros {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cf-miembro-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f8faf7;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #e6ede4;
+}
+
+.cf-miembro-card .cf-rol {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.cf-miembro-card p {
+  font-size: 0.92rem;
+  color: #1c2826;
+  font-weight: 600;
+}
+
+.cf-accesorio {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   CENTROS DE INVESTIGACIÓN (CENTROS.HTML)
+   ========================================================================== */
+.centros-section,
+.circulos-section {
+  padding: 60px 20px 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.centros-header,
+.circulos-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.centros-label,
+.circulos-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.centros-header h2,
+.circulos-header h2 {
+  font-size: 2rem;
+  color: #1c2826;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.centros-header p,
+.circulos-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.centros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.centro-card {
+  background-color: #ffffff;
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.centro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(12, 113, 32, 0.1);
+  border-color: #c2c81f;
+}
+
+.centro-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0c7120, #095418);
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+}
+
+.centro-card h3 {
+  font-size: 1.1rem;
+  color: #1c2826;
+  margin-bottom: 8px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.centro-card p {
+  font-size: 0.92rem;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+/* Círculos de Estudio */
+.circulos-section {
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  max-width: 100%;
+}
+
+.circulos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.circulo-card {
+  background-color: #f8faf7;
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.circulo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(194, 200, 31, 0.15);
+  border-color: #c2c81f;
+}
+
+.circulo-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+}
+
+.circulo-card h3 {
+  font-size: 1.1rem;
+  color: #1c2826;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.circulo-card p {
+  font-size: 0.92rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.circulo-nota {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  font-style: italic;
+}
+
 /* ==========================================================================
    FOOTER
    ========================================================================== */
