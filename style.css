@@ -730,6 +730,151 @@ a.card {
 }
 
 /* ==========================================================================
+   CONSULTA DE TRÁMITES (TRAMITES.HTML)
+   ========================================================================== */
+.tramites-section {
+  padding: 60px 20px 80px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tramites-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
+}
+
+.tramites-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.tramites-header h2 {
+  font-size: 2rem;
+  color: #1c2826;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.tramites-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.tramites-categoria {
+  margin-bottom: 40px;
+}
+
+.tramites-categoria-titulo {
+  font-size: 1.2rem;
+  color: #0c7120;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e6ede4;
+}
+
+.tramite-item {
+  background-color: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease;
+}
+
+.tramite-item:hover {
+  box-shadow: 0 4px 16px rgba(12, 113, 32, 0.08);
+}
+
+.tramite-item[open] {
+  box-shadow: 0 4px 16px rgba(12, 113, 32, 0.1);
+  border-color: #0c7120;
+}
+
+.tramite-pregunta {
+  padding: 18px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1c2826;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: color 0.2s ease;
+}
+
+.tramite-pregunta::-webkit-details-marker {
+  display: none;
+}
+
+.tramite-pregunta::after {
+  content: '+';
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0c7120;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.tramite-item[open] .tramite-pregunta::after {
+  content: '−';
+}
+
+.tramite-item[open] .tramite-pregunta {
+  color: #0c7120;
+}
+
+.tramite-respuesta {
+  padding: 0 24px 20px 24px;
+}
+
+.tramite-respuesta p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.tramite-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tramite-paso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #1c2826;
+  background-color: #f8faf7;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 3px solid #0c7120;
+}
+
+.tramite-paso::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: #0c7120;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
    FOOTER
    ========================================================================== */
 footer {
