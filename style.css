@@ -1090,6 +1090,15 @@ a.card {
   font-size: 3rem;
 }
 
+.centro-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e6ede4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 .centro-badge {
   display: inline-block;
   font-size: 0.8rem;
