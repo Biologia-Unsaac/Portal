@@ -22,62 +22,137 @@
     </div>
 
     <section class="faq-section">
-        <div class="faq-header">
-            <span class="faq-label">EVENTOS</span>
-            <h2>Noticias y Eventos</h2>
-            <p>Entérate de las últimas actividades, congresos y oportunidades de la facultad</p>
+    <div class="faq-header">
+        <span class="faq-label">EVENTOS</span>
+        <h2>Calendario Académico y Eventos</h2>
+        <p>Explora la vista mensual e infórmate sobre las actividades programadas.</p>
+    </div>
+
+    <!-- Contenedor del Calendario Visual -->
+    <div class="calendario-wrapper">
+        <div class="cal-controls">
+            <button id="prev-month" class="cal-nav-btn">&lt;</button>
+            <h3 id="current-month-year">Agosto 2026</h3>
+            <button id="next-month" class="cal-nav-btn">&gt;</button>
         </div>
 
-        <div class="eventos-grid">
-            <div class="evento-card">
-                <div class="evento-fecha">
-                    <span class="evento-dia">15</span>
-                    <span class="evento-mes">AGO</span>
-                </div>
-                <div class="evento-info">
-                    <span class="evento-tag">Congreso</span>
-                    <h3>V Congreso de Biología UNSAAC</h3>
-                    <p>Encuentro académico con ponencias magistrales, talleres y presentación de proyectos de investigación.</p>
-                </div>
-            </div>
-            <div class="evento-card">
-                <div class="evento-fecha">
-                    <span class="evento-dia">22</span>
-                    <span class="evento-mes">AGO</span>
-                </div>
-                <div class="evento-info">
-                    <span class="evento-tag">Taller</span>
-                    <h3>Taller de Taxidermia</h3>
-                    <p>Aprende técnicas básicas de taxidermia aplicada a la investigación zoológica.</p>
-                </div>
-            </div>
-            <div class="evento-card">
-                <div class="evento-fecha">
-                    <span class="evento-dia">05</span>
-                    <span class="evento-mes">SEP</span>
-                </div>
-                <div class="evento-info">
-                    <span class="evento-tag">Charla</span>
-                    <h3>Charla: Biotecnología Ambiental</h3>
-                    <p>Expertos en el campo comparten las últimas innovaciones en biotecnología aplicada al medio ambiente.</p>
-                </div>
-            </div>
-            <div class="evento-card">
-                <div class="evento-fecha">
-                    <span class="evento-dia">18</span>
-                    <span class="evento-mes">SEP</span>
-                </div>
-                <div class="evento-info">
-                    <span class="evento-tag">Campeonato</span>
-                    <h3>EXPOBIO 2026</h3>
-                    <p>Exposición de proyectos estudiantiles de investigación. ¡Participa con tu equipo!</p>
-                </div>
-            </div>
+        <div class="cal-grid">
+            <div class="cal-day-header">Dom</div>
+            <div class="cal-day-header">Lun</div>
+            <div class="cal-day-header">Mar</div>
+            <div class="cal-day-header">Mié</div>
+            <div class="cal-day-header">Jue</div>
+            <div class="cal-day-header">Vie</div>
+            <div class="cal-day-header">Sáb</div>
+            
+            <div id="cal-days-container" class="cal-days-container"></div>
         </div>
+    </div>
+
+    <!-- Contenedor de las Tarjetas (Filtradas por Mes) -->
+    <div id="eventos-grid" class="eventos-grid" style="margin-top: 30px;">
+        <!-- Se genera automáticamente según el mes activo -->
+    </div>
     </section>
 
     <footer>
         <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
     </footer>
+<script>
+const eventos = [
+    { fecha: '2026-08-15', dia: '15', mes: 'AGO', tag: 'Congreso', titulo: 'V Congreso de Biología UNSAAC', desc: 'Encuentro académico con ponencias magistrales, talleres y presentación de proyectos de investigación.' },
+    { fecha: '2026-08-22', dia: '22', mes: 'AGO', tag: 'Taller', titulo: 'Taller de Taxidermia', desc: 'Aprende técnicas básicas de taxidermia aplicada a la investigación zoológica.' },
+    { fecha: '2026-09-05', dia: '05', mes: 'SEP', tag: 'Charla', titulo: 'Charla: Biotecnología Ambiental', desc: 'Expertos en el campo comparten las últimas innovaciones en biotecnología aplicada al medio ambiente.' },
+    { fecha: '2026-09-18', dia: '18', mes: 'SEP', tag: 'Campeonato', titulo: 'EXPOBIO 2026', desc: 'Exposición de proyectos estudiantiles de investigación. ¡Participa con tu equipo!' }
+];
+
+let currentDate = new Date(2026, 7, 1); // Agosto 2026
+
+const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+function updateCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    // Actualizar título del mes
+    document.getElementById('current-month-year').textContent = `${monthNames[month]} ${year}`;
+
+    // 1. Renderizar la malla del calendario
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+    const container = document.getElementById('cal-days-container');
+    container.innerHTML = '';
+
+    for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'cal-cell empty';
+        container.appendChild(emptyCell);
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-cell';
+        
+        const dayNum = document.createElement('span');
+        dayNum.className = 'cal-cell-num';
+        dayNum.textContent = day;
+        cell.appendChild(dayNum);
+
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const tieneEvento = eventos.some(e => e.fecha === dateStr);
+
+        if (tieneEvento) {
+            cell.classList.add('has-event');
+            const dot = document.createElement('div');
+            dot.className = 'cal-event-dot';
+            cell.appendChild(dot);
+        }
+
+        container.appendChild(cell);
+    }
+
+    // 2. Renderizar solo las tarjetas de eventos del mes visible
+    const gridTarjetas = document.getElementById('eventos-grid');
+    gridTarjetas.innerHTML = '';
+
+    const eventosDelMes = eventos.filter(e => {
+        const [eYear, eMonth] = e.fecha.split('-').map(Number);
+        return eYear === year && (eMonth - 1) === month;
+    });
+
+    if (eventosDelMes.length === 0) {
+        gridTarjetas.innerHTML = '<p class="no-eventos-msg">No hay eventos programados para este mes.</p>';
+    } else {
+        eventosDelMes.forEach(evt => {
+            const card = document.createElement('div');
+            card.className = 'evento-card';
+            card.innerHTML = `
+                <div class="evento-fecha">
+                    <span class="evento-dia">${evt.dia}</span>
+                    <span class="evento-mes">${evt.mes}</span>
+                </div>
+                <div class="evento-info">
+                    <span class="evento-tag">${evt.tag}</span>
+                    <h3>${evt.titulo}</h3>
+                    <p>${evt.desc}</p>
+                </div>
+            `;
+            gridTarjetas.appendChild(card);
+        });
+    }
+}
+
+document.getElementById('prev-month').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    updateCalendar();
+});
+
+document.getElementById('next-month').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    updateCalendar();
+});
+
+updateCalendar();
+</script>
 </body>
 </html>
