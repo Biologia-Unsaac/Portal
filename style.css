@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RESET & CONFIGURACIÓN GLOBAL
+   1. RESET & CONFIGURACIÓN GLOBAL
    ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -16,7 +16,7 @@ body {
 }
 
 /* ==========================================================================
-   HERO & HEADER SUPERPUESTO (TRAPECIO REDONDEADO)
+   2. HERO & HEADER SUPERPUESTO (TRAPECIO REDONDEADO)
    ========================================================================== */
 .hero-container {
   position: relative;
@@ -88,7 +88,7 @@ body {
   left: -10px;
   right: -10px;
   bottom: -10px;
-  background-image: url('./Instalaciones.webp');
+  background-image: url('./templates/Instalaciones.webp');
   background-size: cover;
   background-position: center;
   filter: blur(6px) brightness(0.85);
@@ -132,7 +132,7 @@ body {
 }
 
 /* ==========================================================================
-   NAVEGACIÓN (BOTONES DE NAVEGACIÓN RÁPIDA)
+   3. NAVEGACIÓN (BOTONES DE NAVEGACIÓN RÁPIDA)
    ========================================================================== */
 .lista {
   padding: 50px 20px;
@@ -204,7 +204,7 @@ body {
 }
 
 /* ==========================================================================
-   SECCIÓN DE SERVICIOS Y TARJETAS
+   4. SECCIÓN DE SERVICIOS Y TARJETAS GENERALES
    ========================================================================== */
 .Servicios {
   width: 100%;
@@ -248,6 +248,12 @@ body {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+a.card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px rgba(12, 113, 32, 0.1);
@@ -278,185 +284,730 @@ body {
   line-height: 1.5;
 }
 
-a.card {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
 /* ==========================================================================
-   CENTRO FEDERADO (CF.HTML)
+   4b. TABLÓN DE NOTICIAS (CARRUSEL DESLIZABLE)
    ========================================================================== */
-.cf-estructura {
-  padding: 60px 20px 80px 20px;
+.tablon-noticias {
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
-.cf-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 50px auto;
+.noticias-carousel-wrapper {
+  position: relative;
 }
 
-.cf-label {
+.noticias-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 8px 4px 20px;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  /* Ocultar la barra de scroll sin perder la funcionalidad */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.noticias-track::-webkit-scrollbar {
+  display: none;
+}
+
+.noticias-track.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.noticia-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+}
+
+.noticia-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(12, 113, 32, 0.1);
+  border-color: #c2c81f;
+}
+
+.noticia-imagen {
+  width: 100%;
+  height: 160px;
+  background-color: #eaf3e8;
+  overflow: hidden;
+}
+
+.noticia-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.noticia-contenido {
+  padding: 18px 20px 22px;
+}
+
+.noticia-fecha {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
   color: #0c7120;
   background-color: #eaf3e8;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 6px;
-  margin-bottom: 12px;
-  letter-spacing: 1px;
-}
-
-.cf-header h2 {
-  font-size: 2rem;
-  color: #1c2826;
   margin-bottom: 10px;
-  font-weight: 700;
 }
 
-.cf-header p {
-  color: #64748b;
-  font-size: 1rem;
-}
-
-/* Presidente y Vicepresidente */
-.cf-miembro {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  background: linear-gradient(135deg, #ffffff 0%, #f0f7ed 100%);
-  padding: 28px 32px;
-  border-radius: 16px;
-  border: 2px solid #0c7120;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 16px rgba(12, 113, 32, 0.1);
-  transition: transform 0.25s ease;
-}
-
-.cf-miembro:hover {
-  transform: translateY(-3px);
-}
-
-.cf-miembro-badge {
-  background: linear-gradient(135deg, #0c7120, #095418);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 0.75rem;
-  padding: 8px 16px;
-  border-radius: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  white-space: nowrap;
-}
-
-.cf-miembro-info h3 {
-  font-size: 1.3rem;
+.noticia-contenido h3 {
+  font-size: 1.05rem;
   color: #1c2826;
-  margin-bottom: 4px;
-  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
 }
 
-.cf-miembro-info p {
-  font-size: 0.92rem;
+.noticia-contenido p {
+  font-size: 0.88rem;
   color: #4a5568;
   line-height: 1.5;
 }
 
-/* Secretarías */
-.cf-secretarias {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #e6ede4;
+  background-color: #ffffff;
+  color: #0c7120;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  z-index: 5;
 }
 
-.cf-secretaria {
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #e6ede4;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+.carousel-btn:hover {
+  background-color: #0c7120;
+  color: #ffffff;
+}
+
+.carousel-btn-prev {
+  left: -14px;
+}
+
+.carousel-btn-next {
+  right: -14px;
+}
+
+@media (max-width: 700px) {
+  .carousel-btn {
+    display: none;
+  }
+  .noticia-card {
+    flex-basis: 240px;
+  }
+}
+
+/* ==========================================================================
+   5. MANUAL DE SUPERVIVENCIA - PROFESORES
+   ========================================================================== */
+.manual-profesores {
+  width: 100%;
+  padding: 75px 20px 90px;
+  background: #f8faf7;
+}
+
+.profesores-header {
+  max-width: 850px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.manual-label {
+  display: inline-block;
+  padding: 5px 13px;
+  margin-bottom: 12px;
+  border-radius: 20px;
+  background: #eaf3e8;
+  color: #0c7120;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.profesores-header h2 {
+  color: #0c7120;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.profesores-header > p {
+  max-width: 600px;
+  margin: 0 auto 28px;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Buscador */
+.buscador-profesor {
+  width: 100%;
+  max-width: 680px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  background: #ffffff;
+  border: 1px solid #dce7da;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(12, 113, 32, 0.08);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buscador-profesor:focus-within {
+  border-color: #0c7120;
+  box-shadow: 0 8px 30px rgba(12, 113, 32, 0.16);
+}
+
+.buscador-icon {
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  color: #0c7120;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.buscador-profesor input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #1c2826;
+  font-size: 0.95rem;
+}
+
+.buscador-profesor input::placeholder {
+  color: #94a3b8;
+}
+
+.buscador-profesor button {
+  border: none;
+  padding: 12px 23px;
+  border-radius: 10px;
+  background: #0c7120;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.buscador-profesor button:hover {
+  background: #095418;
+  transform: translateY(-1px);
+}
+
+/* Tarjeta Profesor */
+.profesor-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e0e9de;
+  border-radius: 22px;
+  box-shadow: 0 15px 45px rgba(12, 113, 32, 0.09);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.cf-secretaria:hover {
+.profesor-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(12, 113, 32, 0.08);
+  box-shadow: 0 20px 55px rgba(12, 113, 32, 0.14);
 }
 
-.cf-secretaria-header {
+.profesor-card-header {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e6ede4;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 32px;
+  background: linear-gradient(135deg, #ffffff 0%, #f3f8f1 100%);
+  border-bottom: 1px solid #e4ece2;
 }
 
-.cf-secretaria-num {
-  background: linear-gradient(135deg, #0c7120, #095418);
-  color: #ffffff;
+.profesor-identidad {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-width: 0;
+}
+
+.profesor-foto {
+  flex: 0 0 125px;
+  width: 125px;
+  height: 125px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #eaf3e8;
+  border: 4px solid #ffffff;
+  box-shadow: 0 6px 18px rgba(12, 113, 32, 0.18);
+}
+
+.profesor-foto img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.profesor-info {
+  min-width: 0;
+}
+
+.profesor-info h2 {
+  margin: 4px 0 7px;
+  color: #1c2826;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.profesor-descripcion {
+  max-width: 600px;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.profesor-info .card-tag {
+  margin: 0;
+  color: #0c7120;
+  background: #eaf3e8;
+}
+
+/* Dificultad */
+.profesor-rango {
+  flex: 0 0 180px;
+  text-align: right;
+}
+
+.profesor-rango > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #64748b;
+  font-size: 0.7rem;
   font-weight: 800;
-  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.profesor-rango strong {
+  display: block;
+  margin-top: 5px;
+  color: #0c7120;
+  font-size: 1.25rem;
+}
+
+.dificultad-bar {
+  width: 100%;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e2e8f0;
+}
+
+.dificultad-fill {
+  width: 80%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #0c7120, #c2c81f);
+}
+
+/* Cuerpo Tarjeta */
+.profesor-card-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 35px;
+  padding: 32px;
+}
+
+.seccion-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.seccion-titulo > span {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #0c7120;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.seccion-titulo h3 {
+  color: #1c2826;
+  font-size: 1rem;
+}
+
+.seccion-titulo p {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.curso-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.curso-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px;
+  border: 1px solid #e5ece3;
+  border-radius: 12px;
+  background: #f8faf7;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.curso-item:hover {
+  transform: translateX(4px);
+  border-color: #c2c81f;
+}
+
+.curso-numero {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border-radius: 9px;
+  background: #eaf3e8;
+  color: #0c7120;
+  font-size: 0.7rem;
+  font-weight: 800;
 }
 
-.cf-secretaria-header h3 {
-  font-size: 1.05rem;
+.curso-item strong {
+  display: block;
   color: #1c2826;
+  font-size: 0.88rem;
+}
+
+.curso-item small {
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+
+.estadisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat-box {
+  padding: 18px 10px;
+  text-align: center;
+  background: #f8faf7;
+  border: 1px solid #e5ece3;
+  border-radius: 12px;
+}
+
+.stat-box strong {
+  display: block;
+  color: #0c7120;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.stat-box span {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 0.68rem;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
-.cf-secretaria-miembros {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.profesor-grafica {
+  padding: 0 32px 35px;
 }
 
-.cf-miembro-card {
+.grafica-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  padding: 20px;
+  border: 1px solid #e5ece3;
+  border-radius: 15px;
+  background: #f8faf7;
+}
+
+/* ==========================================================================
+   6. CENTRO FEDERADO (CF.HTML)
+   ========================================================================== */
+/* Tema Colonia de Hormigas */
+/* Corrección de Márgenes y Márgenes en Bordes */
+.cf-estructura {
+  padding: 60px 20px 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Tema Hormiguero con curvas y fondo temático */
+.ant-colony-theme {
+  background: radial-gradient(circle at top, #f3f8f1 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cámaras Base */
+.colony-chamber {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 2px dashed #b2d8aa;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(12, 113, 32, 0.04);
+}
+
+.colony-chamber:hover {
+  border-style: solid;
+  border-color: #0c7120;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(12, 113, 32, 0.12);
+}
+
+/* Cámaras Principales con Fotos */
+.queen-chamber, .subqueen-chamber {
+  max-width: 650px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  background-color: #f8faf7;
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid #e6ede4;
+  gap: 24px;
 }
 
-.cf-miembro-card .cf-rol {
-  font-size: 0.7rem;
-  font-weight: 700;
+.queen-chamber {
+  border-style: solid;
+  border-color: #0c7120;
+  background: linear-gradient(135deg, #ffffff 0%, #eaf3e8 100%);
+}
+
+.subqueen-chamber {
+  border-style: solid;
+  border-color: #2e7d32;
+  max-width: 580px;
+}
+
+/* Estilos para las Fotos de Perfil */
+.chamber-photo-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.chamber-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0c7120;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ant-icon-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: #0c7120;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  border: 2px solid #ffffff;
+}
+
+.chamber-role-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
   text-transform: uppercase;
   color: #0c7120;
   background-color: #eaf3e8;
   padding: 3px 8px;
   border-radius: 4px;
-  white-space: nowrap;
+  margin-bottom: 6px;
 }
 
-.cf-miembro-card p {
-  font-size: 0.92rem;
+.member-name {
+  font-weight: 700;
+  color: #0c7120;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+/* Túneles Curvos (SVG) y Hormigas Animadas */
+.tunnel-container {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.tunnel-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tunnel-path {
+  fill: none;
+  stroke: #a1d198;
+  stroke-width: 3;
+  stroke-dasharray: 6 6;
+}
+
+/* Animación de Hormigas en Ruta */
+.ant-walker {
+  position: absolute;
+  font-size: 1rem;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.ant-1 {
+  animation: walkPath1 6s infinite;
+}
+
+.ant-2 {
+  animation: walkPath2 7s infinite;
+}
+
+@keyframes walkPath1 {
+  0%   { top: 0%; left: 48%; transform: rotate(30deg); }
+  50%  { top: 50%; left: 70%; transform: rotate(110deg); }
+  100% { top: 90%; left: 48%; transform: rotate(30deg); }
+}
+
+@keyframes walkPath2 {
+  0%   { top: 0%; left: 50%; transform: rotate(-40deg); }
+  50%  { top: 40%; left: 20%; transform: rotate(40deg); }
+  100% { top: 90%; left: 50%; transform: rotate(140deg); }
+}
+
+/* Red de Cámaras Inferiores */
+.chamber-network {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.worker-chamber .chamber-head {
+  border-bottom: 1px solid #e6ede4;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.chamber-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #0c7120;
+  background: #eaf3e8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.worker-chamber h3 {
+  font-size: 1.05rem;
   color: #1c2826;
-  font-weight: 600;
+  font-weight: 700;
+  margin-top: 8px;
 }
 
-.cf-accesorio {
-  opacity: 0.8;
+.ant-castes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+.caste-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+}
+
+.leader-caste {
+  background-color: #eaf3e8;
+  border-left: 4px solid #0c7120;
+}
+
+.leader-caste p {
+  font-weight: 700;
+  color: #1c2826;
+}
+
+.worker-caste {
+  background-color: #f8faf7;
+  border: 1px solid #e6ede4;
+}
+
+.worker-caste p {
+  color: #4a5568;
+}
+
+.caste-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  letter-spacing: 0.5px;
+}
+
+/* Diseño Móvil Responsivo */
+@media (max-width: 600px) {
+  .queen-chamber, .subqueen-chamber {
+    flex-direction: column;
+    text-align: center;
+  }
+}
 /* ==========================================================================
-   CENTROS DE INVESTIGACIÓN (CENTROS.HTML)
+   7. CENTROS DE INVESTIGACIÓN Y CÍRCULOS (CENTROS.HTML)
    ========================================================================== */
 .centros-section,
 .circulos-section {
@@ -532,6 +1083,18 @@ a.card {
   border-radius: 6px;
   margin-bottom: 14px;
   letter-spacing: 1px;
+}
+
+.centro-badge.sinapsis {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+}
+
+.centro-badge.ictios {
+  background: linear-gradient(135deg, #0891b2, #0e7490);
+}
+
+.centro-badge.cides {
+  background: linear-gradient(135deg, #ca8a04, #a16207);
 }
 
 .centro-card h3 {
@@ -614,7 +1177,7 @@ a.card {
 }
 
 /* ==========================================================================
-   PREGUNTAS FRECUENTES (PFRECUENTES.HTML)
+   8. PREGUNTAS FRECUENTES (PFRECUENTES.HTML)
    ========================================================================== */
 .faq-section {
   padding: 60px 20px 80px 20px;
@@ -730,7 +1293,7 @@ a.card {
 }
 
 /* ==========================================================================
-   CONSULTA DE TRÁMITES (TRAMITES.HTML)
+   9. CONSULTA DE TRÁMITES (TRAMITES.HTML)
    ========================================================================== */
 .tramites-section {
   padding: 60px 20px 80px 20px;
@@ -875,7 +1438,7 @@ a.card {
 }
 
 /* ==========================================================================
-   ASUNTOS ACADÉMICOS (ASUNTOS.HTML)
+   10. ASUNTOS ACADÉMICOS (ASUNTOS.HTML)
    ========================================================================== */
 /* Toggle Switch */
 .toggle-section {
@@ -1062,7 +1625,6 @@ a.card {
   box-shadow: 0 12px 32px rgba(12, 113, 32, 0.1);
 }
 
-/* Alternar izquierda/derecha */
 .centro-izq {
   flex-direction: row;
 }
@@ -1097,27 +1659,6 @@ a.card {
   object-fit: cover;
   border: 3px solid #e6ede4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.centro-badge {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #ffffff;
-  background: linear-gradient(135deg, #0c7120, #095418);
-  padding: 6px 14px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  letter-spacing: 1px;
-}
-
-.centro-badge.sinapsis {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
-}
-
-.centro-badge.ictios {
-  background: linear-gradient(135deg, #0891b2, #0e7490);
 }
 
 .centro-acreditado {
@@ -1168,6 +1709,61 @@ a.card {
   margin-bottom: 16px;
 }
 
+/* Decoración temática animada — "firma visual" de cada centro/círculo */
+.centro-decoracion {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed #e6ede4;
+}
+
+.deco-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  opacity: 0.85;
+  animation: decoFlotar 3.2s ease-in-out infinite;
+}
+
+.deco-icon:nth-child(2) {
+  width: 19px;
+  height: 19px;
+  opacity: 0.55;
+  animation-delay: 0.45s;
+}
+
+.deco-icon:nth-child(3) {
+  width: 15px;
+  height: 15px;
+  opacity: 0.35;
+  animation-delay: 0.9s;
+}
+
+@keyframes decoFlotar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deco-icon {
+    animation: none;
+  }
+}
+
+/* Color temático por centro / círculo */
+.tema-cibiogen   { color: #0c7120; }
+.tema-cipham     { color: #b45309; }
+.tema-cima       { color: #059669; }
+.tema-ceinz      { color: #d97706; }
+.tema-inkill     { color: #65a30d; }
+.tema-vertebrate { color: #2563eb; }
+.tema-cides      { color: #ca8a04; }
+.tema-limi       { color: #0284c7; }
+.tema-sinapsis   { color: #7c3aed; }
+.tema-ictios     { color: #0891b2; }
+
 .team-tag {
   display: inline-block;
   font-size: 0.75rem;
@@ -1201,9 +1797,233 @@ a.card {
   color: #ffffff;
   transform: translateY(-2px);
 }
+/* Calendario Visual */
+.calendario-wrapper {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
 
+.cal-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cal-controls h3 {
+  font-size: 1.25rem;
+  color: #1c2826;
+  font-weight: 700;
+}
+
+.cal-nav-btn {
+  background-color: #eaf3e8;
+  color: #0c7120;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cal-nav-btn:hover {
+  background-color: #0c7120;
+  color: #ffffff;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  padding-bottom: 8px;
+}
+
+.cal-days-container {
+  display: contents;
+}
+
+.cal-cell {
+  min-height: 52px;
+  background-color: #f8faf8;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.cal-cell:hover {
+  border-color: #0c7120;
+}
+
+.cal-cell.empty {
+  background-color: transparent;
+  cursor: default;
+  border: none;
+}
+
+.cal-cell-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1c2826;
+}
+
+.cal-event-dot {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #0c7120;
+}
+
+.cal-cell.has-event {
+  background-color: #eaf3e8;
+}
+
+.cal-cell.selected {
+  border-color: #0c7120;
+  box-shadow: 0 0 0 2px #0c7120;
+}
+
+/* Modal/Detalle */
+.evento-card-popup {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: #f1f7f0;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 5px solid #0c7120;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.evento-card-popup.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Estilos para el Calendario Visual superior */
+.calendario-wrapper {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.cal-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cal-controls h3 {
+  font-size: 1.25rem;
+  color: #1c2826;
+  font-weight: 700;
+}
+
+.cal-nav-btn {
+  background-color: #eaf3e8;
+  color: #0c7120;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cal-nav-btn:hover {
+  background-color: #0c7120;
+  color: #ffffff;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  padding-bottom: 8px;
+}
+
+.cal-days-container {
+  display: contents;
+}
+
+.cal-cell {
+  min-height: 48px;
+  background-color: #f8faf8;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid transparent;
+}
+
+.cal-cell.empty {
+  background-color: transparent;
+}
+
+.cal-cell-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1c2826;
+}
+
+.cal-cell.has-event {
+  background-color: #eaf3e8;
+  border-color: #c8e0be;
+}
+
+.cal-event-dot {
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  background-color: #0c7120;
+}
+
+/* Mensaje cuando no hay eventos en el mes */
+.no-eventos-msg {
+  text-align: center;
+  color: #64748b;
+  grid-column: 1 / -1;
+  padding: 20px;
+  font-style: italic;
+}
 /* ==========================================================================
-   FOOTER
+   11. FOOTER
    ========================================================================== */
 footer {
   width: 100%;
@@ -1219,7 +2039,26 @@ footer p {
   letter-spacing: 0.5px;
 }
 
-/* Responsive adjustments */
+/* ==========================================================================
+   12. MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 800px) {
+  .profesor-card-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profesor-rango {
+    width: 100%;
+    flex: none;
+    text-align: left;
+  }
+
+  .profesor-card-body {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 600px) {
   .header-trapezoid {
     width: 90%;
@@ -1239,16 +2078,68 @@ footer p {
     height: 32px;
   }
 
+  .manual-profesores {
+    padding: 55px 15px 70px;
+  }
+
+  .buscador-profesor {
+    padding: 5px;
+  }
+
+  .buscador-icon {
+    width: 35px;
+  }
+
+  .buscador-profesor button {
+    padding: 11px 15px;
+  }
+
+  .profesor-card-header {
+    padding: 22px;
+  }
+
+  .profesor-identidad {
+    align-items: flex-start;
+  }
+
+  .profesor-foto {
+    flex-basis: 90px;
+    width: 90px;
+    height: 90px;
+  }
+
+  .profesor-card-body {
+    padding: 22px;
+  }
+
+  .profesor-grafica {
+    padding: 0 22px 25px;
+  }
+
+  .grafica-container {
+    height: 260px;
+    padding: 10px;
+  }
+
+  .estadisticas-grid {
+    gap: 6px;
+  }
+
+  .stat-box {
+    padding: 14px 5px;
+  }
+
+  .stat-box strong {
+    font-size: 1.15rem;
+  }
+
   .centro-item,
   .centro-der {
     flex-direction: column;
     text-align: center;
   }
 
-  .centro-redes {
-    justify-content: center;
-  }
-
+  .centro-redes,
   .centro-teams {
     justify-content: center;
   }
@@ -1260,5 +2151,24 @@ footer p {
 
   .toggle-btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .profesor-identidad {
+    flex-direction: column;
+  }
+
+  .profesor-foto {
+    width: 105px;
+    height: 105px;
+  }
+
+  .buscador-profesor input {
+    font-size: 0.82rem;
+  }
+
+  .buscador-profesor button {
+    font-size: 0.75rem;
   }
 }
