@@ -244,29 +244,108 @@
       <p>Todo lo que necesitas para sobrevivir y destacar en la escuela profesional.</p>
     </div>
 
-    <div class="cards-grid">
-      <a href="asuntos.html" class="card">
-        <div class="card-tag">Académico</div>
-        <h3>Asuntos Académicos</h3>
-        <p>Noticias, eventos, centros de investigación y círculos de estudio.</p>
-      </a>
-      <div class="card">
-        <div class="card-tag">Guía</div>
-        <h3>Manual de Supervivencia</h3>
-        <p>Consulta de profes, calendarios, porcentaje de aprobación y progreso del semestre.</p>
+    <div class="tablon-noticias">
+      <div class="noticias-carousel-wrapper">
+        <button type="button" class="carousel-btn carousel-btn-prev" id="noticiasPrev" aria-label="Noticia anterior">&#10094;</button>
+
+        <div class="noticias-track" id="noticiasTrack">
+
+          <article class="noticia-card">
+            <div class="noticia-imagen">
+              <img src="images/noticia1.jpg" alt="Título de la noticia 1">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Fecha</span>
+              <h3>Título de la noticia</h3>
+              <p>Breve descripción o resumen de la noticia o evento.</p>
+            </div>
+          </article>
+
+          <article class="noticia-card">
+            <div class="noticia-imagen">
+              <img src="images/noticia2.jpg" alt="Título de la noticia 2">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Fecha</span>
+              <h3>Título de la noticia</h3>
+              <p>Breve descripción o resumen de la noticia o evento.</p>
+            </div>
+          </article>
+
+          <article class="noticia-card">
+            <div class="noticia-imagen">
+              <img src="images/noticia3.jpg" alt="Título de la noticia 3">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Fecha</span>
+              <h3>Título de la noticia</h3>
+              <p>Breve descripción o resumen de la noticia o evento.</p>
+            </div>
+          </article>
+
+          <article class="noticia-card">
+            <div class="noticia-imagen">
+              <img src="images/noticia4.jpg" alt="Título de la noticia 4">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Fecha</span>
+              <h3>Título de la noticia</h3>
+              <p>Breve descripción o resumen de la noticia o evento.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <button type="button" class="carousel-btn carousel-btn-next" id="noticiasNext" aria-label="Siguiente noticia">&#10095;</button>
       </div>
-      <a href="tramites.html" class="card">
-        <div class="card-tag">Trámites</div>
-        <h3>Consulta de Trámites</h3>
-        <p>Procesos administrativos, requisitos y pasos para cada trámite.</p>
-      </a>
-      <a href="centros.html" class="card">
-        <div class="card-tag">Investigación</div>
-        <h3>Centros de Investigación</h3>
-        <p>Conoce los centros de investigación y círculos de estudio de la facultad.</p>
-      </a>
     </div>
   </section>
+
+  <script>
+    (function () {
+      const track = document.getElementById('noticiasTrack');
+      const prevBtn = document.getElementById('noticiasPrev');
+      const nextBtn = document.getElementById('noticiasNext');
+      if (!track) return;
+
+      function scrollStep() {
+        const card = track.querySelector('.noticia-card');
+        const gap = parseFloat(getComputedStyle(track).gap) || 20;
+        return card ? card.offsetWidth + gap : 300;
+      }
+
+      prevBtn && prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+      });
+
+      nextBtn && nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+      });
+
+      // Arrastre con mouse (drag-to-scroll) para escritorio
+      let isDown = false;
+      let startX = 0;
+      let startScroll = 0;
+
+      track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        track.classList.add('dragging');
+        startX = e.pageX;
+        startScroll = track.scrollLeft;
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDown = false;
+        track.classList.remove('dragging');
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        track.scrollLeft = startScroll - (e.pageX - startX);
+      });
+    })();
+  </script>
 
   <!-- PIE DE PÁGINA -->
   <footer>
