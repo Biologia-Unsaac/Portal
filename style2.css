@@ -1,0 +1,41 @@
+.expobio-widget {
+position: fixed;
+bottom: 20px; /* Separación del borde inferior */
+right: 20px;  /* Separación del borde derecho */
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+z-index: 1000;
+}
+
+/* Globo de texto (Speech Bubble) */
+.speech-bubble {
+background-color: #2D5086; /* Color azul oscuro del globo */
+color: white;
+padding: 15px 25px;
+border-radius: 15px;
+font-size: 20px;
+font-weight: bold;
+margin-bottom: 15px; /* Espacio con la imagen */
+position: relative;
+box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+white-space: nowrap; /* Mantiene el texto en una línea */
+}
+
+/* Triángulo del globo de texto */
+.speech-bubble::after {
+content: '';
+position: absolute;
+bottom: -15px; /* Ajuste para que salga de la base */
+right: 30px;   /* Alineación horizontal del triángulo */
+border-width: 15px 15px 0; /* Triángulo hacia abajo */
+border-style: solid;
+border-color: #2D5086 transparent transparent;
+}
+
+/* Imagen del oso */
+.bear-image {
+width: 100px;
+height: 100px;
+object-fit: cover;
+}
