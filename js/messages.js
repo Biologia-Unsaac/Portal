@@ -3,7 +3,13 @@ const messages = [
     "La ciencia es genial.",
     "¿Ya tomaste tu café?",
     "Nunca dejes de aprender.",
-    "¡Vamos a programar!"
+    "¡Vamos a programar!",
+    "No lleves dos sistemáticas a la vez",
+    "Comedor pa' cuando...",
+    "No adelantes sin saber qué",
+    "Inscríbete a la Expobio",
+    "Un casillero no es suficiente... -Sam",
+    "Ni en 10mo semestre sé qué rama quiero :("
 ];
 
 // Esta función genera un índice aleatorio
