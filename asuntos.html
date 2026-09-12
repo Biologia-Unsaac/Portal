@@ -69,8 +69,23 @@ const eventos = [
 ];
 
 let currentDate = new Date(2026, 7, 1); // Agosto 2026
+let selectedDate = null;
 
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+function getDateFromHash() {
+    const hash = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+    return hash.get('date');
+}
+
+function openDateInCalendar(dateStr) {
+    if (!dateStr) return;
+    selectedDate = dateStr;
+    const date = new Date(dateStr + 'T00:00:00');
+    currentDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    updateCalendar();
+    document.querySelector('.faq-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 function updateCalendar() {
     const year = currentDate.getFullYear();
@@ -108,6 +123,10 @@ function updateCalendar() {
             const dot = document.createElement('div');
             dot.className = 'cal-event-dot';
             cell.appendChild(dot);
+        }
+
+        if (selectedDate === dateStr) {
+            cell.classList.add('selected');
         }
 
         container.appendChild(cell);
@@ -153,6 +172,20 @@ document.getElementById('next-month').addEventListener('click', () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
     updateCalendar();
 });
+
+document.addEventListener('hashchange', () => {
+    const hashDate = getDateFromHash();
+    if (hashDate) {
+        openDateInCalendar(hashDate);
+    }
+});
+
+const initialDate = getDateFromHash();
+if (initialDate) {
+    selectedDate = initialDate;
+    const initial = new Date(initialDate + 'T00:00:00');
+    currentDate = new Date(initial.getFullYear(), initial.getMonth(), 1);
+}
 
 updateCalendar();
 </script>

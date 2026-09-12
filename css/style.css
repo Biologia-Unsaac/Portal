@@ -135,45 +135,68 @@ body {
    3. NAVEGACIÓN (BOTONES DE NAVEGACIÓN RÁPIDA)
    ========================================================================== */
 .lista {
-  padding: 50px 20px;
-  max-width: 1100px;
+  padding: 34px 20px 26px;
+  max-width: 1200px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .lista nav {
+  --offset: 0px;
   display: flex;
-  justify-content: center;
   align-items: flex-start;
-  gap: 32px;
-  flex-wrap: wrap;
+  gap: 28px;
+  width: max-content;
+  margin: 0 auto;
+  transform: translateX(var(--offset));
+  cursor: grab;
+  user-select: none;
+  will-change: transform;
+}
+
+.lista nav.is-dragging {
+  cursor: grabbing;
 }
 
 .Box-2 {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   text-decoration: none;
   width: 130px;
-  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  z-index: 1;
 }
 
 .icon-circle {
-  width: 80px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
   background: linear-gradient(145deg, #0c7120, #095418);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 14px;
-  box-shadow: 0 8px 18px rgba(12, 113, 32, 0.25);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(12, 113, 32, 0.25);
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 2;
+}
+
+.icon-circle::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.35);
 }
 
 .icon-circle svg {
-  width: 80%;
-  height: 80%;
+  width: 78%;
+  height: 78%;
   transform: scale(1.25);
   transform-origin: center;
   overflow: visible;
@@ -181,13 +204,14 @@ body {
 }
 
 .Box-2:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.04);
+  filter: drop-shadow(0 10px 14px rgba(12, 113, 32, 0.16));
 }
 
 .Box-2:hover .icon-circle {
   background: linear-gradient(145deg, #c2c81f, #aab018);
-  box-shadow: 0 12px 22px rgba(194, 200, 31, 0.4);
-  transform: scale(1.08);
+  box-shadow: 0 16px 28px rgba(194, 200, 31, 0.38);
+  transform: scale(1.08) rotate(6deg);
 }
 
 .Box-2:hover .icon-circle svg {
@@ -201,6 +225,276 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.6px;
   line-height: 1.35;
+}
+
+/* ==========================================================================
+   BARRA DE PROGRESO / CRONOGRAMA ACADÉMICO (versión compacta)
+   ========================================================================== */
+.barra-progreso {
+  position: relative;
+  max-width: 1200px;
+  margin: 18px auto 0;
+  padding: 18px 20px 20px;
+  background: linear-gradient(180deg, #f9fff8 0%, #edf7ee 100%);
+  border: 1px solid rgba(12, 113, 32, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(12, 113, 32, 0.12);
+}
+
+.timeline-panel {
+  border: none;
+}
+
+.timeline-panel summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.timeline-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.timeline-summary-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 4px 8px 12px;
+  border-bottom: 1px solid rgba(12, 113, 32, 0.12);
+}
+
+.timeline-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #5d7b5d;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.timeline-summary-main h3 {
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  color: #155f2d;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.barra-progreso-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0c7120, #2d9b46);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 16px rgba(12, 113, 32, 0.25);
+}
+
+/* --- Barra de progreso horizontal (% del ciclo transcurrido) --- */
+.progreso-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 8px 14px;
+}
+
+.progreso-bar-track {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(12, 113, 32, 0.12);
+  overflow: hidden;
+}
+
+.progreso-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0c7120, #90c84f);
+  transition: width 0.6s ease;
+}
+
+.progreso-bar-pct {
+  min-width: 40px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #155f2d;
+}
+
+.timeline-status {
+  margin: 0 8px 4px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(12, 113, 32, 0.08);
+  color: #1b4d2c;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+  box-shadow: inset 0 0 0 1px rgba(12, 113, 32, 0.08);
+}
+
+/* --- Lista vertical compacta (sin zigzag) --- */
+.barra-progreso-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 4px 8px 0 26px;
+}
+
+.barra-progreso-timeline::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(12,113,32,0.55), rgba(12,113,32,0.12));
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -26px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0c7120, #90c84f);
+  border: 3px solid #f8fff9;
+  box-shadow: 0 0 0 3px rgba(12, 113, 32, 0.14);
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.timeline-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(12,113,32,0.08);
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(15, 56, 26, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.timeline-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 10px 20px rgba(15, 56, 26, 0.1);
+}
+
+.timeline-item--highlight .timeline-card {
+  background: linear-gradient(135deg, #f2fbe8, #e3f5d9);
+  border-color: rgba(12, 113, 32, 0.22);
+}
+
+.timeline-item.is-completed {
+  opacity: 0.55;
+}
+
+.timeline-item.is-completed .timeline-marker {
+  background: linear-gradient(135deg, #6f9c4f, #b9d98a);
+}
+
+.timeline-item.is-current {
+  opacity: 1;
+}
+
+.timeline-item.is-current .timeline-card {
+  border-color: rgba(12, 113, 32, 0.34);
+  box-shadow: 0 0 0 3px rgba(12, 113, 32, 0.1), 0 10px 22px rgba(12, 113, 32, 0.14);
+}
+
+.timeline-item.is-current .timeline-marker {
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 0 0 4px rgba(12, 113, 32, 0.16);
+}
+
+.progreso-etiqueta {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: #56715d;
+}
+
+.progreso-fecha {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #173d2a;
+}
+
+.cal-link {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0c7120;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cal-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .barra-progreso-timeline {
+    padding-left: 22px;
+  }
+
+  .timeline-item {
+    flex-wrap: wrap;
+  }
+
+  .cal-link {
+    margin-left: 26px;
+  }
+}
+
+@media (max-width: 680px) {
+  .lista nav {
+    gap: 16px;
+  }
+
+  .barra-progreso {
+    padding: 18px 14px 14px;
+    border-radius: 18px;
+  }
+
+  .timeline-summary-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Box-2 {
+    width: 110px;
+  }
+
+  .icon-circle {
+    width: 72px;
+    height: 72px;
+  }
 }
 
 /* ==========================================================================

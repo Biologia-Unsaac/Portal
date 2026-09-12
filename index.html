@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/botoso.css">
   <script src="js/messages.js" defer></script>
   <script src="js/botoso.js" defer></script>
+  <script src="js/revolver-nav.js" defer></script>
 </head>
   
 <body>
@@ -243,7 +244,210 @@
       <p>Preguntas Frecuentes</p>
     </a>
 
+    <!-- 6. Malla Curricular -->
+    <a class="Box-2" href="malla.html">
+      <div class="icon-circle">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <g transform="translate(50 50) scale(1.12) translate(-50 -50)">
+            <path d="M20 20H80V80H20Z" fill="currentColor" opacity=".15"/>
+            <path d="M20 20H80V80H20Z"/>
+            <path d="M20 40H80"/>
+            <path d="M20 60H80"/> 
+          </g>
+        </svg>
+      </div>
+      <p>Malla Curricular</p>
+    </a>
+
   </nav>
+<section class="barra-progreso" aria-label="Cronograma académico">
+  <details class="timeline-panel" open>
+    <summary>
+      <div class="timeline-summary-main">
+        <div>
+          <span class="timeline-label">Progreso actual</span>
+          <h3>Cronograma académico</h3>
+        </div>
+        <span class="barra-progreso-badge">Hoy</span>
+      </div>
+
+      <div class="progreso-bar-wrap">
+        <div class="progreso-bar-track">
+          <div class="progreso-bar-fill" id="progreso-bar-fill"></div>
+        </div>
+        <span class="progreso-bar-pct" id="progreso-bar-pct">0%</span>
+      </div>
+
+      <div class="timeline-status" id="timeline-status">Cargando progreso...</div>
+    </summary>
+
+    <div class="barra-progreso-timeline">
+      <div class="timeline-item timeline-item--highlight" data-date="2026-08-31">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Inicio</span>
+          <span class="progreso-fecha">31 de agosto</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-08-31">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-09-26">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Registro sílabo</span>
+          <span class="progreso-fecha">26 de setiembre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-09-26">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-10-05">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">1ra parcial · 4 créditos</span>
+          <span class="progreso-fecha">5 - 9 de octubre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-10-05">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-10-12">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Ingreso de notas</span>
+          <span class="progreso-fecha">12 de octubre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-10-12">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-10-19">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">2da parcial · 4 créditos</span>
+          <span class="progreso-fecha">19 - 20 de octubre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-10-19">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-10-26">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Ingreso de notas</span>
+          <span class="progreso-fecha">26 de octubre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-10-26">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-10-26">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">1ra parcial · 3 créditos</span>
+          <span class="progreso-fecha">26 - 30 de octubre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-10-26">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2026-11-03">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Ingreso de notas</span>
+          <span class="progreso-fecha">3 de noviembre</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2026-11-03">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2027-01-04">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">3ra parcial · 4 créditos</span>
+          <span class="progreso-fecha">4 - 8 de enero</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2027-01-04">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2027-01-11">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Ingreso de notas</span>
+          <span class="progreso-fecha">11 de enero</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2027-01-11">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item" data-date="2027-01-04">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">2da parcial · 3 créditos</span>
+          <span class="progreso-fecha">4 - 8 de enero</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2027-01-04">Ver en calendario</a>
+      </div>
+
+      <div class="timeline-item timeline-item--highlight" data-date="2027-01-12">
+        <div class="timeline-marker"></div>
+        <div class="timeline-card">
+          <span class="progreso-etiqueta">Conclusión</span>
+          <span class="progreso-fecha">12 de enero</span>
+        </div>
+        <a class="cal-link" href="asuntos.html#date=2027-01-12">Ver en calendario</a>
+      </div>
+    </div>
+  </details>
+</section>
+
+<script>
+  (function () {
+    const status = document.getElementById('timeline-status');
+    if (!status) return;
+
+    const today = new Date();
+    const milestones = [...document.querySelectorAll('.timeline-item')].map((item) => {
+      const raw = item.dataset.date;
+      if (!raw) return null;
+      const date = new Date(raw + 'T00:00:00');
+      return { item, date };
+    }).filter(Boolean).sort((a, b) => a.date - b.date);
+
+    if (!milestones.length) {
+      status.textContent = 'Sin información de progreso';
+      return;
+    }
+
+    let activeIndex = 0;
+    for (let i = 0; i < milestones.length; i++) {
+      if (milestones[i].date <= today) {
+        activeIndex = i;
+      }
+    }
+
+    milestones.forEach(({ item }, index) => {
+      item.classList.toggle('is-completed', index < activeIndex);
+      item.classList.toggle('is-current', index === activeIndex);
+    });
+
+    // Barra de progreso horizontal: % transcurrido entre la primera y la última fecha
+    const fill = document.getElementById('progreso-bar-fill');
+    const pct = document.getElementById('progreso-bar-pct');
+    if (fill && pct) {
+      const start = milestones[0].date;
+      const end = milestones[milestones.length - 1].date;
+      const total = end - start;
+      let porcentaje = total > 0 ? ((today - start) / total) * 100 : 0;
+      porcentaje = Math.max(0, Math.min(100, porcentaje));
+      fill.style.width = `${porcentaje}%`;
+      pct.textContent = `${Math.round(porcentaje)}%`;
+    }
+
+    const currentLabel = milestones[activeIndex].item.querySelector('.progreso-etiqueta')?.textContent || 'Inicio';
+    const currentDate = milestones[activeIndex].item.querySelector('.progreso-fecha')?.textContent || 'hoy';
+    const localeDate = new Intl.DateTimeFormat('es-PE', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(today);
+
+    status.textContent = `Hoy: ${localeDate} · Etapa actual: ${currentLabel} (${currentDate})`;
+  })();
+</script>
+
 </section>
 
   <!-- SECCIÓN DE SERVICIOS / RECURSOS -->
@@ -331,7 +535,6 @@
         track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
       });
 
-      // Arrastre con mouse (drag-to-scroll) para escritorio
       let isDown = false;
       let startX = 0;
       let startScroll = 0;
