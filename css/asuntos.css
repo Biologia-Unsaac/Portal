@@ -1,0 +1,648 @@
+
+/* ==========================================================================
+   10. ASUNTOS ACADÉMICOS (ASUNTOS.HTML)
+   ========================================================================== */
+/* Toggle Switch */
+.toggle-section {
+  padding: 40px 20px 0 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  background-color: #eaf3e8;
+  padding: 6px;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.toggle-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.toggle-btn:hover {
+  color: #0c7120;
+}
+
+.toggle-btn.active {
+  background-color: #0c7120;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(12, 113, 32, 0.3);
+}
+
+/* Panels */
+.asuntos-panel {
+  display: none;
+  padding: 50px 20px 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.asuntos-panel.active {
+  display: block;
+}
+
+.asuntos-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
+}
+
+.asuntos-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.asuntos-header h2 {
+  font-size: 2rem;
+  color: #1c2826;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.asuntos-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Eventos */
+.eventos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.evento-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid #e6ede4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.evento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(12, 113, 32, 0.1);
+}
+
+.evento-fecha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #0c7120, #095418);
+  color: #ffffff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  min-width: 60px;
+}
+
+.evento-dia {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.evento-mes {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.evento-info {
+  flex: 1;
+}
+
+.evento-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.evento-info h3 {
+  font-size: 1.05rem;
+  color: #1c2826;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.evento-info p {
+  font-size: 0.88rem;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+/* Centros de Investigación - Layout Alternado */
+.centros-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.centro-item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background-color: #ffffff;
+  background-image: linear-gradient(160deg, var(--tc-suave, rgba(12,113,32,0.04)) 0%, #ffffff 45%);
+  padding: 36px;
+  border-radius: 20px;
+  border: 1px solid var(--tc-borde, #e6ede4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.centro-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--tc-suave, rgba(12, 113, 32, 0.1));
+  border-color: var(--tc, #0c7120);
+}
+
+.centro-izq {
+  flex-direction: row;
+}
+
+.centro-der {
+  flex-direction: row-reverse;
+}
+
+.centro-contenido {
+  flex: 1;
+}
+
+.centro-visual {
+  flex-shrink: 0;
+}
+
+.centro-icono {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #eaf3e8 0%, #d4e8cc 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.centro-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--tc-borde, #e6ede4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.centro-acreditado {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--tc-oscuro, #0c7120);
+  background-color: var(--tc-suave, #dcfce7);
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.centro-nota {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748b;
+  background-color: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.centro-contenido h3 {
+  font-size: 1.25rem;
+  color: var(--tc-oscuro, #1c2826);
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.centro-contenido p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.centro-teams {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Decoración temática animada — "firma visual" de cada centro/círculo */
+.centro-decoracion {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--tc-borde, #e6ede4);
+}
+
+.deco-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--tc, #0c7120);
+  opacity: 0.85;
+  animation: decoFlotar 3.2s ease-in-out infinite;
+}
+
+.deco-icon:nth-child(2) {
+  width: 19px;
+  height: 19px;
+  opacity: 0.55;
+  animation-delay: 0.45s;
+}
+
+.deco-icon:nth-child(3) {
+  width: 15px;
+  height: 15px;
+  opacity: 0.35;
+  animation-delay: 0.9s;
+}
+
+@keyframes decoFlotar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deco-icon {
+    animation: none;
+  }
+}
+
+/* Color temático por centro / círculo — basado en los colores reales de cada logo */
+.tema-cibiogen {
+  --tc: #3060d0;
+  --tc-suave: rgba(48, 96, 208, 0.10);
+  --tc-borde: rgba(48, 96, 208, 0.35);
+  --tc-oscuro: #244a9e;
+}
+
+.tema-cipham {
+  --tc: #609030;
+  --tc-suave: rgba(96, 144, 48, 0.10);
+  --tc-borde: rgba(96, 144, 48, 0.35);
+  --tc-oscuro: #4a6e24;
+}
+
+.tema-cima {
+  --tc: #005030;
+  --tc-suave: rgba(0, 80, 48, 0.10);
+  --tc-borde: rgba(0, 80, 48, 0.35);
+  --tc-oscuro: #003d24;
+}
+
+.tema-ceinz {
+  --tc: #303030;
+  --tc-suave: rgba(48, 48, 48, 0.10);
+  --tc-borde: rgba(48, 48, 48, 0.35);
+  --tc-oscuro: #1f1f1f;
+}
+
+.tema-inkill {
+  --tc: #d02030;
+  --tc-suave: rgba(208, 32, 48, 0.10);
+  --tc-borde: rgba(208, 32, 48, 0.35);
+  --tc-oscuro: #a01825;
+}
+
+.tema-vertebrate {
+  --tc: #404040;
+  --tc-suave: rgba(64, 64, 64, 0.10);
+  --tc-borde: rgba(64, 64, 64, 0.35);
+  --tc-oscuro: #2a2a2a;
+}
+
+.tema-cides {
+  --tc: #0b3a6f;
+  --tc-suave: rgba(11, 58, 111, 0.10);
+  --tc-borde: rgba(11, 58, 111, 0.35);
+  --tc-oscuro: #082b52;
+}
+
+.tema-limi {
+  --tc: #5f6b76;
+  --tc-suave: rgba(95, 107, 118, 0.12);
+  --tc-borde: rgba(95, 107, 118, 0.35);
+  --tc-oscuro: #3d4650;
+}
+
+.tema-sinapsis {
+  --tc: #4a7fae;
+  --tc-suave: rgba(74, 127, 174, 0.12);
+  --tc-borde: rgba(74, 127, 174, 0.35);
+  --tc-oscuro: #38638a;
+}
+
+.tema-ictios {
+  --tc: #2bb58b;
+  --tc-suave: rgba(43, 181, 139, 0.12);
+  --tc-borde: rgba(43, 181, 139, 0.40);
+  --tc-oscuro: #1f8c6c;
+}
+
+.team-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tc-oscuro, #0c7120);
+  background-color: var(--tc-suave, #eaf3e8);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--tc-borde, #c8e0be);
+}
+
+.centro-redes {
+  display: flex;
+  gap: 10px;
+}
+
+.redes-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: var(--tc-suave, #f1f5f9);
+  color: var(--tc-oscuro, #4a5568);
+  transition: all 0.2s ease;
+}
+
+.redes-btn:hover {
+  background-color: var(--tc-oscuro, #0c7120);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+/* Calendario Visual */
+.calendario-wrapper {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.cal-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cal-controls h3 {
+  font-size: 1.25rem;
+  color: #1c2826;
+  font-weight: 700;
+}
+
+.cal-nav-btn {
+  background-color: #eaf3e8;
+  color: #0c7120;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cal-nav-btn:hover {
+  background-color: #0c7120;
+  color: #ffffff;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  padding-bottom: 8px;
+}
+
+.cal-days-container {
+  display: contents;
+}
+
+.cal-cell {
+  min-height: 52px;
+  background-color: #f8faf8;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.cal-cell:hover {
+  border-color: #0c7120;
+}
+
+.cal-cell.empty {
+  background-color: transparent;
+  cursor: default;
+  border: none;
+}
+
+.cal-cell-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1c2826;
+}
+
+.cal-event-dot {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #0c7120;
+}
+
+.cal-cell.has-event {
+  background-color: #eaf3e8;
+}
+
+.cal-cell.selected {
+  border-color: #0c7120;
+  box-shadow: 0 0 0 2px #0c7120;
+}
+
+/* Modal/Detalle */
+.evento-card-popup {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: #f1f7f0;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 5px solid #0c7120;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.evento-card-popup.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Estilos para el Calendario Visual superior */
+.calendario-wrapper {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6ede4;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.cal-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cal-controls h3 {
+  font-size: 1.25rem;
+  color: #1c2826;
+  font-weight: 700;
+}
+
+.cal-nav-btn {
+  background-color: #eaf3e8;
+  color: #0c7120;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cal-nav-btn:hover {
+  background-color: #0c7120;
+  color: #ffffff;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  padding-bottom: 8px;
+}
+
+.cal-days-container {
+  display: contents;
+}
+
+.cal-cell {
+  min-height: 48px;
+  background-color: #f8faf8;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid transparent;
+}
+
+.cal-cell.empty {
+  background-color: transparent;
+}
+
+.cal-cell-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1c2826;
+}
+
+.cal-cell.has-event {
+  background-color: #eaf3e8;
+  border-color: #c8e0be;
+}
+
+.cal-event-dot {
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  background-color: #0c7120;
+}
+
+/* Mensaje cuando no hay eventos en el mes */
+.no-eventos-msg {
+  text-align: center;
+  color: #64748b;
+  grid-column: 1 / -1;
+  padding: 20px;
+  font-style: italic;
+}

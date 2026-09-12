@@ -1,0 +1,237 @@
+
+/* ==========================================================================
+   6. CENTRO FEDERADO (CF.HTML)
+   ========================================================================== */
+/* Tema Colonia de Hormigas */
+/* Corrección de Márgenes y Márgenes en Bordes */
+.cf-estructura {
+  padding: 60px 20px 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Tema Hormiguero con curvas y fondo temático */
+.ant-colony-theme {
+  background: radial-gradient(circle at top, #f3f8f1 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cámaras Base */
+.colony-chamber {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 2px dashed #b2d8aa;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(12, 113, 32, 0.04);
+}
+
+.colony-chamber:hover {
+  border-style: solid;
+  border-color: #0c7120;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(12, 113, 32, 0.12);
+}
+
+/* Cámaras Principales con Fotos */
+.queen-chamber, .subqueen-chamber {
+  max-width: 650px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.queen-chamber {
+  border-style: solid;
+  border-color: #0c7120;
+  background: linear-gradient(135deg, #ffffff 0%, #eaf3e8 100%);
+}
+
+.subqueen-chamber {
+  border-style: solid;
+  border-color: #2e7d32;
+  max-width: 580px;
+}
+
+/* Estilos para las Fotos de Perfil */
+.chamber-photo-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.chamber-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0c7120;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ant-icon-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: #0c7120;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  border: 2px solid #ffffff;
+}
+
+.chamber-role-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.member-name {
+  font-weight: 700;
+  color: #0c7120;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+/* Túneles Curvos (SVG) y Hormigas Animadas */
+.tunnel-container {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.tunnel-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tunnel-path {
+  fill: none;
+  stroke: #a1d198;
+  stroke-width: 3;
+  stroke-dasharray: 6 6;
+}
+
+/* Animación de Hormigas en Ruta */
+.ant-walker {
+  position: absolute;
+  font-size: 1rem;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.ant-1 {
+  animation: walkPath1 6s infinite;
+}
+
+.ant-2 {
+  animation: walkPath2 7s infinite;
+}
+
+@keyframes walkPath1 {
+  0%   { top: 0%; left: 48%; transform: rotate(30deg); }
+  50%  { top: 50%; left: 70%; transform: rotate(110deg); }
+  100% { top: 90%; left: 48%; transform: rotate(30deg); }
+}
+
+@keyframes walkPath2 {
+  0%   { top: 0%; left: 50%; transform: rotate(-40deg); }
+  50%  { top: 40%; left: 20%; transform: rotate(40deg); }
+  100% { top: 90%; left: 50%; transform: rotate(140deg); }
+}
+
+/* Red de Cámaras Inferiores */
+.chamber-network {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.worker-chamber .chamber-head {
+  border-bottom: 1px solid #e6ede4;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.chamber-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #0c7120;
+  background: #eaf3e8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.worker-chamber h3 {
+  font-size: 1.05rem;
+  color: #1c2826;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.ant-castes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.caste-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+}
+
+.leader-caste {
+  background-color: #eaf3e8;
+  border-left: 4px solid #0c7120;
+}
+
+.leader-caste p {
+  font-weight: 700;
+  color: #1c2826;
+}
+
+.worker-caste {
+  background-color: #f8faf7;
+  border: 1px solid #e6ede4;
+}
+
+.worker-caste p {
+  color: #4a5568;
+}
+
+.caste-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  letter-spacing: 0.5px;
+}
+
+/* Diseño Móvil Responsivo */
+@media (max-width: 600px) {
+  .queen-chamber, .subqueen-chamber {
+    flex-direction: column;
+    text-align: center;
+  }
+}
