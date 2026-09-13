@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casilleros - C.F. Biología UNSAAC</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="css/casilleros.css">
+</head>
+<body>
+
+    <div class="hero-container">
+        <header class="header-trapezoid">
+            <div class="header-content">
+                <div class="logo"><p>Casilleros</p></div>
+            </div>
+        </header>
+
+        <div class="bloque_msg">
+            <div class="bloque_msg_overlay"></div>
+            <div class="bloque_msg_consejo">
+                <p>Un casillero no es suficiente... -Sam</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="cas-section">
+
+        <div class="cas-header">
+            <span class="cas-label">CASILLEROS</span>
+            <h2>Reserva de Casilleros</h2>
+            <p>Registra o renueva tu casillero de la Escuela Profesional de Biología.</p>
+        </div>
+
+        <!-- INTERRUPTOR DE ACCIÓN -->
+        <div class="cas-tabs">
+            <button type="button" class="cas-tab active" data-tab="nuevo">Nuevo registro</button>
+            <button type="button" class="cas-tab" data-tab="renovar">Renovar</button>
+            <button type="button" class="cas-tab" data-tab="consultar">Consultar</button>
+        </div>
+
+        <!-- PANEL: NUEVO REGISTRO -->
+        <div class="cas-panel active" id="panel-nuevo">
+            <div class="cas-panel-ficha">
+                <h3>Primer registro</h3>
+                <p>Si aún no tienes casillero asignado, completa este formulario. La asignación es por orden de llegada según disponibilidad.</p>
+
+                <form id="form-nuevo" class="cas-form">
+                    <label class="cas-field">
+                        <span>Código universitario</span>
+                        <input type="text" id="nuevo-codigo" name="codigo" placeholder="Ej: 17123415" required maxlength="20" autocomplete="off">
+                    </label>
+
+                    <label class="cas-field">
+                        <span>Nombres y apellidos</span>
+                        <input type="text" id="nuevo-nombre" name="nombre" placeholder="Ej: Juan Pérez Mamani" required autocomplete="off">
+                    </label>
+
+                    <div class="cas-fila-doble">
+                        <label class="cas-field">
+                            <span>Ciclo</span>
+                            <select id="nuevo-ciclo" name="ciclo" required>
+                                <option value="">Selecciona...</option>
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                                <option value="V">V</option>
+                                <option value="VI">VI</option>
+                                <option value="VII">VII</option>
+                                <option value="VIII">VIII</option>
+                                <option value="IX">IX</option>
+                                <option value="X">X</option>
+                            </select>
+                        </label>
+                        <label class="cas-field">
+                            <span>Casillero (opcional)</span>
+                            <input type="number" id="nuevo-casillero" name="casillero" placeholder="Auto" min="1" max="999">
+                        </label>
+                    </div>
+
+                    <label class="cas-field">
+                        <span>Correo (opcional)</span>
+                        <input type="email" id="nuevo-correo" name="correo" placeholder="nombre@unsaac.edu.pe" autocomplete="off">
+                    </label>
+
+                    <button type="submit" class="cas-btn cas-btn-primary">Registrarme</button>
+                </form>
+
+                <p id="resp-nuevo" class="cas-respuesta" role="status"></p>
+            </div>
+
+            <aside class="cas-info">
+                <div class="cas-info-bloque">
+                    <span class="cas-info-num" id="libres-nuevo">–</span>
+                    <p>Casilleros disponibles</p>
+                </div>
+                <ul class="cas-reglas">
+                    <li>La vigencia es de un semestre (180 días).</li>
+                    <li>Solo se permite un casillero por alumno.</li>
+                    <li>Al vencer, debes renovar para conservar el número.</li>
+                    <li>Si renuncias, el casillero queda libre.</li>
+                </ul>
+            </aside>
+        </div>
+
+        <!-- PANEL: RENOVACIÓN -->
+        <div class="cas-panel" id="panel-renovar">
+            <div class="cas-panel-ficha">
+                <h3>Renovar casillero</h3>
+                <p>Si tu casillero está por vencer o ya venció, renueva para conservar tu número.</p>
+
+                <form id="form-renovar" class="cas-form">
+                    <label class="cas-field">
+                        <span>Código universitario</span>
+                        <input type="text" id="renovar-codigo" name="codigo" placeholder="Ej: 17123415" required maxlength="20" autocomplete="off">
+                    </label>
+                    <button type="submit" class="cas-btn cas-btn-primary">Renovar</button>
+                </form>
+
+                <div id="renovar-resultado" class="cas-resultado" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <!-- PANEL: CONSULTA -->
+        <div class="cas-panel" id="panel-consultar">
+            <div class="cas-panel-ficha">
+                <h3>Consultar mi casillero</h3>
+                <p>Ingresa tu código para ver el estado de tu casillero.</p>
+
+                <form id="form-consultar" class="cas-form">
+                    <label class="cas-field">
+                        <span>Código universitario</span>
+                        <input type="text" id="consultar-codigo" name="codigo" placeholder="Ej: 17123415" required maxlength="20" autocomplete="off">
+                    </label>
+                    <button type="submit" class="cas-btn cas-btn-primary">Consultar</button>
+                </form>
+
+                <div id="consultar-resultado" class="cas-resultado" aria-live="polite"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
+    </footer>
+
+    <script>
+        window.APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNYHK9VU5RhoqJruaopKyTkRKohbtHjxHN8sJx-v11G5b-YyR2XZZW7sjCrHsbwIcizA/exec";
+    </script>
+    <script src="js/casilleros.js"></script>
+</body>
+</html>

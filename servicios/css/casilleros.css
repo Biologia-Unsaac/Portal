@@ -1,0 +1,328 @@
+/* ==========================================================================
+   CASILLEROS (CASILLEROS.HTML)
+   ========================================================================== */
+.cas-section {
+  padding: 60px 20px 80px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cas-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.cas-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0c7120;
+  background-color: #eaf3e8;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.cas-header h2 {
+  font-size: 2rem;
+  color: #1c2826;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.cas-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* --- Interruptor de pestañas --- */
+.cas-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.cas-tab {
+  background-color: #ffffff;
+  border: 1px solid #e6ede4;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cas-tab:hover {
+  border-color: #0c7120;
+  color: #0c7120;
+}
+
+.cas-tab.active {
+  background-color: #0c7120;
+  border-color: #0c7120;
+  color: #ffffff;
+}
+
+/* --- Paneles --- */
+.cas-panel {
+  display: none;
+}
+
+.cas-panel.active {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.cas-panel-ficha {
+  flex: 1;
+  background-color: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.cas-panel-ficha h3 {
+  font-size: 1.35rem;
+  color: #1c2826;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.cas-panel-ficha > p {
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+
+.cas-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cas-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cas-field span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.cas-field input,
+.cas-field select {
+  background-color: #f8fafc;
+  border: 1px solid #dbe2d9;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 0.95rem;
+  color: #1c2826;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cas-field input:focus,
+.cas-field select:focus {
+  outline: none;
+  border-color: #0c7120;
+  box-shadow: 0 0 0 3px rgba(12, 113, 32, 0.12);
+}
+
+.cas-fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cas-btn {
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cas-btn-primary {
+  background-color: #0c7120;
+  color: #ffffff;
+}
+
+.cas-btn-primary:hover {
+  background-color: #095418;
+}
+
+.cas-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Respuestas / estado --- */
+.cas-respuesta {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  min-height: 1em;
+}
+
+.cas-respuesta.ok   { color: #0c7120; font-weight: 600; }
+.cas-respuesta.err  { color: #b91c1c; font-weight: 600; }
+
+.cas-resultado {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e6ede4;
+  font-size: 0.95rem;
+}
+
+.cas-resultado.oculto { display: none; }
+
+.cas-tarjeta-estado {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.cas-tarjeta-estado .cas-dato {
+  background: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.cas-dato span {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.cas-dato strong {
+  font-size: 1rem;
+  color: #1c2826;
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.estado-badge.Activo   { background: #dcfce7; color: #0c7120; }
+.estado-badge.Vencido  { background: #fee2e2; color: #b91c1c; }
+.estado-badge.Pendiente{ background: #fef9c3; color: #854d0e; }
+
+/* --- Panel lateral informativo --- */
+.cas-info {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cas-info-bloque {
+  background: linear-gradient(135deg, #0c7120 0%, #095418 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.cas-info-num {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.cas-info-bloque p {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.cas-reglas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cas-reglas li {
+  font-size: 0.85rem;
+  color: #4a5568;
+  line-height: 1.4;
+  padding-left: 22px;
+  position: relative;
+}
+
+.cas-reglas li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #0c7120;
+  font-weight: 700;
+}
+
+/* --- Cargando --- */
+.cas-cargando {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cas-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(12, 113, 32, 0.25);
+  border-top-color: #0c7120;
+  border-radius: 50%;
+  animation: cas-gira 0.7s linear infinite;
+}
+
+@keyframes cas-gira {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Responsivo --- */
+@media (max-width: 720px) {
+  .cas-panel.active {
+    flex-direction: column;
+  }
+
+  .cas-info {
+    width: 100%;
+  }
+
+  .cas-fila-doble {
+    grid-template-columns: 1fr;
+  }
+}
