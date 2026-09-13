@@ -15,6 +15,205 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
+.promo-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+  z-index: 1200;
+}
+
+.promo-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.promo-modal {
+  position: relative;
+  width: min(92vw, 620px);
+  max-width: calc(100vw - 16px);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbf7 100%);
+  border-radius: 26px;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.28);
+  border: 1px solid rgba(12, 113, 32, 0.08);
+  overflow: hidden;
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.28s ease;
+}
+
+.promo-overlay.is-visible .promo-modal {
+  transform: translateY(0) scale(1);
+}
+
+.promo-visual {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  max-height: 60vh;
+  background: #eef7ee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 18px 20px;
+  overflow: hidden;
+}
+
+.promo-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.promo-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  pointer-events: none;
+}
+
+.promo-badge {
+  position: relative;
+  z-index: 1;
+}
+
+.promo-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c7120;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(12, 113, 32, 0.18);
+}
+
+.promo-content {
+  padding: 24px 22px 22px;
+}
+
+.promo-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0c7120;
+}
+
+.promo-content h2 {
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  line-height: 1.15;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.promo-content p {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.promo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.promo-btn {
+  border: none;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  padding: 12px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.promo-btn:hover {
+  transform: translateY(-1px);
+}
+
+.promo-btn-primary {
+  background: linear-gradient(135deg, #0c7120, #2d9b46);
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(12, 113, 32, 0.25);
+}
+
+.promo-btn-secondary {
+  background: #eef7ee;
+  color: #0c7120;
+  border: 1px solid rgba(12, 113, 32, 0.12);
+}
+
+.promo-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+}
+
+@media (max-width: 640px) {
+  .promo-modal {
+    width: min(94vw, 420px);
+    border-radius: 22px;
+  }
+
+  .promo-content {
+    padding: 20px 18px 18px;
+  }
+
+  .promo-content p {
+    font-size: 0.96rem;
+  }
+
+  .promo-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .promo-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 /* ==========================================================================
    2. HERO & HEADER SUPERPUESTO (TRAPECIO REDONDEADO)
    ========================================================================== */
@@ -138,23 +337,33 @@ body {
   padding: 34px 20px 26px;
   max-width: 1200px;
   margin: 0 auto;
-  overflow: hidden;
+}
+
+.lista-carousel-wrapper {
+  position: relative;
 }
 
 .lista nav {
-  --offset: 0px;
   display: flex;
   align-items: flex-start;
   gap: 28px;
   width: max-content;
+  max-width: 100%;
   margin: 0 auto;
-  transform: translateX(var(--offset));
+  overflow-x: auto;
+  scroll-behavior: smooth;
   cursor: grab;
   user-select: none;
-  will-change: transform;
+  padding: 4px 4px 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.lista nav.is-dragging {
+.lista nav::-webkit-scrollbar {
+  display: none;
+}
+
+.lista nav.dragging {
   cursor: grabbing;
 }
 
@@ -232,6 +441,7 @@ body {
    ========================================================================== */
 .barra-progreso {
   position: relative;
+  width: min(100%, 1200px);
   max-width: 1200px;
   margin: 18px auto 0;
   padding: 18px 20px 20px;
@@ -582,41 +792,36 @@ a.card {
    4b. TABLÓN DE NOTICIAS (CARRUSEL DESLIZABLE)
    ========================================================================== */
 .tablon-noticias {
-  max-width: 1100px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .noticias-carousel-wrapper {
   position: relative;
+  overflow: hidden;
 }
 
 .noticias-track {
   display: flex;
+  align-items: flex-start;
   gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  width: max-content;
+  overflow: visible;
   padding: 8px 4px 20px;
-  -webkit-overflow-scrolling: touch;
   cursor: grab;
-  /* Ocultar la barra de scroll sin perder la funcionalidad */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  user-select: none;
+  will-change: transform;
 }
 
-.noticias-track::-webkit-scrollbar {
-  display: none;
-}
-
-.noticias-track.dragging {
+.noticias-track.is-dragging {
   cursor: grabbing;
-  scroll-snap-type: none;
 }
 
 .noticia-card {
-  flex: 0 0 280px;
-  scroll-snap-align: start;
+  flex: 0 0 300px;
+  flex-shrink: 0;
+  display: block;
   background-color: #ffffff;
   border-radius: 16px;
   border: 1px solid #e6ede4;
@@ -624,6 +829,8 @@ a.card {
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   user-select: none;
+  text-decoration: none;
+  color: inherit;
 }
 
 .noticia-card:hover {
@@ -675,6 +882,18 @@ a.card {
   font-size: 0.88rem;
   color: #4a5568;
   line-height: 1.5;
+}
+
+.noticia-cta {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #0c7120;
+}
+
+.noticia-card:hover .noticia-cta {
+  text-decoration: underline;
 }
 
 .carousel-btn {

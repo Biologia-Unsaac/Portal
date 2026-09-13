@@ -9,9 +9,29 @@
   <script src="js/messages.js" defer></script>
   <script src="js/botoso.js" defer></script>
   <script src="js/revolver-nav.js" defer></script>
+  <script src="js/popup-anuncio.js" defer></script>
 </head>
   
 <body>
+  <div class="promo-overlay" id="promoOverlay" aria-hidden="true">
+    <div class="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
+      <button class="promo-close" id="promoClose" type="button" aria-label="Cerrar anuncio">×</button>
+      <div class="promo-visual" aria-hidden="true">
+        <img class="promo-visual-img" src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789254616/AC2532CB5BDD79B00012B95713C18386.jpg" alt="">
+        <div class="promo-badge">Anuncio</div>
+      </div>
+      <div class="promo-content">
+        <span class="promo-tag">Portal Biología</span>
+        <h2 id="promoTitle">¡Reserva tu casillero!</h2>
+        <p>La reserva de casilleros está abierta para este semestre. Guarda tus pertenencias de forma segura y ordenada.</p>
+        <div class="promo-actions">
+          <a href="casilleros.html" class="promo-btn promo-btn-primary">Reservar ahora</a>
+          <button type="button" class="promo-btn promo-btn-secondary" id="promoLater">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- BANNER PRINCIPAL (INCLUYE HEADER SUPERPUESTO) -->
   <div class="hero-container">
     <header class="header-trapezoid">
@@ -30,6 +50,9 @@
       </div>
     </div>
   </div>
+  <!-- ============================================================
+     WIDGET EXPOSICIÓN DE BIOLOGÍA
+     ============================================================ --
   <a href="https://expobio.github.io/INSCRIPCION/index.html" target="_blank" class="expobio-widget-link">
     <div class="expobio-widget">
         <div class="speech-bubble" id="expobio-message">
@@ -38,11 +61,15 @@
         <img src="https://media.tenor.com/SIWQYnjZC3EAAAAi/bear-party-bear.gif" alt="Bear Party" class="bear-image">
     </div>
   </a>
+  >
 <!-- ============================================================
      NAVEGACIÓN PRINCIPAL
      ============================================================ -->
 <section class="lista">
-  <nav>
+  <div class="lista-carousel-wrapper">
+    <button type="button" class="carousel-btn carousel-btn-prev" id="menuPrev" aria-label="Anterior">&#10094;</button>
+
+    <nav id="menuTrack">
 
     <!-- 1. CENTRO FEDERADO -->
     <a class="Box-2" href="CF.html">
@@ -259,7 +286,92 @@
       <p>Malla Curricular</p>
     </a>
 
-  </nav>
+    </nav>
+
+    <button type="button" class="carousel-btn carousel-btn-next" id="menuNext" aria-label="Siguiente">&#10095;</button>
+  </div>
+
+</section>
+
+  <!-- SECCIÓN DE SERVICIOS / RECURSOS -->
+  <section class="Servicios">
+    <div class="Servicios_titulo">
+      <h2>Convocatorias Abiertas para todos</h2>
+      <p>Unete a un CI y descubre el apasionante mundo de la biologia </p>
+    </div>
+
+    <div class="tablon-noticias">
+      <div class="noticias-carousel-wrapper">
+
+        <div class="noticias-track" id="noticiasTrack">
+
+          <a class="noticia-card" href="https://cibiogen.net.pe/formulario/" target="_blank" rel="noopener">
+            <div class="noticia-imagen">
+              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/AC84B177E1090642D167933E69D72EC3.jpg" alt="Convocatoria CIBIOGEN">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Convocatoria abierta</span>
+              <h3>🧬 Forma parte de CIBIOGEN 2026-II</h3>
+              <p>Súmate al Centro de Investigación en Biotecnología y Genética: salud y genética toxicológica, biociencias, genética poblacional y bioinformática.</p>
+              <span class="noticia-cta">Inscribirme →</span>
+            </div>
+          </a>
+
+          <a class="noticia-card" href="https://forms.gle/13T74Lds6Zag2Qt98" target="_blank" rel="noopener">
+            <div class="noticia-imagen">
+              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/ACFFA89205CB4D85213ACFBE917CA623.jpg" alt="Convocatoria ICTIOS-Cusco">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Cierra: 16 de septiembre</span>
+              <h3>🐟 ¡Convocatoria abierta en ICTIOS Cusco!</h3>
+              <p>Súmate al estudio y conservación de peces, anfibios y aves de nuestros ecosistemas acuáticos. Abierto a estudiantes, bachilleres y egresados de Biología.</p>
+              <span class="noticia-cta">Inscribirme →</span>
+            </div>
+          </a>
+
+          <a class="noticia-card" href="https://docs.google.com/forms/d/e/1FAIpQLSdJFgaNSciPQYHepxEhv4UCBe6tNNI3eWEaFj8Cj9_KQl426A/viewform?usp=dialog" target="_blank" rel="noopener">
+            <div class="noticia-imagen">
+              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/AC923D920BB77DD5AC4BA6125D1E4C4A.jpg" alt="Convocatoria CIMA">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Cierra: 21 de septiembre</span>
+              <h3>🌱 Nueva convocatoria CIMA 26-II</h3>
+              <p>Únete al Centro de Investigación Medio Ambiental: gestión ambiental, residuos sólidos, ecología microbiana y biorremediación, con proyectos y salidas de campo.</p>
+              <span class="noticia-cta">Inscribirme →</span>
+            </div>
+          </a>
+
+          <a class="noticia-card" href="https://forms.gle/LQefLoCmDzV6KLu98" target="_blank" rel="noopener">
+            <div class="noticia-imagen">
+              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/ACEDAD072844DB3B384050B6E9921E2C.jpg" alt="Convocatoria VERTEBRATE">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Convocatoria abierta</span>
+              <h3>🐦 CI VERTEBRATE abre sus puertas a nuevos integrantes</h3>
+              <p>¿Eres cachimbo de Biología? Mira, piensa, observa y descubre el mundo de peces, anfibios, aves y murciélagos.</p>
+              <span class="noticia-cta">Inscribirme →</span>
+            </div>
+          </a>
+
+          <a class="noticia-card" href="https://forms.gle/zRgG2raHc1qnePxE6" target="_blank" rel="noopener">
+            <div class="noticia-imagen">
+              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/ACD2C7F0D111697CFC18F3DD99D07E7F.jpg" alt="Convocatoria CEINZ">
+            </div>
+            <div class="noticia-contenido">
+              <span class="noticia-fecha">Cierra: 25 de septiembre</span>
+              <h3>🕷️ La convocatoria CEINZ 2026-II ya está aquí</h3>
+              <p>Descubre la entomología y aracnología: investigación científica, trabajo de campo y conservación de nuestra biodiversidad.</p>
+              <span class="noticia-cta">Inscribirme →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/noticias-movimiento.js" defer></script>
+
 <section class="barra-progreso" aria-label="Cronograma académico">
   <details class="timeline-panel" open>
     <summary>
@@ -447,117 +559,6 @@
     status.textContent = `Hoy: ${localeDate} · Etapa actual: ${currentLabel} (${currentDate})`;
   })();
 </script>
-
-</section>
-
-  <!-- SECCIÓN DE SERVICIOS / RECURSOS -->
-  <section class="Servicios">
-    <div class="Servicios_titulo">
-      <h2>Guía del Estudiante Biólogo</h2>
-      <p>Todo lo que necesitas para sobrevivir y destacar en la escuela profesional.</p>
-    </div>
-
-    <div class="tablon-noticias">
-      <div class="noticias-carousel-wrapper">
-        <button type="button" class="carousel-btn carousel-btn-prev" id="noticiasPrev" aria-label="Noticia anterior">&#10094;</button>
-
-        <div class="noticias-track" id="noticiasTrack">
-
-          <article class="noticia-card">
-            <div class="noticia-imagen">
-              <img src="images/noticia1.jpg" alt="Título de la noticia 1">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Fecha</span>
-              <h3>Título de la noticia</h3>
-              <p>Breve descripción o resumen de la noticia o evento.</p>
-            </div>
-          </article>
-
-          <article class="noticia-card">
-            <div class="noticia-imagen">
-              <img src="images/noticia2.jpg" alt="Título de la noticia 2">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Fecha</span>
-              <h3>Título de la noticia</h3>
-              <p>Breve descripción o resumen de la noticia o evento.</p>
-            </div>
-          </article>
-
-          <article class="noticia-card">
-            <div class="noticia-imagen">
-              <img src="images/noticia3.jpg" alt="Título de la noticia 3">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Fecha</span>
-              <h3>Título de la noticia</h3>
-              <p>Breve descripción o resumen de la noticia o evento.</p>
-            </div>
-          </article>
-
-          <article class="noticia-card">
-            <div class="noticia-imagen">
-              <img src="images/noticia4.jpg" alt="Título de la noticia 4">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Fecha</span>
-              <h3>Título de la noticia</h3>
-              <p>Breve descripción o resumen de la noticia o evento.</p>
-            </div>
-          </article>
-
-        </div>
-
-        <button type="button" class="carousel-btn carousel-btn-next" id="noticiasNext" aria-label="Siguiente noticia">&#10095;</button>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    (function () {
-      const track = document.getElementById('noticiasTrack');
-      const prevBtn = document.getElementById('noticiasPrev');
-      const nextBtn = document.getElementById('noticiasNext');
-      if (!track) return;
-
-      function scrollStep() {
-        const card = track.querySelector('.noticia-card');
-        const gap = parseFloat(getComputedStyle(track).gap) || 20;
-        return card ? card.offsetWidth + gap : 300;
-      }
-
-      prevBtn && prevBtn.addEventListener('click', () => {
-        track.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
-      });
-
-      nextBtn && nextBtn.addEventListener('click', () => {
-        track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
-      });
-
-      let isDown = false;
-      let startX = 0;
-      let startScroll = 0;
-
-      track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        track.classList.add('dragging');
-        startX = e.pageX;
-        startScroll = track.scrollLeft;
-      });
-
-      window.addEventListener('mouseup', () => {
-        isDown = false;
-        track.classList.remove('dragging');
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        track.scrollLeft = startScroll - (e.pageX - startX);
-      });
-    })();
-  </script>
 
   <!-- PIE DE PÁGINA -->
   <footer>

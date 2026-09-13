@@ -1,5 +1,5 @@
 (() => {
-  const nav = document.querySelector('.lista nav');
+  const nav = document.getElementById('noticiasTrack');
   if (!nav) return;
 
   const originalItems = [...nav.children];
