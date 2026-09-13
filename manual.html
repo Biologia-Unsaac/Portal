@@ -29,12 +29,12 @@
 
         <div class="profesores-header">
             <span class="manual-label">MANUAL DE SUPERVIVENCIA</span>
-            <h2>Busca a tu profe</h2>
-            <p>Consulta los cursos, dificultad y estadísticas de aprobación de los docentes.</p>
+            <h2>Busca tu curso</h2>
+            <p>Consulta el temario por parcial, dificultad y estadísticas de aprobación de cada curso.</p>
 
             <div class="buscador-profesor">
                 <span class="buscador-icon">⌕</span>
-                <input type="search" id="busquedaProfesor" placeholder="Escribe el nombre del profesor..." autocomplete="off" aria-label="Buscar profesor">
+                <input type="search" id="busquedaProfesor" placeholder="Escribe el nombre del curso..." autocomplete="off" aria-label="Buscar curso">
                 <button type="button" id="btnBuscar">Buscar</button>
             </div>
         </div>
@@ -44,14 +44,17 @@
             <div class="profesor-card-header">
 
                 <div class="profesor-identidad">
-                    <div class="profesor-foto">
-                        <img src="nada.png" alt="Foto del profesor">
+                    <div class="curso-icono">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 3v6.5c0 .5-.15 1-.43 1.4L4.3 16.6C3.2 18.2 4.35 21 6.3 21h11.4c1.95 0 3.1-2.8 2-4.4l-4.27-5.7c-.28-.4-.43-.9-.43-1.4V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 3h10M6.5 15h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
                     </div>
 
                     <div class="profesor-info">
                         <span class="card-tag">MUY TRANCA</span>
-                        <h2>Nombre del profesor</h2>
-                        <p class="profesor-descripcion">Docente de la Escuela Profesional de Biología. Aquí puedes colocar una descripción breve, experiencia o comentarios generales.</p>
+                        <h2>Nombre del curso</h2>
+                        <p class="profesor-descripcion">Curso de la Escuela Profesional de Biología. Aquí puedes colocar una descripción breve, enfoque del curso o comentarios generales.</p>
                     </div>
                 </div>
 
@@ -70,32 +73,32 @@
                 <div class="profesor-cursos">
                     <div class="seccion-titulo">
                         <span>01</span>
-                        <h3>Cursos</h3>
+                        <h3>Temario por parcial</h3>
                     </div>
 
                     <div class="curso-lista">
 
                         <div class="curso-item">
-                            <span class="curso-numero">01</span>
+                            <span class="curso-numero">I</span>
                             <div>
-                                <strong>Pollito</strong>
-                                <small>Biología</small>
+                                <strong>Bioquímica de la célula</strong>
+                                <small>Parcial 1</small>
                             </div>
                         </div>
 
                         <div class="curso-item">
-                            <span class="curso-numero">02</span>
+                            <span class="curso-numero">II</span>
                             <div>
-                                <strong>No hay</strong>
-                                <small>Biología</small>
+                                <strong>Genética aplicada</strong>
+                                <small>Parcial 2</small>
                             </div>
                         </div>
 
                         <div class="curso-item">
-                            <span class="curso-numero">03</span>
+                            <span class="curso-numero">III</span>
                             <div>
-                                <strong>Su rico suri</strong>
-                                <small>Biología</small>
+                                <strong>Biología molecular avanzada</strong>
+                                <small>Parcial 3</small>
                             </div>
                         </div>
 
@@ -156,3 +159,4 @@
     <script src="./js/grafico.js"></script>
 </body>
 </html>
+
