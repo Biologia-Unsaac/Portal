@@ -173,6 +173,8 @@
 
     if (!nombre)   return mensaje("resp-modal", "Escribe tu nombre completo.", true);
     if (!codigo)   return mensaje("resp-modal", "Escribe tu código universitario.", true);
+    if (!/^\d{6}$/.test(codigo))
+      return mensaje("resp-modal", "El código universitario debe tener 6 dígitos.", true);
     if (!celular)  return mensaje("resp-modal", "Escribe tu celular (9 dígitos).", true);
     if (!/^9\d{8}$/.test(celular))
       return mensaje("resp-modal", "El celular debe tener 9 dígitos y empezar con 9.", true);
@@ -398,7 +400,7 @@
   function initInputs() {
     ["f-codigo", "consultar-codigo", "renovar-codigo"].forEach(function (id) {
       document.getElementById(id).addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, "").slice(0, 20);
+        this.value = this.value.replace(/\D/g, "").slice(0, 6);
       });
     });
     document.getElementById("f-celular").addEventListener("input", function () {

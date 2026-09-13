@@ -214,8 +214,8 @@ function registrarNuevo(d) {
                    .filter(function (x) { return /^[AC]\d{1,2}$/.test(x); });
 
   if (!codigo) throw new Error("Falta el código universitario.");
-  if (!/^\d{6,20}$/.test(codigo.replace(/\s+/g, "")))
-    throw new Error("El código universitario no parece válido.");
+  if (!/^\d{6}$/.test(codigo.replace(/\s+/g, "")))
+    throw new Error("El código universitario debe tener exactamente 6 dígitos.");
   if (!nombre) throw new Error("Falta el nombre completo.");
   if (!telefono || !/^9\d{8}$/.test(telefono))
     throw new Error("Ingresa un celular válido de 9 dígitos (empieza con 9).");
@@ -450,7 +450,7 @@ function json(obj) {
 /* ============================================================================
    TAREAS PARA EL ADMINISTRADOR (ejecutar a mano desde el editor)
 
-   liberarCasillero("17123415") -> deja libres todas sus puertas (renuncia)
+   liberarCasillero("045213") -> deja libres todas sus puertas (renuncia)
    vencerVencidos()              -> marca como Vencido los que pasaron fecha
    ============================================================================ */
 
