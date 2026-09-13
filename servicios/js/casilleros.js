@@ -331,7 +331,8 @@
 
   /* -------------------------------------------------------------------------
      Escala del plano.
-     - Pantallas amplias: reduce hasta caber todo el plano.
+     - Pantallas amplias: reduce hasta caber dentro del contenedor real
+       (no del window), para que nunca se recorte el primer módulo.
      - Pantallas angostas (celulares): NO encoge; las puertas quedan legibles
        y el plano se desplaza con scroll horizontal (estilo swipe).
      ------------------------------------------------------------------------- */
@@ -342,13 +343,16 @@
     if (window.innerWidth < 720) {
       stage.style.transform = "none";
       wrap.classList.add("scroll");
+      wrap.style.overflowX = "auto";
       return;
     }
 
     wrap.classList.remove("scroll");
-    var avail = Math.min(window.innerWidth, window.innerHeight * 2) - 60;
-    var scale = Math.min(1, avail / stage.scrollWidth);
+    var ancho = wrap.clientWidth || 800;
+    var scale = Math.min(1, ancho / stage.scrollWidth);
     stage.style.transform = "scale(" + scale + ")";
+    // Si queda recortado visualmente, no se usa scroll: sale centrado entero.
+    wrap.style.overflowX = scale < 1 ? "hidden" : "auto";
   }
 
   /* -------------------------------------------------------------------------
