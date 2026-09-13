@@ -2,236 +2,369 @@
 /* ==========================================================================
    6. CENTRO FEDERADO (CF.HTML)
    ========================================================================== */
-/* Tema Colonia de Hormigas */
-/* Corrección de Márgenes y Márgenes en Bordes */
+
 .cf-estructura {
-  padding: 60px 20px 80px 20px;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 60px 20px 80px;
   box-sizing: border-box;
+  background: linear-gradient(180deg, #f7faf6 0%, #ffffff 100%);
 }
 
-/* Tema Hormiguero con curvas y fondo temático */
-.ant-colony-theme {
-  background: radial-gradient(circle at top, #f3f8f1 0%, #ffffff 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Cámaras Base */
-.colony-chamber {
-  background: #ffffff;
-  border-radius: 24px;
-  border: 2px dashed #b2d8aa;
-  padding: 24px;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 20px rgba(12, 113, 32, 0.04);
-}
-
-.colony-chamber:hover {
-  border-style: solid;
-  border-color: #0c7120;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(12, 113, 32, 0.12);
-}
-
-/* Cámaras Principales con Fotos */
-.queen-chamber, .subqueen-chamber {
-  max-width: 650px;
-  margin: 0 auto;
+.hierarchy-page {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
 }
 
-.queen-chamber {
-  border-style: solid;
-  border-color: #0c7120;
-  background: linear-gradient(135deg, #ffffff 0%, #eaf3e8 100%);
+.hierarchy-header {
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
+  margin-bottom: 28px;
 }
 
-.subqueen-chamber {
-  border-style: solid;
-  border-color: #2e7d32;
-  max-width: 580px;
-}
-
-/* Estilos para las Fotos de Perfil */
-.chamber-photo-container {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.chamber-photo {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #0c7120;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.ant-icon-badge {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  background: #0c7120;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+.management-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  border: 2px solid #ffffff;
+  margin: 0 auto 18px;
+  width: 100%;
 }
 
-.chamber-role-tag {
+.management-logo-image {
+  display: block;
+  width: min(340px, 70vw);
+  height: auto;
+  object-fit: contain;
+  border-radius: 28px;
+  box-shadow: 0 12px 26px rgba(18, 90, 46, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(23, 83, 38, 0.06);
+}
+
+.manual-label {
   display: inline-block;
+  background: #eaf7ec;
+  color: #14562c;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  margin-bottom: 12px;
+}
+
+.hierarchy-header h2 {
+  margin: 0 0 10px;
+  color: #183227;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.hierarchy-header p {
+  margin: 0;
+  color: #495d52;
+  font-size: 1.05rem;
+}
+
+.leadership-grid {
+  width: 100%;
+  max-width: 980px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 28px;
+  margin: 0 auto 32px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(19, 105, 41, 0.1);
+  border-radius: 28px;
+  padding: 26px;
+  box-shadow: 0 15px 40px rgba(18, 47, 29, 0.08);
+}
+
+.principal-card {
+  max-width: 100%;
+}
+
+.secondary-card {
+  border-color: rgba(53, 120, 70, 0.14);
+}
+
+.profile-photo-wrap {
+  flex-shrink: 0;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #dceee0;
+  box-shadow: 0 12px 24px rgba(15, 98, 43, 0.18);
+}
+
+.profile-body {
+  flex: 1;
+}
+
+.role-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.president-tag {
+  background: #eaf7eb;
+  color: #1d6f35;
+}
+
+.vice-tag {
+  background: #edf4ff;
+  color: #1d4d8f;
+}
+
+.profile-body h3 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  color: #1a2f24;
+}
+
+.profile-body p {
+  margin: 0;
+  color: #4d5d4d;
+  line-height: 1.6;
+}
+
+.section-block {
+  width: 100%;
+  max-width: 1180px;
+  margin-top: 18px;
+}
+
+.section-title-wrap {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.section-kicker {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #446c4d;
+}
+
+.section-title-wrap h3 {
+  margin: 8px 0 0;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  color: #163328;
+}
+
+.secretary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 22px;
+  justify-content: center;
+}
+
+.secretary-card {
+  background: #ffffff;
+  border: 1px solid rgba(23, 92, 45, 0.08);
+  border-radius: 22px;
+  padding: 22px 18px;
+  box-shadow: 0 12px 25px rgba(11, 43, 20, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.secretary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(11, 43, 20, 0.08);
+}
+
+.card-header {
+  border-bottom: 1px solid #edf0ee;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.card-badge {
+  display: inline-block;
+  background: #ebf7ed;
+  color: #155d2d;
+  padding: 5px 9px;
+  border-radius: 999px;
   font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: #0c7120;
-  background-color: #eaf3e8;
-  padding: 3px 8px;
-  border-radius: 4px;
-  margin-bottom: 6px;
+  letter-spacing: 0.08em;
 }
 
-.member-name {
-  font-weight: 700;
-  color: #0c7120;
-  font-size: 1.1rem;
+.card-header h4 {
+  margin: 10px 0 0;
+  color: #1e2d28;
+  font-size: 1.15rem;
+}
+
+.leader-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eef9f0 0%, #f8fbf8 100%);
+  border: 1px solid rgba(26, 117, 46, 0.08);
+  margin-bottom: 14px;
+}
+
+.leader-photo {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #d4ebd8;
+  box-shadow: 0 10px 22px rgba(19, 111, 51, 0.15);
+}
+
+.leader-meta {
+  flex: 1;
+}
+
+.leader-role,
+.member-role {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1a6a2e;
   margin-bottom: 4px;
 }
 
-/* Túneles Curvos (SVG) y Hormigas Animadas */
-.tunnel-container {
-  position: relative;
-  width: 100%;
-  height: 70px;
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-.tunnel-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.tunnel-path {
-  fill: none;
-  stroke: #a1d198;
-  stroke-width: 3;
-  stroke-dasharray: 6 6;
-}
-
-/* Animación de Hormigas en Ruta */
-.ant-walker {
-  position: absolute;
+.leader-meta h5 {
+  margin: 0;
+  color: #1d2b26;
   font-size: 1rem;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+  line-height: 1.35;
 }
 
-.ant-1 {
-  animation: walkPath1 6s infinite;
-}
-
-.ant-2 {
-  animation: walkPath2 7s infinite;
-}
-
-@keyframes walkPath1 {
-  0%   { top: 0%; left: 48%; transform: rotate(30deg); }
-  50%  { top: 50%; left: 70%; transform: rotate(110deg); }
-  100% { top: 90%; left: 48%; transform: rotate(30deg); }
-}
-
-@keyframes walkPath2 {
-  0%   { top: 0%; left: 50%; transform: rotate(-40deg); }
-  50%  { top: 40%; left: 20%; transform: rotate(40deg); }
-  100% { top: 90%; left: 50%; transform: rotate(140deg); }
-}
-
-/* Red de Cámaras Inferiores */
-.chamber-network {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 10px;
-}
-
-.worker-chamber .chamber-head {
-  border-bottom: 1px solid #e6ede4;
-  padding-bottom: 12px;
-  margin-bottom: 16px;
-}
-
-.chamber-tag {
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: #0c7120;
-  background: #eaf3e8;
-  padding: 3px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
-.worker-chamber h3 {
-  font-size: 1.05rem;
-  color: #1c2826;
-  font-weight: 700;
-  margin-top: 8px;
-}
-
-.ant-castes {
+.accessory-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.caste-item {
+.accessory-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 0.88rem;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #f8faf8;
+  border: 1px solid rgba(22, 89, 40, 0.07);
 }
 
-.leader-caste {
-  background-color: #eaf3e8;
-  border-left: 4px solid #0c7120;
+.accessory-photo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #dfeee1;
 }
 
-.leader-caste p {
-  font-weight: 700;
-  color: #1c2826;
+.accessory-info {
+  flex: 1;
 }
 
-.worker-caste {
-  background-color: #f8faf7;
-  border: 1px solid #e6ede4;
+.accessory-info p {
+  margin: 0;
+  color: #4b5a50;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-.worker-caste p {
-  color: #4a5568;
+.support-block {
+  margin-top: 36px;
 }
 
-.caste-label {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #0c7120;
-  letter-spacing: 0.5px;
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
 }
 
-/* Diseño Móvil Responsivo */
-@media (max-width: 600px) {
-  .queen-chamber, .subqueen-chamber {
+.support-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid rgba(22, 95, 44, 0.08);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 18px rgba(14, 53, 29, 0.04);
+}
+
+.support-photo {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #dfeee1;
+}
+
+.support-card h4 {
+  margin: 0 0 4px;
+  color: #1d2a24;
+  font-size: 0.95rem;
+}
+
+.support-card p {
+  margin: 0;
+  color: #576a5d;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .leadership-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .cf-estructura {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .management-logo {
+    flex-direction: column;
+    border-radius: 24px;
+  }
+
+  .management-logo-text {
+    align-items: center;
+  }
+
+  .profile-photo {
+    width: 100px;
+    height: 100px;
   }
 }

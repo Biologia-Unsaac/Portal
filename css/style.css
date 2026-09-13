@@ -13,6 +13,7 @@ body {
   color: #1c2826;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 body.modal-open {
@@ -334,27 +335,30 @@ body.modal-open {
    3. NAVEGACIÓN (BOTONES DE NAVEGACIÓN RÁPIDA)
    ========================================================================== */
 .lista {
-  padding: 34px 20px 26px;
-  max-width: 1200px;
+  width: 100%;
+  padding: 34px 0 26px;
   margin: 0 auto;
 }
 
 .lista-carousel-wrapper {
   position: relative;
+  width: 100%;
+  padding: 0 26px;
 }
 
 .lista nav {
   display: flex;
   align-items: flex-start;
-  gap: 28px;
-  width: max-content;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 28px);
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
   overflow-x: auto;
   scroll-behavior: smooth;
   cursor: grab;
   user-select: none;
-  padding: 4px 4px 10px;
+  padding: 4px 16px 10px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -713,7 +717,7 @@ body.modal-open {
 .Servicios {
   width: 100%;
   background-color: #ffffff;
-  padding: 60px 20px 80px 20px;
+  padding: 60px 0 80px;
   border-top: 1px solid #e2e8f0;
 }
 
@@ -792,14 +796,16 @@ a.card {
    4b. TABLÓN DE NOTICIAS (CARRUSEL DESLIZABLE)
    ========================================================================== */
 .tablon-noticias {
+  width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0;
 }
 
 .noticias-carousel-wrapper {
   position: relative;
   overflow: hidden;
+  padding: 0 26px;
 }
 
 .noticias-track {
@@ -923,11 +929,11 @@ a.card {
 }
 
 .carousel-btn-prev {
-  left: -14px;
+  left: 6px;
 }
 
 .carousel-btn-next {
-  right: -14px;
+  right: 6px;
 }
 
 @media (max-width: 700px) {
