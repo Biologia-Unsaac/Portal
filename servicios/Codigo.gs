@@ -185,8 +185,7 @@ function estadoCompleto() {
     if (estado === "Disponible") libres++; else ocupados++;
     puertas.push({
       n: String(f[COL.casillero.NUMERO]),
-      estado: estado,
-      ocupante: estado === "Ocupado" ? String(f[COL.casillero.NOMBRE] || "") : ""
+      estado: estado
     });
   });
 
@@ -228,6 +227,13 @@ function registrarNuevo(d) {
   var lock = LockService.getScriptLock();
   lock.waitLock(15000);
 
+  // Verifica ANTES de escribir que todas las puertas pedidas siguen libres,
+  // para no dejar la asignación a medias si alguna ya no está disponible.
+  var ocupadas = pedidos.filter(function (num) { return !puertaDisponible(num); });
+  if (ocupadas.length > 0)
+    throw new Error("La(s) puerta(s) " + ocupadas.join(", ") +
+                    " ya no está(n) disponible(s). Recarga el plano.");
+
   var reg = hojaRegistro();
   var hoy = new Date();
 
@@ -253,6 +259,18 @@ function registrarNuevo(d) {
     vencimiento: formatear(new Date(hoy.getTime() + DIAS_VIGENCIA * 86400000)),
     asignados: asignados
   };
+}
+
+/** ¿Está libre la puerta ahora mismo? (solo lectura). */
+function puertaDisponible(numero) {
+  var cas = hojaCasillero();
+  var n = cas.getLastRow() - 1;
+  var datos = (n > 0) ? cas.getRange(2, 1, n, 2).getValues() : [];
+  for (var i = 0; i < datos.length; i++) {
+    if (String(datos[i][COL.casillero.NUMERO]).trim().toUpperCase() === numero)
+      return String(datos[i][COL.casillero.ESTADO]).trim().toLowerCase() === "disponible";
+  }
+  throw new Error("La puerta " + numero + " no existe en el inventario.");
 }
 
 /** Ocupa una puerta en el inventario SI sigue disponible y devuelve la fila
