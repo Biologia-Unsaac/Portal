@@ -406,12 +406,37 @@
     document.getElementById("f-celular").addEventListener("input", function () {
       this.value = this.value.replace(/\D/g, "").slice(0, 9);
     });
+
+    // El correo universitario es el código @unsaac.edu.pe: se autocompleta.
+    document.getElementById("f-codigo").addEventListener("input", function () {
+      var correo = document.getElementById("f-correo");
+      if (this.value.length === 6 && (!correo.value || /^\d{6}@unsaac\.edu\.pe$/.test(correo.value))) {
+        correo.value = this.value + "@unsaac.edu.pe";
+      }
+    });
+  }
+
+  /* -------------------------------------------------------------------------
+     Huevo de pascua: 5 toques en la tarjeta de disponibles = Ley Samuel
+     ------------------------------------------------------------------------- */
+  function initLeySamuel() {
+    var card = document.getElementById("libres-card");
+    var toques = 0;
+    card.addEventListener("click", function () {
+      toques++;
+      if (toques === 5) {
+        toques = 0;
+        mensaje("resp-reservar", "Solo puedes reservar UN casillero a la vez. — Ley Samuel", false);
+        setTimeout(function () { mensaje("resp-reservar", "", false); }, 6000);
+      }
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     initTabs();
     initInputs();
     initDrop();
+    initLeySamuel();
 
     document.getElementById("cancelBtn").addEventListener("click", cerrarModal);
     document.getElementById("form-inscripcion").addEventListener("submit", enviarInscripcion);
