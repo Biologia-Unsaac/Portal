@@ -40,21 +40,7 @@
         </div>
 
         <!-- PANEL: RESERVAR (plano interactivo) -->
-        <div class="cas-panel active" id="panel-reservar">
-
-            <aside class="cas-info">
-                <div class="cas-info-bloque">
-                    <span class="cas-info-num" id="libres-num">–</span>
-                    <p>Casilleros disponibles</p>
-                </div>
-                <p class="cas-note">Haz clic en una o más puertas libres (azules o celestes) para inscribirlas.</p>
-                <ul class="cas-reglas">
-                    <li>Selecciona las puertas que quieras del plano.</li>
-                    <li>Adjunta el voucher de pago para cada reserva.</li>
-                    <li>La vigencia es de un semestre (180 días).</li>
-                    <li>Al vencer, renueva desde la pestaña "Renovar".</li>
-                </ul>
-            </aside>
+        <div class="cas-panel cas-panel-apile active" id="panel-reservar">
 
             <div class="cas-plano">
                 <div class="cas-leyenda">
@@ -66,6 +52,20 @@
                     <div class="cas-stage" id="stage"></div>
                 </div>
                 <p id="resp-reservar" class="cas-respuesta" role="status"></p>
+            </div>
+
+            <div class="cas-pie">
+                <div class="cas-info-bloque">
+                    <span class="cas-info-num" id="libres-num">–</span>
+                    <p>Casilleros disponibles</p>
+                </div>
+                <div class="cas-note">Haz clic en una o más puertas libres (azules o celestes) para inscribirlas. La reserva queda confirmada al adjuntar tu voucher de pago.</div>
+                <ul class="cas-reglas">
+                    <li>Selecciona las puertas que quieras del plano.</li>
+                    <li>Adjunta el voucher de pago para cada reserva.</li>
+                    <li>La vigencia es de un semestre (180 días).</li>
+                    <li>Al vencer, renueva desde la pestaña "Renovar".</li>
+                </ul>
             </div>
         </div>
 

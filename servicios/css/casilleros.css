@@ -3,7 +3,7 @@
    ========================================================================== */
 .cas-section {
   padding: 60px 20px 80px 20px;
-  max-width: 900px;
+  max-width: 1160px;
   margin: 0 auto;
 }
 
@@ -81,13 +81,33 @@
   align-items: flex-start;
 }
 
+/* El panel de reserva apila el plano encima y las tarjetas debajo. */
+.cas-panel-apile.active {
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .cas-panel-ficha {
-  flex: 1;
+  flex: 1 1 100%;
   background-color: #ffffff;
   border: 1px solid #e6ede4;
   border-radius: 18px;
   padding: 30px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Fila inferior del panel de reserva: disponibles + nota + reglas */
+.cas-pie {
+  display: grid;
+  grid-template-columns: 1.1fr 1.5fr 1.4fr;
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+.cas-pie > * {
+  height: 100%;
+  margin-top: 0;
 }
 
 .cas-panel-ficha h3 {
@@ -318,6 +338,10 @@
     flex-direction: column;
   }
 
+  .cas-pie {
+    grid-template-columns: 1fr;
+  }
+
   .cas-info {
     width: 100%;
   }
@@ -368,7 +392,14 @@
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 6px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cas-stage-wrap.scroll {
+  justify-content: flex-start;
+  padding-bottom: 10px;
 }
 
 .cas-stage {
@@ -596,6 +627,28 @@
     gap: 18px;
   }
 
-  .cas-locker-group.azul    { --cas-cell-w: 46px; --cas-cell-h: 64px; }
-  .cas-locker-group.celeste { --cas-cell-w: 54px; --cas-cell-h: 76px; }
+  .cas-locker-group.azul    { --cas-cell-w: 52px; --cas-cell-h: 72px; }
+  .cas-locker-group.celeste { --cas-cell-w: 60px; --cas-cell-h: 84px; }
+
+  .cas-plano {
+    padding: 22px 14px 20px;
+  }
+
+  .cas-cell.selected {
+    box-shadow:
+      0 0 0 3px #ffd54a,
+      0 0 16px rgba(255, 213, 74, 0.8),
+      inset 0 0 5px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* Evita el resaltado azul/telefónico al tocar puertas y textos de UI */
+.cas-cell,
+.cas-tag,
+.cas-num,
+.cas-tab,
+.cas-btn {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
 }

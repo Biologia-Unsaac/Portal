@@ -98,7 +98,8 @@
     ajustarEscala();
   }
 
-  /** Aplica la ocupación real (viene del backend) sobre el plano. */
+  /** Aplica la ocupación real (viene del backend) sobre el plano.
+   *  Solo cambia clases; los clicks se manejan por delegación en #stage. */
   function pintarEstado() {
     var celdas = document.querySelectorAll(".cas-cell");
     celdas.forEach(function (celda) {
@@ -109,7 +110,6 @@
       } else {
         celda.classList.remove("alquilado");
         celda.classList.add("free");
-        celda.addEventListener("click", toggleSeleccion);
       }
     });
   }
@@ -117,9 +117,8 @@
   /* -------------------------------------------------------------------------
      Selección de puertas y modal
      ------------------------------------------------------------------------- */
-  function toggleSeleccion() {
+  function toggleSeleccion(celda) {
     if (enviando) return;
-    var celda = this;
 
     var i = seleccion.indexOf(celda);
     if (i === -1) {
@@ -331,10 +330,22 @@
   }
 
   /* -------------------------------------------------------------------------
-     Escala del plano (se adapta al ancho de la ventana)
+     Escala del plano.
+     - Pantallas amplias: reduce hasta caber todo el plano.
+     - Pantallas angostas (celulares): NO encoge; las puertas quedan legibles
+       y el plano se desplaza con scroll horizontal (estilo swipe).
      ------------------------------------------------------------------------- */
   function ajustarEscala() {
     var stage = document.getElementById("stage");
+    var wrap  = document.querySelector(".cas-stage-wrap");
+
+    if (window.innerWidth < 720) {
+      stage.style.transform = "none";
+      wrap.classList.add("scroll");
+      return;
+    }
+
+    wrap.classList.remove("scroll");
     var avail = Math.min(window.innerWidth, window.innerHeight * 2) - 60;
     var scale = Math.min(1, avail / stage.scrollWidth);
     stage.style.transform = "scale(" + scale + ")";
@@ -400,6 +411,12 @@
     document.getElementById("form-inscripcion").addEventListener("submit", enviarInscripcion);
     document.getElementById("form-consultar").addEventListener("submit", consultar);
     document.getElementById("form-renovar").addEventListener("submit", renovar);
+
+    // Delegación: un solo listener para todas las puertas del plano.
+    document.getElementById("stage").addEventListener("click", function (ev) {
+      var celda = ev.target.closest(".cas-cell.free");
+      if (celda) toggleSeleccion(celda);
+    });
 
     window.addEventListener("resize", ajustarEscala);
 
