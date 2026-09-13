@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Biología - C.F. Biología UNSAAC</title>
+  <title>Malla Curricular · Biología UNSAAC</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/malla.css"> 
-  <link rel="stylesheet" href="css/asuntos.css">
-  <link rel="stylesheet" href="css/centros.css"> 
+  <link rel="stylesheet" href="css/malla.css">
   <script src="js/messages.js" defer></script>
+  <script src="js/malla-data.js" defer></script>
+  <script src="js/malla-logic.js" defer></script>
 </head>
-
 <body>
-      <!-- BANNER PRINCIPAL (INCLUYE HEADER SUPERPUESTO) -->
   <div class="hero-container">
     <header class="header-trapezoid">
       <div class="header-content">
-        <div class="logo">
-          <p>Portal Biología</p>
-        </div>
+        <div class="logo"><p>Portal Biología</p></div>
       </div>
     </header>
 
@@ -31,22 +27,48 @@
     </div>
   </div>
 
-  <section class="toggle-section">
-    <div class="toggle-container">
-        <button class="toggle-btn active" data-target="malla-2024">Malla 2024</button>
-        <button class="toggle-btn" data-target="malla-2017">Malla 2017</button>
+  <main class="malla-page-shell">
+    <div class="page-head">
+      <h1>Malla Curricular — Biología, UNSAAC</h1>
+      <p>Plan 2018. Toca o pasa el mouse sobre un curso para ver su resumen y qué cursos habilita. Elige una de las 6 especialidades para ver su árbol de electivos.</p>
+      <div class="legend">
+        <span><i></i> curso del plan común</span>
+        <span><i class="req"></i> requisito</span>
+        <span>Créditos totales: 220 · 10 semestres</span>
+      </div>
     </div>
-  </section>
 
-  <div class="Servicios_titulo">
-    <h2>Mallas Curriculares</h2>
-    <p>Si quieres una hoja de ruta, esta es la correcta</p>
-  </div>
+    <div class="section-label">Plan común <small>estudios generales y específicos, semestre 1 a 10</small></div>
+    <div class="timeline-wrap" id="timelineWrap">
+      <div class="timeline-inner" id="timelineInner"></div>
+    </div>
 
-  <section class="malla-container" id="malla-2024">
-    <p> ACA DEBERIA HABER UNA MALLA</p>
-  </section>
-  <section class="malla-container" id="malla-2017">
-    <p> Aca deberia haber una malla</p>
-  </section>
+    <div class="section-label">Especialidad <small>elige un área — 6 disponibles</small></div>
+    <div class="area-buttons" id="areaButtons"></div>
+    <div class="area-panel" id="areaPanel">
+      <div class="empty-state">Elige una especialidad arriba para ver su árbol de cursos electivos y sus conexiones.</div>
+    </div>
+
+    <div class="detail-panel" id="detailPanel">
+      <button class="dclose" id="detailClose" aria-label="Cerrar detalle">✕</button>
+      <h5 id="dTitle"></h5>
+      <div class="meta" id="dMeta"></div>
+      <p id="dDesc"></p>
+      <div class="rel">
+        <div>
+          <h6>Requisito</h6>
+          <ul id="dReq"></ul>
+        </div>
+        <div>
+          <h6>Habilita</h6>
+          <ul id="dUnlocks"></ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
+  </footer>
 </body>
+</html>
