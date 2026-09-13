@@ -104,11 +104,12 @@
     var celdas = document.querySelectorAll(".cas-cell");
     celdas.forEach(function (celda) {
       var estado = estadoPuertas[celda.dataset.num];
-      if (estado === "Ocupado") {
-        celda.classList.remove("free");
+      celda.classList.remove("alquilado", "observado");
+      if (estado === "En Observación") {
+        celda.classList.add("observado");
+      } else if (estado === "Ocupado") {
         celda.classList.add("alquilado");
       } else {
-        celda.classList.remove("alquilado");
         celda.classList.add("free");
       }
     });
@@ -210,16 +211,15 @@
 
       if (!res.ok) return mensaje("resp-modal", res.error || "Error del servidor.", true);
 
-      // Las puertas quedaron ocupadas.
+      // La puerta quedó en revisión (amarilla) esperando la aprobación del gestor.
       seleccion.forEach(function (c) {
         c.classList.remove("selected", "free");
-        c.classList.add("alquilado");
-        estadoPuertas[c.dataset.num] = "Ocupado";
+        c.classList.add("observado");
+        estadoPuertas[c.dataset.num] = "En Observación";
       });
       actualizarContador();
       mensaje("resp-reservar",
-        "Puertas asignadas: " + (res.asignados || []).join(", ") +
-        ". Vigencia hasta " + res.vencimiento + ".", false);
+        "Casillero " + (res.casillero || "") + " en revisión. El gestor validará tu voucher; mientras tanto se muestra en amarillo.", false);
       cerrarModal();
     }).catch(function (err) {
       enviando = false;
@@ -255,8 +255,9 @@
                  esc(res.data[0].codigo) + "</p><div class=\"cas-tarjeta-estado\">";
       res.data.forEach(function (fila) {
         html += "<div class=\"cas-dato\"><span>Casillero</span><strong>" + esc(fila.casillero) + "</strong></div>";
+        html += "<div class=\"cas-dato\"><span>Semestre</span><strong>" + esc(fila.semestre || "—") + "</strong></div>";
         html += "<div class=\"cas-dato\"><span>Vence</span><strong>" + esc(fila.vencimiento) + "</strong></div>";
-        html += "<div class=\"cas-dato\"><span>Estado</span><strong><span class=\"estado-badge " + esc(fila.estado) + "\">" + esc(fila.estado) + "</span></strong></div>";
+        html += "<div class=\"cas-dato\"><span>Estado</span><strong><span class=\"estado-badge " + badgeDe(fila.estado) + "\">" + esc(fila.estado) + "</span></strong></div>";
       });
       cont.innerHTML = html + "</div>";
     }).catch(function () {
@@ -264,26 +265,75 @@
     });
   }
 
+  /** Clase CSS segura para el badge según el estado del registro. */
+  function badgeDe(estado) {
+    var mapa = { "Activo": "Activo", "En Observación": "Pendiente", "Vencido": "Vencido", "Liberado": "Liberado" };
+    return mapa[estado] || "Pendiente";
+  }
+
   function renovar(ev) {
     ev.preventDefault();
     var codigo = document.getElementById("renovar-codigo").value.trim();
+    var voucher = document.getElementById("renovar-voucher").files[0];
     if (!codigo) return;
+    if (!voucher) {
+      mensajeRenovar("Adjunta el voucher de tu renovación.", true);
+      return;
+    }
+    if (voucher.size > 5 * 1024 * 1024) {
+      mensajeRenovar("El voucher no debe superar los 5 MB.", true);
+      return;
+    }
 
     var cont = document.getElementById("renovar-resultado");
     cont.classList.remove("oculto");
-    cont.innerHTML = "<p>Renovando…</p>";
+    cont.innerHTML = "<p>Enviando renovación…</p>";
 
-    apiPost({ accion: "renovar", codigo: codigo }).then(function (res) {
+    archivoABase64(voucher).then(function (b64) {
+      return apiPost({
+        accion: "renovar",
+        codigo: codigo,
+        voucherNombre: voucher.name,
+        voucherBase64: b64
+      });
+    }).then(function (res) {
+      if (res.motivo === "sin_registro") {
+        cont.innerHTML =
+          "<p class=\"err\">" + esc(res.error || "No tienes un registro anterior.") + "</p>" +
+          "<p>Si ya pagaste, se registrará como <strong>reserva nueva</strong>.</p>" +
+          "<button type=\"button\" class=\"cas-btn cas-btn-primary\" id=\"ir-a-reservar\">Ir a reservar</button>";
+        var btn = document.getElementById("ir-a-reservar");
+        if (btn) btn.addEventListener("click", function () {
+          activarTab("reservar");
+        });
+        return;
+      }
       if (!res.ok) {
         cont.innerHTML = "<p class=\"err\">" + esc(res.error || "Error.") + "</p>";
         return;
       }
-      cont.innerHTML = "<p>Casillero(s) <strong>" + esc(res.casillero) + "</strong> renovado(s) " +
-                       "hasta <strong>" + esc(res.puertas[0].nuevo_vencimiento) + "</strong>.</p>";
+      cont.innerHTML = "<p>Tu renovación del casillero <strong>" + esc(res.casillero) +
+                       "</strong> está <strong>en revisión</strong>. El gestor la aprobará al validar tu pago.</p>";
       refrescarEstado();
     }).catch(function () {
-      cont.innerHTML = "<p class=\"err\">No se pudo conectar con el servidor.</p>";
+      mensajeRenovar("No se pudo conectar con el servidor.", true);
     });
+  }
+
+  function mensajeRenovar(texto, esError) {
+    var cont = document.getElementById("renovar-resultado");
+    cont.classList.remove("oculto");
+    cont.innerHTML = "<p class=\"" + (esError ? "err" : "ok") + "\">" + esc(texto) + "</p>";
+  }
+
+  /** Cambia a la pestaña indicada (data-tab). */
+  function activarTab(nombre) {
+    document.querySelectorAll(".cas-tab").forEach(function (tab) {
+      tab.classList.remove("active");
+      document.getElementById("panel-" + tab.dataset.tab).classList.remove("active");
+      if (tab.dataset.tab === nombre) tab.classList.add("active");
+    });
+    document.getElementById("panel-" + nombre).classList.add("active");
   }
 
   /* -------------------------------------------------------------------------
@@ -301,6 +351,12 @@
       estadoPuertas = {};
       res.data.puertas.forEach(function (p) { estadoPuertas[p.n] = p.estado; });
       document.getElementById("libres-num").textContent = res.data.libres;
+      var sem = document.getElementById("semestre-cr");
+      if (sem) {
+        sem.textContent = res.data.semestre
+          ? "Semestre lectivo: " + res.data.semestre
+          : "Semestre no configurado";
+      }
       pintarEstado();
     }).catch(function () {
       document.getElementById("libres-num").textContent = "—";

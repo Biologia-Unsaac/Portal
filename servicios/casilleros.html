@@ -29,7 +29,7 @@
         <div class="cas-header">
             <span class="cas-label">SERVICIO DE CASILLEROS</span>
             <h2>Reserva de Casilleros</h2>
-            <p>Elige tus puertas en el plano, sube tu voucher de pago y quedan asignadas al instante.</p>
+            <p>Elige tu casillero en el plano, sube tu voucher de pago y queda <strong>en revisión</strong> hasta que el gestor valide tu pago.</p>
         </div>
 
         <!-- INTERRUPTOR DE ACCIÓN -->
@@ -46,8 +46,10 @@
                 <div class="cas-leyenda">
                     <span class="cas-ley azul"></span> Libre serie A
                     <span class="cas-ley celeste"></span> Libre serie C
+                    <span class="cas-ley observado"></span> En revisión
                     <span class="cas-ley ocupado"></span> Ocupada
                 </div>
+                <p id="semestre-cr" class="cas-semestre">—</p>
                 <div class="cas-stage-wrap">
                     <div class="cas-stage" id="stage"></div>
                 </div>
@@ -59,12 +61,13 @@
                     <span class="cas-info-num" id="libres-num">–</span>
                     <p>Casilleros disponibles</p>
                 </div>
-                <div class="cas-note">Haz clic en una o más puertas libres (azules o celestes) para inscribirlas. La reserva queda confirmada al adjuntar tu voucher de pago.</div>
+                <div class="cas-note">Elige UNA puerta libre (azul o celeste). Al adjuntar tu voucher, la puerta queda <strong>en revisión</strong> y el gestor la activa al validar tu pago (por semestre lectivo).</div>
                 <ul class="cas-reglas">
-                    <li>Selecciona las puertas que quieras del plano.</li>
-                    <li>Adjunta el voucher de pago para cada reserva.</li>
-                    <li>La vigencia es de un semestre (180 días).</li>
-                    <li>Al vencer, renueva desde la pestaña "Renovar".</li>
+                    <li>Cada estudiante alquila solo UN casillero (Ley Samuel).</li>
+                    <li>Adjunta el voucher de pago; quedará en revisión hasta ser validado.</li>
+                    <li>La vigencia es el semestre lectivo (ej. 2026-II).</li>
+                    <li>Al cambiar de semestre, renueva desde la pestaña "Renovar" para conservar tu casillero.</li>
+                    <li>Reclamos: <strong>Emerzon Zea · 925535748</strong>.</li>
                 </ul>
             </div>
         </div>
@@ -73,14 +76,19 @@
         <div class="cas-panel" id="panel-renovar">
             <div class="cas-panel-ficha">
                 <h3>Renovar casillero</h3>
-                <p>Si tu casillero está por vencer o ya venció, renueva para conservar tu número.</p>
+                <p>Al empezar un nuevo semestre, renueva para conservar tu casillero. Sube el voucher de tu renovación; quedará en revisión hasta que el gestor la apruebe.</p>
 
                 <form id="form-renovar" class="cas-form">
                     <label class="cas-field">
                         <span>Código universitario</span>
                         <input type="text" id="renovar-codigo" name="codigo" placeholder="Ej: 231234" required maxlength="6" autocomplete="off">
                     </label>
-                    <button type="submit" class="cas-btn cas-btn-primary">Renovar</button>
+                    <label class="cas-field">
+                        <span>Voucher de renovación</span>
+                        <input type="file" id="renovar-voucher" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,image/*" required>
+                        <small>Solo esto es posible si ya alquilaste en un semestre anterior.</small>
+                    </label>
+                    <button type="submit" class="cas-btn cas-btn-primary">Enviar renovación</button>
                 </form>
 
                 <div id="renovar-resultado" class="cas-resultado oculto" aria-live="polite"></div>
