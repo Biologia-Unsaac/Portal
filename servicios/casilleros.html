@@ -27,81 +27,46 @@
     <section class="cas-section">
 
         <div class="cas-header">
-            <span class="cas-label">CASILLEROS</span>
+            <span class="cas-label">SERVICIO DE CASILLEROS</span>
             <h2>Reserva de Casilleros</h2>
-            <p>Registra o renueva tu casillero de la Escuela Profesional de Biología.</p>
+            <p>Elige tus puertas en el plano, sube tu voucher de pago y quedan asignadas al instante.</p>
         </div>
 
         <!-- INTERRUPTOR DE ACCIÓN -->
         <div class="cas-tabs">
-            <button type="button" class="cas-tab active" data-tab="nuevo">Nuevo registro</button>
+            <button type="button" class="cas-tab active" data-tab="reservar">Reservar</button>
             <button type="button" class="cas-tab" data-tab="renovar">Renovar</button>
             <button type="button" class="cas-tab" data-tab="consultar">Consultar</button>
         </div>
 
-        <!-- PANEL: NUEVO REGISTRO -->
-        <div class="cas-panel active" id="panel-nuevo">
-            <div class="cas-panel-ficha">
-                <h3>Primer registro</h3>
-                <p>Si aún no tienes casillero asignado, completa este formulario. La asignación es por orden de llegada según disponibilidad.</p>
-
-                <form id="form-nuevo" class="cas-form">
-                    <label class="cas-field">
-                        <span>Código universitario</span>
-                        <input type="text" id="nuevo-codigo" name="codigo" placeholder="Ej: 17123415" required maxlength="20" autocomplete="off">
-                    </label>
-
-                    <label class="cas-field">
-                        <span>Nombres y apellidos</span>
-                        <input type="text" id="nuevo-nombre" name="nombre" placeholder="Ej: Juan Pérez Mamani" required autocomplete="off">
-                    </label>
-
-                    <div class="cas-fila-doble">
-                        <label class="cas-field">
-                            <span>Ciclo</span>
-                            <select id="nuevo-ciclo" name="ciclo" required>
-                                <option value="">Selecciona...</option>
-                                <option value="I">I</option>
-                                <option value="II">II</option>
-                                <option value="III">III</option>
-                                <option value="IV">IV</option>
-                                <option value="V">V</option>
-                                <option value="VI">VI</option>
-                                <option value="VII">VII</option>
-                                <option value="VIII">VIII</option>
-                                <option value="IX">IX</option>
-                                <option value="X">X</option>
-                            </select>
-                        </label>
-                        <label class="cas-field">
-                            <span>Casillero (opcional)</span>
-                            <input type="number" id="nuevo-casillero" name="casillero" placeholder="Auto" min="1" max="999">
-                        </label>
-                    </div>
-
-                    <label class="cas-field">
-                        <span>Correo (opcional)</span>
-                        <input type="email" id="nuevo-correo" name="correo" placeholder="nombre@unsaac.edu.pe" autocomplete="off">
-                    </label>
-
-                    <button type="submit" class="cas-btn cas-btn-primary">Registrarme</button>
-                </form>
-
-                <p id="resp-nuevo" class="cas-respuesta" role="status"></p>
-            </div>
+        <!-- PANEL: RESERVAR (plano interactivo) -->
+        <div class="cas-panel active" id="panel-reservar">
 
             <aside class="cas-info">
                 <div class="cas-info-bloque">
-                    <span class="cas-info-num" id="libres-nuevo">–</span>
+                    <span class="cas-info-num" id="libres-num">–</span>
                     <p>Casilleros disponibles</p>
                 </div>
+                <p class="cas-note">Haz clic en una o más puertas libres (azules o celestes) para inscribirlas.</p>
                 <ul class="cas-reglas">
+                    <li>Selecciona las puertas que quieras del plano.</li>
+                    <li>Adjunta el voucher de pago para cada reserva.</li>
                     <li>La vigencia es de un semestre (180 días).</li>
-                    <li>Solo se permite un casillero por alumno.</li>
-                    <li>Al vencer, debes renovar para conservar el número.</li>
-                    <li>Si renuncias, el casillero queda libre.</li>
+                    <li>Al vencer, renueva desde la pestaña "Renovar".</li>
                 </ul>
             </aside>
+
+            <div class="cas-plano">
+                <div class="cas-leyenda">
+                    <span class="cas-ley azul"></span> Libre serie A
+                    <span class="cas-ley celeste"></span> Libre serie C
+                    <span class="cas-ley ocupado"></span> Ocupada
+                </div>
+                <div class="cas-stage-wrap">
+                    <div class="cas-stage" id="stage"></div>
+                </div>
+                <p id="resp-reservar" class="cas-respuesta" role="status"></p>
+            </div>
         </div>
 
         <!-- PANEL: RENOVACIÓN -->
@@ -118,7 +83,7 @@
                     <button type="submit" class="cas-btn cas-btn-primary">Renovar</button>
                 </form>
 
-                <div id="renovar-resultado" class="cas-resultado" aria-live="polite"></div>
+                <div id="renovar-resultado" class="cas-resultado oculto" aria-live="polite"></div>
             </div>
         </div>
 
@@ -126,7 +91,7 @@
         <div class="cas-panel" id="panel-consultar">
             <div class="cas-panel-ficha">
                 <h3>Consultar mi casillero</h3>
-                <p>Ingresa tu código para ver el estado de tu casillero.</p>
+                <p>Ingresa tu código para ver el estado de tus casilleros.</p>
 
                 <form id="form-consultar" class="cas-form">
                     <label class="cas-field">
@@ -136,7 +101,7 @@
                     <button type="submit" class="cas-btn cas-btn-primary">Consultar</button>
                 </form>
 
-                <div id="consultar-resultado" class="cas-resultado" aria-live="polite"></div>
+                <div id="consultar-resultado" class="cas-resultado oculto" aria-live="polite"></div>
             </div>
         </div>
 
@@ -145,6 +110,70 @@
     <footer>
         <p>© C.F. Biología UNSAAC · Escuela Profesional de Biología</p>
     </footer>
+
+    <!-- MODAL DE INSCRIPCIÓN -->
+    <div class="cas-modal-overlay hidden" id="modal">
+        <div class="cas-modal">
+            <h2>Inscribir casilleros</h2>
+            <p class="cas-modal-info">Seleccionados: <span id="selList">–</span></p>
+
+            <form id="form-inscripcion" class="cas-form">
+                <label class="cas-field">
+                    <span>Nombre completo</span>
+                    <input type="text" id="f-nombre" name="nombre" placeholder="Ej.: Juan Pérez Gómez" required autocomplete="off">
+                </label>
+
+                <div class="cas-fila-doble">
+                    <label class="cas-field">
+                        <span>Código universitario</span>
+                        <input type="text" id="f-codigo" name="codigo" inputmode="numeric" maxlength="20" placeholder="Ej: 17123415" required autocomplete="off">
+                    </label>
+                    <label class="cas-field">
+                        <span>Celular</span>
+                        <input type="text" id="f-celular" name="celular" inputmode="numeric" maxlength="9" placeholder="9 dígitos, ej: 9X XXXX XXX" required autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="cas-fila-doble">
+                    <label class="cas-field">
+                        <span>Ciclo (opcional)</span>
+                        <select id="f-ciclo" name="ciclo">
+                            <option value="">Selecciona...</option>
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                            <option value="VI">VI</option>
+                            <option value="VII">VII</option>
+                            <option value="VIII">VIII</option>
+                            <option value="IX">IX</option>
+                            <option value="X">X</option>
+                        </select>
+                    </label>
+                    <label class="cas-field">
+                        <span>Correo (opcional)</span>
+                        <input type="email" id="f-correo" name="correo" placeholder="nombre@unsaac.edu.pe" autocomplete="off">
+                    </label>
+                </div>
+
+                <label class="cas-field">
+                    <span>Voucher de pago (obligatorio)</span>
+                    <div class="cas-drop" id="drop">
+                        Arrastra o haz clic para subir el voucher
+                        <input type="file" id="f-vaucher" name="vaucher" accept="image/*,.pdf" required>
+                    </div>
+                </label>
+
+                <p id="resp-modal" class="cas-respuesta" role="status"></p>
+
+                <div class="cas-actions">
+                    <button type="button" class="cas-btn cas-btn-ghost" id="cancelBtn">Cancelar</button>
+                    <button type="submit" class="cas-btn cas-btn-primary" id="confirmBtn">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         window.APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNYHK9VU5RhoqJruaopKyTkRKohbtHjxHN8sJx-v11G5b-YyR2XZZW7sjCrHsbwIcizA/exec";

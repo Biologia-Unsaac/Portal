@@ -326,3 +326,276 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   PLANO DE CASILLEROS (selector visual de puertas)
+   ========================================================================== */
+.cas-plano {
+  flex: 1;
+  background-color: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 18px;
+  padding: 30px 20px 26px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.cas-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #4a5568;
+  margin-bottom: 18px;
+}
+
+.cas-ley {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  vertical-align: -2px;
+  margin-right: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.cas-ley.azul    { background: linear-gradient(135deg, #3f7ccf 0%, #245ba8 55%, #14366a 100%); }
+.cas-ley.celeste { background: linear-gradient(135deg, #8fd0f5 0%, #57b0e8 55%, #1f669b 100%); }
+.cas-ley.ocupado { background: linear-gradient(135deg, #9aa3ad 0%, #7b8490 55%, #5f6770 100%); }
+
+.cas-stage-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 6px;
+  overflow: hidden;
+}
+
+.cas-stage {
+  display: flex;
+  align-items: flex-end;
+  gap: 34px;
+  transform-origin: bottom center;
+}
+
+.cas-locker-group {
+  border-radius: 6px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.cas-locker-group.azul {
+  --cas-cell-w: 60px;
+  --cas-cell-h: 82px;
+  --cas-joint: 5px;
+  --cas-base: #245ba8;
+  --cas-dark: #14366a;
+  --cas-light: #3f7ccf;
+  padding: 9px;
+  background: #163c70;
+  border: 2px solid rgba(0, 0, 0, 0.35);
+}
+
+.cas-locker-group.celeste {
+  --cas-cell-w: 70px;
+  --cas-cell-h: 96px;
+  --cas-joint: 6px;
+  --cas-base: #57b0e8;
+  --cas-dark: #1f669b;
+  --cas-light: #8fd0f5;
+  padding: 10px;
+  background: #2c7fb8;
+  border: 2px solid rgba(0, 0, 0, 0.35);
+}
+
+.cas-grid {
+  display: grid;
+  grid-template-rows: repeat(4, var(--cas-cell-h));
+  gap: var(--cas-joint);
+}
+
+.cas-cell {
+  position: relative;
+  width: var(--cas-cell-w);
+  height: var(--cas-cell-h);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  background: linear-gradient(135deg, var(--cas-light) 0%, var(--cas-base) 55%, var(--cas-dark) 100%);
+  box-shadow:
+    inset 0 0 5px rgba(0, 0, 0, 0.45),
+    inset 0 2px 3px rgba(255, 255, 255, 0.35),
+    inset 0 -4px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: box-shadow 0.15s, filter 0.15s;
+}
+
+.cas-cell::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #ffffff, #cfe3f7 40%, #9db4cd);
+  box-shadow: inset 0 -3px 3px rgba(0, 0, 0, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.9);
+}
+
+.cas-tag {
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.cas-num {
+  position: absolute;
+  right: 4px;
+  bottom: 3px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.cas-cell:hover {
+  filter: brightness(1.08);
+}
+
+.cas-cell.selected {
+  box-shadow:
+    0 0 0 3px #ffd54a,
+    0 0 20px rgba(255, 213, 74, 0.85),
+    inset 0 0 5px rgba(0, 0, 0, 0.45);
+}
+
+.cas-cell.alquilado {
+  background: linear-gradient(135deg, #9aa3ad 0%, #7b8490 55%, #5f6770 100%);
+  cursor: not-allowed;
+  filter: none;
+}
+
+.cas-cell.alquilado::after {
+  background: linear-gradient(to bottom, #cfd3d8, #aeb3b9 40%, #83898f);
+}
+
+.cas-cell.alquilado::before {
+  content: "Ocupada";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 11px;
+  text-align: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+  padding: 1px 0;
+}
+
+.cas-note {
+  font-size: 0.85rem;
+  color: #4a5568;
+  line-height: 1.5;
+  background: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 16px;
+  padding: 16px 20px;
+}
+
+/* ==========================================================================
+   MODAL DE INSCRIPCIÓN
+   ========================================================================== */
+.cas-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 24px;
+}
+
+.cas-modal-overlay.hidden {
+  display: none;
+}
+
+.cas-modal {
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  padding: 26px;
+}
+
+.cas-modal h2 {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  color: #1b3a5c;
+}
+
+.cas-modal-info {
+  margin: 0 0 18px;
+  color: #5d6f82;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.cas-drop {
+  width: 100%;
+  padding: 18px 12px;
+  border: 1.5px dashed #c4cbd6;
+  border-radius: 8px;
+  text-align: center;
+  color: #5d6f82;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.cas-drop:hover,
+.cas-drop.hover {
+  border-color: #0c7120;
+  background: #f0f7f0;
+}
+
+.cas-drop input[type="file"] {
+  display: none;
+}
+
+.cas-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.cas-btn-ghost {
+  background-color: #eef2f6;
+  color: #2b3a4a;
+}
+
+.cas-btn-ghost:hover {
+  background-color: #dfe6ee;
+}
+
+/* --- Responsivo del plano --- */
+@media (max-width: 720px) {
+  .cas-stage {
+    gap: 18px;
+  }
+
+  .cas-locker-group.azul    { --cas-cell-w: 46px; --cas-cell-h: 64px; }
+  .cas-locker-group.celeste { --cas-cell-w: 54px; --cas-cell-h: 76px; }
+}
