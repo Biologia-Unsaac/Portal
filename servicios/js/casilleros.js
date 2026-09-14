@@ -3,6 +3,11 @@
 
   var URL = (window.APPSCRIPT_URL || "").trim();
 
+  /* Frescura máxima del estado guardado localmente (ms). Con TTL corto se
+     evita mostrar planos muy viejos y aun así revalidar en segundo plano. */
+  var ESTADO_TTL = 15000;
+  var ESTADO_CACHE_KEY = "cas_estado_v1";
+
   /* -------------------------------------------------------------------------
      CONFIGURACIÓN DEL PLANO (68 puertas: serie A azul + serie C celeste)
      ------------------------------------------------------------------------- */
@@ -33,6 +38,32 @@
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body)
     }).then(function (r) { return r.json(); });
+  }
+
+  /* Usa el fetch anticipado lanzado desde el <head> de la página si todavía
+     no fue consumido; si no, hace una llamada normal. */
+  function descargarEstado() {
+    var p = window.__estadoFetch;
+    if (p) { window.__estadoFetch = null; return p; }
+    return apiGet({ accion: "estado" });
+  }
+
+  function estadoDesdeCache() {
+    try {
+      var obj = JSON.parse(sessionStorage.getItem(ESTADO_CACHE_KEY) || "null");
+      if (obj && obj.datos && obj.datos.puertas) return obj;
+    } catch (e) {}
+    return null;
+  }
+
+  function estadoGuardarCache(datos) {
+    try {
+      sessionStorage.setItem(ESTADO_CACHE_KEY, JSON.stringify({ ts: Date.now(), datos: datos }));
+    } catch (e) {}
+  }
+
+  function estadoBorrarCache() {
+    try { sessionStorage.removeItem(ESTADO_CACHE_KEY); } catch (e) {}
   }
 
   // Convierte un File a base64 (sin el prefijo "data:...;base64,").
@@ -217,6 +248,8 @@
         c.classList.add("observado");
         estadoPuertas[c.dataset.num] = "En Observación";
       });
+      // El snapshot guardado quedó viejo: forzar descarga en la próxima visita.
+      estadoBorrarCache();
       actualizarContador();
       mensaje("resp-reservar",
         "Casillero " + (res.casillero || "") + " en revisión. El gestor validará tu voucher; mientras tanto se muestra en amarillo.", false);
@@ -314,7 +347,7 @@
       }
       cont.innerHTML = "<p>Tu renovación del casillero <strong>" + esc(res.casillero) +
                        "</strong> está <strong>en revisión</strong>. El gestor la aprobará al validar tu pago.</p>";
-      refrescarEstado();
+      refrescarEstado(true);
     }).catch(function () {
       mensajeRenovar("No se pudo conectar con el servidor.", true);
     });
@@ -338,31 +371,59 @@
 
   /* -------------------------------------------------------------------------
      Estado general del plano (contador + ocupación)
+     - Caché local (sessionStorage) con TTL: recargas/regresos al instante.
+     - Stale-while-revalidate: si hay snapshot fresco lo pinta primero y
+       refresca en segundo plano para no mostrar datos viejos por mucho rato.
      ------------------------------------------------------------------------- */
-  function refrescarEstado() {
+  function refrescarEstado(fuerza) {
     if (!URL) {
       document.getElementById("libres-num").textContent = "—";
       mensaje("resp-reservar", "Falta configurar window.APPSCRIPT_URL.", true);
       return;
     }
-    apiGet({ accion: "estado" }).then(function (res) {
-      if (!res.ok) throw new Error(res.error || "Error");
-      // Reconstruye estadoPuertas y repinta el plano.
-      estadoPuertas = {};
-      res.data.puertas.forEach(function (p) { estadoPuertas[p.n] = p.estado; });
-      document.getElementById("libres-num").textContent = res.data.libres;
-      var sem = document.getElementById("semestre-cr");
-      if (sem) {
-        sem.textContent = res.data.semestre
-          ? "Semestre lectivo: " + res.data.semestre
-          : "Semestre no configurado";
+    var cache = estadoDesdeCache();
+    if (!fuerza && cache && (Date.now() - cache.ts) < ESTADO_TTL) {
+      aplicarEstado(cache.datos);
+      descargarEstado().then(function (res) {
+        if (res && res.ok) {
+          estadoGuardarCache(res.data);
+          aplicarEstado(res.data);
+        }
+      }).catch(function () {});
+      return;
+    }
+    cargarEstadoDesdeRed();
+  }
+
+  function cargarEstadoDesdeRed() {
+    descargarEstado().then(function (res) {
+      if (res && res.ok) {
+        estadoGuardarCache(res.data);
+        aplicarEstado(res.data);
+      } else {
+        mostrarErrorEstado(res && res.error || "Error");
       }
-      pintarEstado();
     }).catch(function () {
-      document.getElementById("libres-num").textContent = "—";
-      mensaje("resp-reservar",
-        "No se pudo cargar el estado. Verifica que el Web App esté publicado con acceso a 'Cualquier usuario'.", true);
+      mostrarErrorEstado("No se pudo cargar el estado. Verifica que el Web App esté publicado con acceso a 'Cualquier usuario'.");
     });
+  }
+
+  function aplicarEstado(data) {
+    estadoPuertas = {};
+    data.puertas.forEach(function (p) { estadoPuertas[p.n] = p.estado; });
+    document.getElementById("libres-num").textContent = data.libres;
+    var sem = document.getElementById("semestre-cr");
+    if (sem) {
+      sem.textContent = data.semestre
+        ? "Semestre lectivo: " + data.semestre
+        : "Semestre no configurado";
+    }
+    pintarEstado();
+  }
+
+  function mostrarErrorEstado(msg) {
+    document.getElementById("libres-num").textContent = "—";
+    mensaje("resp-reservar", msg || "No se pudo cargar el estado.", true);
   }
 
   function actualizarContador() {

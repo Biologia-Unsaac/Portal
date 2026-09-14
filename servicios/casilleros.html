@@ -7,6 +7,17 @@
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="css/casilleros.css?v=20260913">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<script>
+    window.APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXvPUBKZwZpWFwHyMY94TWCuX-cpJpCAtQTKyBTy4rgvjbZVXI6b02UySSpjtT2--0/exec";
+    /* Adelantamos la consulta de estado: se solapa con la carga del HTML/CSS. */
+    (function () {
+        var u = (window.APPSCRIPT_URL || "").trim();
+        if (!u) { window.__estadoFetch = null; return; }
+        window.__estadoFetch = fetch(u + "?accion=estado").then(function (r) { return r.json(); });
+    })();
+</script>
 </head>
 <body>
     <div class="back-home-wrap">
@@ -229,9 +240,6 @@
         </div>
     </div>
 
-    <script>
-        window.APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXvPUBKZwZpWFwHyMY94TWCuX-cpJpCAtQTKyBTy4rgvjbZVXI6b02UySSpjtT2--0/exec";
-    </script>
-    <script src="js/casilleros.js?v=20260913"></script>
+    <script src="js/casilleros.js?v=20260913v2"></script>
 </body>
 </html>
