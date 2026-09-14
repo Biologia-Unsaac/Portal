@@ -66,6 +66,42 @@
     try { sessionStorage.removeItem(ESTADO_CACHE_KEY); } catch (e) {}
   }
 
+  /* Comprime/escala imágenes de voucher ANTES de subirlas: una foto de cámara
+     puede pesar 5-12 MB y trabar la carga en el gestor. PDFs y otros archivos
+     se envían tal cual (máx. ~1280 px de lado mayor, JPEG ~82%). */
+  function escalarImagen(file, maxLado, calidad) {
+    return new Promise(function (resolve) {
+      if (!file.type || file.type.indexOf("image/") !== 0 ||
+          !/^image\/(jpeg|png|gif|webp|bmp)$/i.test(file.type)) { resolve(file); return; }
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var ladoMayor = Math.max(img.width, img.height);
+        var escala = Math.min(1, maxLado / (ladoMayor || 1));
+        if (escala >= 1) { URL.revokeObjectURL(url); resolve(file); return; }
+        var ancho = Math.max(1, Math.round(img.width * escala));
+        var alto  = Math.max(1, Math.round(img.height * escala));
+        var canvas = document.createElement("canvas");
+        canvas.width = ancho; canvas.height = alto;
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, ancho, alto);
+        ctx.drawImage(img, 0, 0, ancho, alto);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(function (blob) {
+          if (!blob) { resolve(file); return; }
+          var base = (file.name || "voucher").replace(/\.[^.]*$/, "");
+          resolve(new File([blob], base + ".jpg", { type: "image/jpeg" }));
+        }, "image/jpeg", calidad);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  function prepararVoucher(file) { return escalarImagen(file, 1280, 0.82); }
+  function esImagen(file) { return !!(file && /^image\//.test(file.type || "")); }
+
   // Convierte un File a base64 (sin el prefijo "data:...;base64,").
   function archivoABase64(file) {
     return new Promise(function (resolve, reject) {
@@ -211,7 +247,7 @@
     if (!/^9\d{8}$/.test(celular))
       return mensaje("resp-modal", "El celular debe tener 9 dígitos y empezar con 9.", true);
     if (!voucher)  return mensaje("resp-modal", "Adjunta el voucher de pago.", true);
-    if (voucher.size > 5 * 1024 * 1024)
+    if (voucher.size > (esImagen(voucher) ? 25 * 1024 * 1024 : 5 * 1024 * 1024))
       return mensaje("resp-modal", "El voucher no debe superar los 5 MB.", true);
     if (!URL || URL.indexOf("script.google.com") === -1)
       return mensaje("resp-modal", "Falta configurar window.APPSCRIPT_URL.", true);
@@ -223,17 +259,19 @@
 
     var numLista = seleccion.map(function (c) { return c.dataset.num; });
 
-    archivoABase64(voucher).then(function (b64) {
-      return apiPost({
-        accion: "registrar",
-        codigo: codigo,
-        nombre: nombre,
-        ciclo: ciclo,
-        correo: correo,
-        telefono: celular,
-        casillero: numLista,
-        voucherNombre: voucher.name,
-        voucherBase64: b64
+    prepararVoucher(voucher).then(function (archivo) {
+      return archivoABase64(archivo).then(function (b64) {
+        return apiPost({
+          accion: "registrar",
+          codigo: codigo,
+          nombre: nombre,
+          ciclo: ciclo,
+          correo: correo,
+          telefono: celular,
+          casillero: numLista,
+          voucherNombre: archivo.name,
+          voucherBase64: b64
+        });
       });
     }).then(function (res) {
       enviando = false;
@@ -313,7 +351,7 @@
       mensajeRenovar("Adjunta el voucher de tu renovación.", true);
       return;
     }
-    if (voucher.size > 5 * 1024 * 1024) {
+    if (voucher.size > (esImagen(voucher) ? 25 * 1024 * 1024 : 5 * 1024 * 1024)) {
       mensajeRenovar("El voucher no debe superar los 5 MB.", true);
       return;
     }
@@ -322,12 +360,14 @@
     cont.classList.remove("oculto");
     cont.innerHTML = "<p>Enviando renovación…</p>";
 
-    archivoABase64(voucher).then(function (b64) {
-      return apiPost({
-        accion: "renovar",
-        codigo: codigo,
-        voucherNombre: voucher.name,
-        voucherBase64: b64
+    prepararVoucher(voucher).then(function (archivo) {
+      return archivoABase64(archivo).then(function (b64) {
+        return apiPost({
+          accion: "renovar",
+          codigo: codigo,
+          voucherNombre: archivo.name,
+          voucherBase64: b64
+        });
       });
     }).then(function (res) {
       if (res.motivo === "sin_registro") {
@@ -534,7 +574,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     Huevo de pascua: 5 toques en la tarjeta de disponibles = Ley Samuel
+     Huevo de pascua: 5 toques en la tarjeta de disponibles = Ley Sam
      ------------------------------------------------------------------------- */
   function initLeySamuel() {
     var card = document.getElementById("libres-card");
@@ -543,7 +583,7 @@
       toques++;
       if (toques === 5) {
         toques = 0;
-        mensaje("resp-reservar", "Solo puedes reservar UN casillero a la vez. — Ley Samuel", false);
+        mensaje("resp-reservar", "Solo puedes reservar UN casillero a la vez. — Ley Sam", false);
         setTimeout(function () { mensaje("resp-reservar", "", false); }, 6000);
       }
     });
