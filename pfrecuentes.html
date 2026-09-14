@@ -150,9 +150,20 @@
             </details>
         </div>
 
-    </section>
+    <div class="faq-categoria">
+            <h3 class="faq-categoria-titulo">Ubicación</h3>
+            <div class="mapa-contenedor" id="mapaContenedor">
+                <button type="button" class="mapa-cargar" id="mapaCargar">
+                    <span class="mapa-cargar-icono">📍</span>
+                    <span class="mapa-cargar-txt">
+                        <strong>Ver mapa interactivo de la facultad</strong>
+                        <small>Se carga al hacer clic para no ralentizar la página</small>
+                    </span>
+                </button>
+            </div>
+        </div>
 
-    <footer class="site-footer">
+    </section>
         <div class="site-footer-inner">
             <div class="site-footer-section">
                 <h3>Quienes somos</h3>
@@ -197,6 +208,31 @@
             <p>© 2026 Portal Biología • C.F. Biología UNSAAC</p>
         </div>
     </footer>
+
+<script>
+        (function () {
+            const boton = document.getElementById('mapaCargar');
+            const contenedor = document.getElementById('mapaContenedor');
+            if (!boton || !contenedor) return;
+
+            const src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3871.34!2d-71.9593157!3d-13.5215013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916dd6075feb1679%3A0x8da20054f1f9bc47!2sFacultad%20de%20Ciencias%20Biol%C3%B3gicas%20-%20UNSAAC!5e0!3m2!1ses!2spe!4v1755500000000!5m2!1ses!2spe';
+
+            boton.addEventListener('click', function () {
+                if (boton.dataset.cargado) return;
+                boton.dataset.cargado = '1';
+                boton.remove();
+                const iframe = document.createElement('iframe');
+                iframe.src = src;
+                iframe.setAttribute('width', '100%');
+                iframe.setAttribute('height', '320');
+                iframe.setAttribute('style', 'border:0;');
+                iframe.setAttribute('loading', 'lazy');
+                iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+                iframe.setAttribute('allowfullscreen', '');
+                contenedor.appendChild(iframe);
+            });
+        })();
+    </script>
 
 </body>
 </html>

@@ -579,6 +579,45 @@
   padding: 16px 20px;
 }
 
+/* Apoyo de pago: precios y datos bancarios */
+.cas-pago {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  background: #ffffff;
+  border: 1px solid #e6ede4;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  color: #4a5568;
+}
+
+.cas-pago strong {
+  color: #0c7120;
+  margin-right: 2px;
+}
+
+.cas-pago span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cas-pago span::before {
+  content: "•";
+  color: #0c7120;
+}
+
+@media (max-width: 720px) {
+  .cas-pago {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
 /* ==========================================================================
    MODAL DE INSCRIPCIÓN
    ========================================================================== */
