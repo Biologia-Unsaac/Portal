@@ -27,9 +27,25 @@
   /* -------------------------------------------------------------------------
      Utilidades de red
      ------------------------------------------------------------------------- */
+
+  /** Convierte la respuesta en objeto. Si el backend devuelve algo que no es
+   *  JSON (p.ej. una página de error de Apps Script), arma un mensaje claro
+   *  en vez de romper el fetch y mostrar "no se pudo conectar" sin detalles. */
+  function leerJson(resp) {
+    return resp.text().then(function (texto) {
+      try { return JSON.parse(texto); }
+      catch (e) {
+        var fragmento = String(texto || "").replace(/\s+/g, " ").slice(0, 120);
+        return { ok: false, error: "El servidor respondió algo que no era JSON" +
+          (fragmento ? ": «" + fragmento + "…»" : "") +
+          ". ¿publicaste la nueva versión del Web App?" };
+      }
+    });
+  }
+
   function apiGet(params) {
     var qs = new URLSearchParams(params).toString();
-    return fetch(URL + (qs ? "?" + qs : "")).then(function (r) { return r.json(); });
+    return fetch(URL + (qs ? "?" + qs : "")).then(leerJson);
   }
 
   function apiPost(body) {
@@ -37,7 +53,7 @@
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body)
-    }).then(function (r) { return r.json(); });
+    }).then(leerJson);
   }
 
   /* Usa el fetch anticipado lanzado desde el <head> de la página si todavía
@@ -296,7 +312,8 @@
       enviando = false;
       btn.disabled = false;
       btn.textContent = "Confirmar";
-      mensaje("resp-modal", "No se pudo conectar con el servidor. Revisa que el Web App esté publicado y accesible.", true);
+      mensaje("resp-modal", "No se pudo conectar con el servidor (" +
+        (err && err.name ? err.name : "red") + "). Detalle: " + (err && err.message || "sin respuesta"), true);
     });
   }
 
@@ -331,8 +348,9 @@
         html += "<div class=\"cas-dato\"><span>Estado</span><strong><span class=\"estado-badge " + badgeDe(fila.estado) + "\">" + esc(fila.estado) + "</span></strong></div>";
       });
       cont.innerHTML = html + "</div>";
-    }).catch(function () {
-      cont.innerHTML = "<p class=\"err\">No se pudo conectar con el servidor.</p>";
+    }).catch(function (err) {
+      cont.innerHTML = "<p class=\"err\">No se pudo conectar con el servidor (" +
+        (err && err.name ? err.name : "red") + "). Detalle: " + esc(err && err.message || "sin respuesta") + "</p>";
     });
   }
 
@@ -388,8 +406,9 @@
       cont.innerHTML = "<p>Tu renovación del casillero <strong>" + esc(res.casillero) +
                        "</strong> está <strong>en revisión</strong>. El gestor la aprobará al validar tu pago.</p>";
       refrescarEstado(true);
-    }).catch(function () {
-      mensajeRenovar("No se pudo conectar con el servidor.", true);
+    }).catch(function (err) {
+      mensajeRenovar("No se pudo conectar con el servidor (" +
+        (err && err.name ? err.name : "red") + "). Detalle: " + esc(err && err.message || "sin respuesta"), true);
     });
   }
 
@@ -443,8 +462,9 @@
       } else {
         mostrarErrorEstado(res && res.error || "Error");
       }
-    }).catch(function () {
-      mostrarErrorEstado("No se pudo cargar el estado. Verifica que el Web App esté publicado con acceso a 'Cualquier usuario'.");
+    }).catch(function (err) {
+      mostrarErrorEstado("No se pudo consultar el estado del servidor (" +
+        (err && err.name ? err.name : "red") + "). Detalle: " + (err && err.message || "sin respuesta"));
     });
   }
 
@@ -463,7 +483,7 @@
 
   function mostrarErrorEstado(msg) {
     document.getElementById("libres-num").textContent = "—";
-    mensaje("resp-reservar", msg || "No se pudo cargar el estado.", true);
+    mensaje("resp-reservar", msg || "No se cargó el estado.", true);
   }
 
   function actualizarContador() {

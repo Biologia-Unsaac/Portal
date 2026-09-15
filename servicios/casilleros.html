@@ -15,7 +15,14 @@
     (function () {
         var u = (window.APPSCRIPT_URL || "").trim();
         if (!u) { window.__estadoFetch = null; return; }
-        window.__estadoFetch = fetch(u + "?accion=estado").then(function (r) { return r.json(); });
+        window.__estadoFetch = fetch(u + "?accion=estado").then(function (resp) {
+            return resp.text().then(function (texto) {
+                try { return JSON.parse(texto); }
+                catch (e) {
+                    return { ok: false, error: "El servidor respondió algo que no era JSON (¿publicaste la nueva versión del Web App?)." };
+                }
+            });
+        });
     })();
 </script>
 </head>
