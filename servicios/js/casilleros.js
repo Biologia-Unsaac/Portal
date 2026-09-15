@@ -3,9 +3,10 @@
 
   var URL = (window.APPSCRIPT_URL || "").trim();
 
-  /* Frescura máxima del estado guardado localmente (ms). Con TTL corto se
-     evita mostrar planos muy viejos y aun así revalidar en segundo plano. */
-  var ESTADO_TTL = 15000;
+  /* Frescura máxima del estado guardado localmente (ms). 2 min: la mayoría de
+     visitas se pintan al instante desde caché y se revalidan en segundo plano;
+     el plano de casilleros cambia pocas veces al día, no necesita 15 s. */
+  var ESTADO_TTL = 120000;
   var ESTADO_CACHE_KEY = "cas_estado_v1";
 
   /* -------------------------------------------------------------------------
@@ -177,7 +178,9 @@
       stage.appendChild(seccion);
     });
 
-    pintarEstado();
+    // NO llamar pintarEstado() aquí: el plano nace vacío y se colorea cuando
+    // llega la respuesta del servidor (aplicarEstado). Evita un flash inicial
+    // de "todo verde" aunque haya casilleros ocupados.
     ajustarEscala();
   }
 
@@ -440,6 +443,12 @@
       mensaje("resp-reservar", "Falta configurar window.APPSCRIPT_URL.", true);
       return;
     }
+
+    // Sin datos todavía: no pintar "0 disponibles" prematuro mientras carga.
+    if (Object.keys(estadoPuertas).length === 0) {
+      document.getElementById("libres-num").textContent = "…";
+    }
+
     var cache = estadoDesdeCache();
     if (!fuerza && cache && (Date.now() - cache.ts) < ESTADO_TTL) {
       aplicarEstado(cache.datos);
@@ -454,16 +463,30 @@
     cargarEstadoDesdeRed();
   }
 
-  function cargarEstadoDesdeRed() {
+  function cargarEstadoDesdeRed(intento) {
+    intento = intento || 1;
+    var stage = document.getElementById("stage");
+    if (stage && !stage.dataset.cargado) stage.style.opacity = "0.4";
+
     descargarEstado().then(function (res) {
+      if (stage) { stage.style.opacity = ""; stage.dataset.cargado = "1"; }
       if (res && res.ok) {
         estadoGuardarCache(res.data);
         aplicarEstado(res.data);
       } else {
-        mostrarErrorEstado(res && res.error || "Error");
+        mostrarErrorEstado(res && res.error || "Error del servidor.");
       }
     }).catch(function (err) {
-      mostrarErrorEstado("No se pudo consultar el estado del servidor (" +
+      if (stage) stage.style.opacity = "";
+      /* Un reintento automático antes de rendirse (el Web App puede estar en
+         arranque en frío = respuesta lenta que acaba fallando el fetch). */
+      if (intento < 2) {
+        setTimeout(function () { cargarEstadoDesdeRed(2); }, 3000);
+        if (!URL) return;
+        mensaje("resp-reservar", "Conectando con el servidor… reintentando en 3 s.", false);
+        return;
+      }
+      mostrarErrorEstado("No se pudo consultar el estado (" +
         (err && err.name ? err.name : "red") + "). Detalle: " + (err && err.message || "sin respuesta"));
     });
   }
