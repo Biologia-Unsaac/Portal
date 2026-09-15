@@ -9,6 +9,11 @@
   var ESTADO_TTL = 120000;
   var ESTADO_CACHE_KEY = "cas_estado_v1";
 
+  /* Tope de espera por cada fetch. Apps Script en arranque en frío tarda
+     entre 6 y 20 s; si la respuesta no llega en este plazo, se aborta y el
+     frontend reintenta (ver reintentoEstado/reintentoConsultar). */
+  var FETCH_TIMEOUT = 20000;
+
   /* -------------------------------------------------------------------------
      CONFIGURACIÓN DEL PLANO (68 puertas: serie A azul + serie C celeste)
      ------------------------------------------------------------------------- */
@@ -44,17 +49,41 @@
     });
   }
 
+  /** Igual que fetch(), pero aborta si la respuesta tarda más de
+   *  FETCH_TIMEOUT (evita que la UI quede colgada en "consultando…"). */
+  function fetchConTimeout(url, opciones) {
+    var ctr = new AbortController();
+    var t = setTimeout(function () { ctr.abort(); }, FETCH_TIMEOUT);
+    opciones = opciones || {};
+    opciones.signal = ctr.signal;
+    return fetch(url, opciones).then(function (r) {
+      clearTimeout(t);
+      return r;
+    }, function (e) {
+      clearTimeout(t);
+      throw e;
+    });
+  }
+
   function apiGet(params) {
     var qs = new URLSearchParams(params).toString();
-    return fetch(URL + (qs ? "?" + qs : "")).then(leerJson);
+    return fetchConTimeout(URL + (qs ? "?" + qs : "")).then(leerJson);
   }
 
   function apiPost(body) {
-    return fetch(URL, {
+    return fetchConTimeout(URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body)
     }).then(leerJson);
+  }
+
+  /** ¿Falla transitoria? solo cuando el Web App respondió algo que no era
+   *  JSON (p.ej. página HTML de error de Apps Script en arranque en frío).
+   *  Los errores de negocio reales (ok:false con "No se encontró...") NO
+   *  se reintentan. */
+  function esFalloTransitorio(res) {
+    return res && res.ok === false && /no era JSON/.test(res.error || "");
   }
 
   /* Usa el fetch anticipado lanzado desde el <head> de la página si todavía
@@ -297,7 +326,12 @@
       btn.disabled = false;
       btn.textContent = "Confirmar";
 
-      if (!res.ok) return mensaje("resp-modal", res.error || "Error del servidor.", true);
+      if (!res.ok) {
+        var msg = res.error || "Error del servidor.";
+        if (esFalloTransitorio(res))
+          msg += " Tu solicitud puede haberse procesado; recarga y verifica antes de reintentar.";
+        return mensaje("resp-modal", msg, true);
+      }
 
       // La puerta quedó en revisión (amarilla) esperando la aprobación del gestor.
       seleccion.forEach(function (c) {
@@ -327,13 +361,22 @@
     ev.preventDefault();
     var codigo = document.getElementById("consultar-codigo").value.trim();
     if (!codigo) return;
-    mensaje("consultar-resultado", "Consultando…", false);
+    consultarIntento(codigo, 1);
+  }
+
+  function consultarIntento(codigo, intento) {
+    var mensajeConsulta = "Consultando…" + (intento > 1 ? " (reintentando)" : "");
+    mensaje("consultar-resultado", mensajeConsulta, false);
 
     apiGet({ accion: "consultar", codigo: codigo }).then(function (res) {
       var cont = document.getElementById("consultar-resultado");
       cont.classList.remove("oculto");
 
       if (!res.ok) {
+        if (intento < 2 && esFalloTransitorio(res)) {
+          setTimeout(function () { consultarIntento(codigo, 2); }, 3000);
+          return;
+        }
         cont.innerHTML = "<p class=\"err\">" + esc(res.error || "Error.") + "</p>";
         return;
       }
@@ -352,6 +395,12 @@
       });
       cont.innerHTML = html + "</div>";
     }).catch(function (err) {
+      var cont = document.getElementById("consultar-resultado");
+      cont.classList.remove("oculto");
+      if (intento < 2) {
+        setTimeout(function () { consultarIntento(codigo, 2); }, 3000);
+        return;
+      }
       cont.innerHTML = "<p class=\"err\">No se pudo conectar con el servidor (" +
         (err && err.name ? err.name : "red") + "). Detalle: " + esc(err && err.message || "sin respuesta") + "</p>";
     });
@@ -403,7 +452,10 @@
         return;
       }
       if (!res.ok) {
-        cont.innerHTML = "<p class=\"err\">" + esc(res.error || "Error.") + "</p>";
+        var msgRen = res.error || "Error.";
+        if (esFalloTransitorio(res))
+          msgRen += " Tu renovación puede haberse enviado; recarga y verifica antes de reintentar.";
+        cont.innerHTML = "<p class=\"err\">" + esc(msgRen) + "</p>";
         return;
       }
       cont.innerHTML = "<p>Tu renovación del casillero <strong>" + esc(res.casillero) +
@@ -473,6 +525,10 @@
       if (res && res.ok) {
         estadoGuardarCache(res.data);
         aplicarEstado(res.data);
+      } else if (intento < 2 && esFalloTransitorio(res)) {
+        /* Respuesta HTML del echo (arranque en frío): reintentar una vez. */
+        setTimeout(function () { cargarEstadoDesdeRed(2); }, 3000);
+        mensaje("resp-reservar", "El servidor tardó demasiado. Reintentando…", false);
       } else {
         mostrarErrorEstado(res && res.error || "Error del servidor.");
       }
