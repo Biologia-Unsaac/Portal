@@ -9,10 +9,10 @@
   var ESTADO_TTL = 120000;
   var ESTADO_CACHE_KEY = "cas_estado_v1";
 
-  /* Tope de espera por cada fetch. Apps Script en arranque en frío tarda
-     entre 6 y 20 s; si la respuesta no llega en este plazo, se aborta y el
-     frontend reintenta (ver reintentoEstado/reintentoConsultar). */
-  var FETCH_TIMEOUT = 20000;
+  /* Máximos intentos (contando el primero) antes de mostrar el error al
+     usuario. No hay timeout: si tarda, el usuario espera con el mensaje
+     "Consultando…" visible. */
+  var MAX_INTENTOS = 3;
 
   /* -------------------------------------------------------------------------
      CONFIGURACIÓN DEL PLANO (68 puertas: serie A azul + serie C celeste)
@@ -49,29 +49,13 @@
     });
   }
 
-  /** Igual que fetch(), pero aborta si la respuesta tarda más de
-   *  FETCH_TIMEOUT (evita que la UI quede colgada en "consultando…"). */
-  function fetchConTimeout(url, opciones) {
-    var ctr = new AbortController();
-    var t = setTimeout(function () { ctr.abort(); }, FETCH_TIMEOUT);
-    opciones = opciones || {};
-    opciones.signal = ctr.signal;
-    return fetch(url, opciones).then(function (r) {
-      clearTimeout(t);
-      return r;
-    }, function (e) {
-      clearTimeout(t);
-      throw e;
-    });
-  }
-
   function apiGet(params) {
     var qs = new URLSearchParams(params).toString();
-    return fetchConTimeout(URL + (qs ? "?" + qs : "")).then(leerJson);
+    return fetch(URL + (qs ? "?" + qs : "")).then(leerJson);
   }
 
   function apiPost(body) {
-    return fetchConTimeout(URL, {
+    return fetch(URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body)
@@ -349,8 +333,7 @@
       enviando = false;
       btn.disabled = false;
       btn.textContent = "Confirmar";
-      mensaje("resp-modal", "No se pudo conectar con el servidor (" +
-        (err && err.name ? err.name : "red") + "). Detalle: " + (err && err.message || "sin respuesta"), true);
+      mensaje("resp-modal", "No se pudo enviar tu solicitud. Verifica tu conexión y vuelve a intentar en unos minutos. [" + nombreError(err) + "]", true);
     });
   }
 
@@ -365,7 +348,7 @@
   }
 
   function consultarIntento(codigo, intento) {
-    var mensajeConsulta = "Consultando…" + (intento > 1 ? " (reintentando)" : "");
+    var mensajeConsulta = "Consultando…" + (intento > 1 ? " (reintento " + (intento - 1) + " de " + MAX_INTENTOS + ")" : "");
     mensaje("consultar-resultado", mensajeConsulta, false);
 
     apiGet({ accion: "consultar", codigo: codigo }).then(function (res) {
@@ -373,8 +356,8 @@
       cont.classList.remove("oculto");
 
       if (!res.ok) {
-        if (intento < 2 && esFalloTransitorio(res)) {
-          setTimeout(function () { consultarIntento(codigo, 2); }, 3000);
+        if (intento < MAX_INTENTOS && esFalloTransitorio(res)) {
+          setTimeout(function () { consultarIntento(codigo, intento + 1); }, 3000);
           return;
         }
         cont.innerHTML = "<p class=\"err\">" + esc(res.error || "Error.") + "</p>";
@@ -397,12 +380,11 @@
     }).catch(function (err) {
       var cont = document.getElementById("consultar-resultado");
       cont.classList.remove("oculto");
-      if (intento < 2) {
-        setTimeout(function () { consultarIntento(codigo, 2); }, 3000);
+      if (intento < MAX_INTENTOS) {
+        setTimeout(function () { consultarIntento(codigo, intento + 1); }, 3000);
         return;
       }
-      cont.innerHTML = "<p class=\"err\">No se pudo conectar con el servidor (" +
-        (err && err.name ? err.name : "red") + "). Detalle: " + esc(err && err.message || "sin respuesta") + "</p>";
+      cont.innerHTML = "<p class=\"err\">No se pudo consultar. Revisa tu conexión o vuelve a intentar en unos minutos. [" + nombreError(err) + "]</p>";
     });
   }
 
@@ -462,8 +444,7 @@
                        "</strong> está <strong>en revisión</strong>. El gestor la aprobará al validar tu pago.</p>";
       refrescarEstado(true);
     }).catch(function (err) {
-      mensajeRenovar("No se pudo conectar con el servidor (" +
-        (err && err.name ? err.name : "red") + "). Detalle: " + esc(err && err.message || "sin respuesta"), true);
+      mensajeRenovar("No se pudo enviar tu renovación. Verifica tu conexión y vuelve a intentar en unos minutos. [" + nombreError(err) + "]", true);
     });
   }
 
@@ -519,31 +500,33 @@
     intento = intento || 1;
     var stage = document.getElementById("stage");
     if (stage && !stage.dataset.cargado) stage.style.opacity = "0.4";
+    mensaje("resp-reservar", "Consultando…", false);
 
     descargarEstado().then(function (res) {
       if (stage) { stage.style.opacity = ""; stage.dataset.cargado = "1"; }
       if (res && res.ok) {
+        mensaje("resp-reservar", "", false);
         estadoGuardarCache(res.data);
         aplicarEstado(res.data);
-      } else if (intento < 2 && esFalloTransitorio(res)) {
-        /* Respuesta HTML del echo (arranque en frío): reintentar una vez. */
-        setTimeout(function () { cargarEstadoDesdeRed(2); }, 3000);
-        mensaje("resp-reservar", "El servidor tardó demasiado. Reintentando…", false);
+      } else if (intento < MAX_INTENTOS && esFalloTransitorio(res)) {
+        /* Respuesta HTML del echo (arranque en frío): reintentar. */
+        setTimeout(function () {
+          mensaje("resp-reservar", "Consultando… (reintento " + intento + " de " + MAX_INTENTOS + ")", false);
+          cargarEstadoDesdeRed(intento + 1);
+        }, 3000);
       } else {
         mostrarErrorEstado(res && res.error || "Error del servidor.");
       }
     }).catch(function (err) {
       if (stage) stage.style.opacity = "";
-      /* Un reintento automático antes de rendirse (el Web App puede estar en
-         arranque en frío = respuesta lenta que acaba fallando el fetch). */
-      if (intento < 2) {
-        setTimeout(function () { cargarEstadoDesdeRed(2); }, 3000);
-        if (!URL) return;
-        mensaje("resp-reservar", "Conectando con el servidor… reintentando en 3 s.", false);
+      if (intento < MAX_INTENTOS) {
+        setTimeout(function () {
+          mensaje("resp-reservar", "Consultando… (reintento " + intento + " de " + MAX_INTENTOS + ")", false);
+          cargarEstadoDesdeRed(intento + 1);
+        }, 3000);
         return;
       }
-      mostrarErrorEstado("No se pudo consultar el estado (" +
-        (err && err.name ? err.name : "red") + "). Detalle: " + (err && err.message || "sin respuesta"));
+      mostrarErrorEstado("No se pudo consultar el estado. Revisa tu conexión o vuelve a intentar en unos minutos. [" + nombreError(err) + "]");
     });
   }
 
@@ -627,6 +610,12 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
+  }
+
+  /** Nombre corto del tipo de error recibido (para depurar). */
+  function nombreError(err) {
+    var n = (err && err.name) || "red";
+    return String(n).slice(0, 40);
   }
 
   function initDrop() {
