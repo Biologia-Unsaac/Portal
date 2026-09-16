@@ -29,6 +29,7 @@
   var estadoPuertas = {};   // numero -> "Disponible" | "Ocupado"
   var seleccion = [];       // celdas seleccionadas (elementos)
   var enviando = false;
+  var reservasAbiertas = true; // el backend puede pausar reservas/renovaciones
 
   /* -------------------------------------------------------------------------
      Utilidades de red
@@ -268,6 +269,10 @@
      ------------------------------------------------------------------------- */
   function toggleSeleccion(celda) {
     if (enviando) return;
+    if (!reservasAbiertas) {
+      mensaje("resp-reservar", "Las reservas están temporalmente deshabilitadas. Vuelve a intentar más tarde.", true);
+      return;
+    }
 
     var i = seleccion.indexOf(celda);
     if (i === -1) {
@@ -581,6 +586,7 @@
 
   function aplicarEstado(data) {
     estadoPuertas = {};
+    reservasAbiertas = data.reservasHabilitadas !== false;
     data.puertas.forEach(function (p) { estadoPuertas[p.n] = p.estado; });
     document.getElementById("libres-num").textContent = data.libres;
     var sem = document.getElementById("semestre-cr");
@@ -590,6 +596,8 @@
         : "Semestre no configurado";
     }
     pintarEstado();
+    if (!reservasAbiertas)
+      mensaje("resp-reservar", "Las reservas están temporalmente deshabilitadas. Vuelve a intentar más tarde.", true);
   }
 
   function mostrarErrorEstado(msg) {
