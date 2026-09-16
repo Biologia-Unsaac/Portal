@@ -98,43 +98,92 @@
 
   /* Comprime/escala imágenes de voucher ANTES de subirlas: una foto de cámara
      puede pesar 5-12 MB y trabar la carga en el gestor. PDFs y otros archivos
-     se envían tal cual (máx. ~1280 px de lado mayor, JPEG ~82%). */
+     se envían tal cual (máx. ~1280 px de lado mayor, JPEG ~82%).
+     Blindado para móviles: `toBlob` y `new File()` no existen en algunos
+     Safari/iOS viejos y `getContext("2d")` puede devolver null en fotos
+     grandes. Ante cualquier falla se envía el archivo original, nunca se
+     rompe el envío. */
   function escalarImagen(file, maxLado, calidad) {
     return new Promise(function (resolve) {
-      if (!file.type || file.type.indexOf("image/") !== 0 ||
-          !/^image\/(jpeg|png|gif|webp|bmp)$/i.test(file.type)) { resolve(file); return; }
-      var url = URL.createObjectURL(file);
-      var img = new Image();
-      img.onload = function () {
-        var ladoMayor = Math.max(img.width, img.height);
-        var escala = Math.min(1, maxLado / (ladoMayor || 1));
-        if (escala >= 1) { URL.revokeObjectURL(url); resolve(file); return; }
-        var ancho = Math.max(1, Math.round(img.width * escala));
-        var alto  = Math.max(1, Math.round(img.height * escala));
-        var canvas = document.createElement("canvas");
-        canvas.width = ancho; canvas.height = alto;
-        var ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, ancho, alto);
-        ctx.drawImage(img, 0, 0, ancho, alto);
-        URL.revokeObjectURL(url);
-        canvas.toBlob(function (blob) {
-          if (!blob) { resolve(file); return; }
-          var base = (file.name || "voucher").replace(/\.[^.]*$/, "");
-          resolve(new File([blob], base + ".jpg", { type: "image/jpeg" }));
-        }, "image/jpeg", calidad);
-      };
-      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
-      img.src = url;
+      var enviarOriginal = function () { resolve(file); };
+
+      try {
+        if (!file.type || file.type.indexOf("image/") !== 0 ||
+            !/^image\/(jpeg|png|gif|webp|bmp)$/i.test(file.type)) {
+          enviarOriginal();
+          return;
+        }
+
+        var url = URL.createObjectURL(file);
+        var img = new Image();
+
+        img.onload = function () {
+          try {
+            var ladoMayor = Math.max(img.width, img.height);
+            var escala = Math.min(1, maxLado / (ladoMayor || 1));
+            if (escala >= 1) { try { URL.revokeObjectURL(url); } catch (e) {} enviarOriginal(); return; }
+
+            var ancho = Math.max(1, Math.round(img.width * escala));
+            var alto  = Math.max(1, Math.round(img.height * escala));
+            var canvas = document.createElement("canvas");
+            canvas.width = ancho; canvas.height = alto;
+            var ctx = canvas.getContext && canvas.getContext("2d");
+            if (!ctx) { try { URL.revokeObjectURL(url); } catch (e) {} enviarOriginal(); return; }
+
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, ancho, alto);
+            ctx.drawImage(img, 0, 0, ancho, alto);
+            try { URL.revokeObjectURL(url); } catch (e) {}
+
+            var base = (file.name || "voucher").replace(/\.[^.]*$/, "");
+
+            if (canvas.toDataURL) {
+              /* Camino universal: dataURL -> base64. No depende de
+                 toBlob ni de File(), que faltan en móviles viejos. */
+              var dataURL = canvas.toDataURL("image/jpeg", calidad);
+              resolve({ name: base + ".jpg", base64: String(dataURL).split(",")[1] || "" });
+              return;
+            }
+
+            /* Camino clásico con toBlob + FileReader (también evita File()). */
+            if (canvas.toBlob) {
+              canvas.toBlob(function (blob) {
+                if (!blob) { enviarOriginal(); return; }
+                var lector = new FileReader();
+                lector.onload = function () {
+                  resolve({ name: base + ".jpg", base64: String(lector.result).split(",")[1] || "" });
+                };
+                lector.onerror = enviarOriginal;
+                lector.readAsDataURL(blob);
+              }, "image/jpeg", calidad);
+              return;
+            }
+
+            enviarOriginal();
+          } catch (e) {
+            enviarOriginal();
+          }
+        };
+
+        img.onerror = function () {
+          try { URL.revokeObjectURL(url); } catch (e) {}
+          enviarOriginal();
+        };
+        img.src = url;
+      } catch (e) {
+        enviarOriginal();
+      }
     });
   }
 
   function prepararVoucher(file) { return escalarImagen(file, 1280, 0.82); }
   function esImagen(file) { return !!(file && /^image\//.test(file.type || "")); }
 
-  // Convierte un File a base64 (sin el prefijo "data:...;base64,").
+  // Convierte un archivo a base64. Si el reescalado ya lo produjo
+  // (objeto {name, base64}), se usa tal cual; si no, lee el File con FileReader.
   function archivoABase64(file) {
     return new Promise(function (resolve, reject) {
+      if (file && typeof file.base64 === "string") { resolve(file.base64); return; }
       var lector = new FileReader();
       lector.onload = function () {
         var data = String(lector.result);
@@ -301,7 +350,7 @@
           correo: correo,
           telefono: celular,
           casillero: numLista,
-          voucherNombre: archivo.name,
+          voucherNombre: archivo.name || "voucher.jpg",
           voucherBase64: b64
         });
       });
@@ -417,7 +466,7 @@
         return apiPost({
           accion: "renovar",
           codigo: codigo,
-          voucherNombre: archivo.name,
+          voucherNombre: archivo.name || "voucher.jpg",
           voucherBase64: b64
         });
       });
