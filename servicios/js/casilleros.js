@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var URL = (window.APPSCRIPT_URL || "").trim();
+  var API_URL = (window.APPSCRIPT_URL || "").trim();
 
   /* Frescura máxima del estado guardado localmente (ms). 2 min: la mayoría de
      visitas se pintan al instante desde caché y se revalidan en segundo plano;
@@ -51,11 +51,11 @@
 
   function apiGet(params) {
     var qs = new URLSearchParams(params).toString();
-    return fetch(URL + (qs ? "?" + qs : "")).then(leerJson);
+    return fetch(API_URL + (qs ? "?" + qs : "")).then(leerJson);
   }
 
   function apiPost(body) {
-    return fetch(URL, {
+    return fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body)
@@ -281,7 +281,7 @@
     if (!voucher)  return mensaje("resp-modal", "Adjunta el voucher de pago.", true);
     if (voucher.size > (esImagen(voucher) ? 25 * 1024 * 1024 : 5 * 1024 * 1024))
       return mensaje("resp-modal", "El voucher no debe superar los 5 MB.", true);
-    if (!URL || URL.indexOf("script.google.com") === -1)
+    if (!API_URL || API_URL.indexOf("script.google.com") === -1)
       return mensaje("resp-modal", "Falta configurar window.APPSCRIPT_URL.", true);
 
     enviando = true;
@@ -471,7 +471,7 @@
        refresca en segundo plano para no mostrar datos viejos por mucho rato.
      ------------------------------------------------------------------------- */
   function refrescarEstado(fuerza) {
-    if (!URL) {
+    if (!API_URL) {
       document.getElementById("libres-num").textContent = "—";
       mensaje("resp-reservar", "Falta configurar window.APPSCRIPT_URL.", true);
       return;
