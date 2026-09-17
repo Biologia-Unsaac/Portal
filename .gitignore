@@ -1,2 +1,5 @@
 # Sistema de casilleros (Apps Script): backend + gestor NO se publican.
 /servicios/casilleros_appscript/
+
+# Sistema de comentarios/sugerencias (Apps Script): backend NO se publica.
+/servicios/comentarios_appscript/
