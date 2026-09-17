@@ -53,7 +53,8 @@ body.modal-open {
   border-radius: 26px;
   box-shadow: 0 30px 80px rgba(15, 23, 42, 0.26);
   border: 1px solid rgba(255, 255, 255, 0.28);
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - 40px);
   transform: translateY(12px) scale(0.98);
   transition: transform 0.28s ease;
 }
@@ -105,6 +106,101 @@ body.modal-open {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-shadow: 0 6px 18px rgba(15, 23, 42, 0.32);
+}
+
+/* Recuadro de comentarios dentro del modal de "Página en construcción" */
+.promo-comentarios {
+  padding: 0 24px 30px;
+}
+
+.promo-comentarios .comentarios-card {
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid rgba(12, 113, 32, 0.14);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+}
+
+.promo-comentarios .comentarios-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #155f2d;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.promo-comentarios .comentarios-textarea {
+  width: 100%;
+  min-height: 72px;
+  resize: vertical;
+  border: 1px solid rgba(12, 113, 32, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #2d3748;
+  background: #fbfefb;
+  box-sizing: border-box;
+  display: block;
+}
+
+.promo-comentarios .comentarios-textarea:focus {
+  outline: none;
+  border-color: #2d9b46;
+  box-shadow: 0 0 0 3px rgba(45, 155, 70, 0.15);
+}
+
+.promo-comentarios .comentarios-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.promo-comentarios .comentarios-contador {
+  font-size: 0.78rem;
+  color: #5d7b5d;
+  font-weight: 700;
+}
+
+.promo-comentarios .comentarios-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0c7120, #2d9b46);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(12, 113, 32, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.promo-comentarios .comentarios-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(12, 113, 32, 0.3);
+}
+
+.promo-comentarios .comentarios-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.promo-comentarios .comentarios-estado {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: #155f2d;
+  min-height: 1.2em;
 }
 
 .back-home-wrap {
@@ -1291,125 +1387,6 @@ a.card {
 }
 
 /* ==========================================================================
-   COMENTARIOS Y SUGERENCIAS (portal)
+   COMENTARIOS Y SUGERENCIAS (recuadro del modal "Página en construcción").
+   Las reglas específicas viven en `.promo-comentarios` (ver más arriba).
    ========================================================================== */
-.comentarios {
-  width: min(100%, 1200px);
-  max-width: 1200px;
-  margin: 18px auto 0;
-  padding: 18px 20px 20px;
-  background: linear-gradient(180deg, #f9fff8 0%, #edf7ee 100%);
-  border: 1px solid rgba(12, 113, 32, 0.12);
-  border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(12, 113, 32, 0.10);
-}
-
-.comentarios-titulo {
-  padding: 4px 8px 12px;
-  border-bottom: 1px solid rgba(12, 113, 32, 0.12);
-  margin-bottom: 14px;
-}
-
-.comentarios-titulo h3 {
-  font-size: clamp(1.2rem, 2vw, 1.7rem);
-  color: #155f2d;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-}
-
-.comentarios-titulo p {
-  color: #5d7b5d;
-  font-size: 0.95rem;
-  margin-top: 6px;
-}
-
-.comentarios-contenido {
-  padding: 0 8px;
-}
-
-.comentarios-card {
-  background: #ffffff;
-  border: 1px solid rgba(12, 113, 32, 0.14);
-  border-radius: 16px;
-  padding: 16px;
-}
-
-.comentarios-label {
-  display: block;
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #155f2d;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.comentarios-textarea {
-  width: 100%;
-  min-height: 96px;
-  resize: vertical;
-  border: 1px solid rgba(12, 113, 32, 0.25);
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-family: inherit;
-  font-size: 1rem;
-  color: #2d3748;
-  background: #fbfefb;
-  box-sizing: border-box;
-}
-
-.comentarios-textarea:focus {
-  outline: none;
-  border-color: #2d9b46;
-  box-shadow: 0 0 0 3px rgba(45, 155, 70, 0.15);
-}
-
-.comentarios-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.comentarios-contador {
-  font-size: 0.78rem;
-  color: #5d7b5d;
-  font-weight: 700;
-}
-
-.comentarios-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 22px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #0c7120, #2d9b46);
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 8px 16px rgba(12, 113, 32, 0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-}
-
-.comentarios-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(12, 113, 32, 0.3);
-}
-
-.comentarios-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.comentarios-estado {
-  margin-top: 10px;
-  font-size: 0.88rem;
-  color: #155f2d;
-  min-height: 1.2em;
-}

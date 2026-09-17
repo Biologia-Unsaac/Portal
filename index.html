@@ -21,6 +21,19 @@
         <h2 id="promoTitle">Página en construcción</h2>
         <p>Esperemos que les haiga gustado el sistema de casilleros. Estamos afinando los detalles para dejarlo aún mejor :3</p>
       </div>
+
+      <div class="promo-comentarios">
+        <div class="comentarios-card" id="form-comentario">
+          <label class="comentarios-label" for="comentario-texto">Comentarios y sugerencias</label>
+          <textarea id="comentario-texto" class="comentarios-textarea" rows="3"
+            maxlength="600" placeholder="¿Qué te gustaría mejorar del portal? Cuéntanos y lo tendremos en cuenta."></textarea>
+          <div class="comentarios-bar">
+            <span class="comentarios-contador" id="comentario-contador">0 / 600</span>
+            <button type="button" class="comentarios-btn" id="comentario-btn">Enviar</button>
+          </div>
+          <p class="comentarios-estado" id="comentario-estado" role="status"></p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -587,30 +600,8 @@
   })();
 </script>
 
-  <!-- SECCIÓN DE COMENTARIOS Y SUGERENCIAS -->
-  <section class="comentarios" aria-label="Comentarios y sugerencias">
-    <div class="comentarios-panel">
-      <div class="comentarios-titulo">
-        <span class="timeline-label">Tu opinión cuenta</span>
-        <h3>Comentarios y sugerencias</h3>
-        <p>¿Hay algo que te gustaría mejorar del portal? Cuéntanos y lo tendremos en cuenta.</p>
-      </div>
-
-      <div class="comentarios-contenido">
-        <div class="comentarios-card" id="form-comentario">
-          <label class="comentarios-label" for="comentario-texto">Tu comentario o sugerencia</label>
-          <textarea id="comentario-texto" class="comentarios-textarea" rows="4"
-            maxlength="600" placeholder="Escribe aquí..."></textarea>
-          <div class="comentarios-bar">
-            <span class="comentarios-contador" id="comentario-contador">0 / 600</span>
-            <button type="button" class="comentarios-btn" id="comentario-btn">Enviar</button>
-          </div>
-          <p class="comentarios-estado" id="comentario-estado" role="status"></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- SECCIÓN DE COMENTARIOS Y SUGERENCIAS (vive dentro del modal de
+       "Página en construcción", arriba en el body) -->
   <script>
     window.COMENTARIOS_URL = "https://script.google.com/macros/s/AKfycbzIGxBHDcbtJAySBVZIR1uz96OEqsps6bpjEE-TEeuEL0nMce52LIQroT6WaOmM6r6A-A/exec";
   </script>
