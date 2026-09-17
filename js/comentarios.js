@@ -89,11 +89,13 @@
       });
   }
 
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    enviarComentario();
-  });
-  if (boton && !form) boton.addEventListener("click", enviarComentario);
+  if (form && String(form.tagName || "").toUpperCase() === "FORM") {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      enviarComentario();
+    });
+  }
+  boton.addEventListener("click", enviarComentario);
 
   function enviarComentario() {
     var comentario = area.value.replace(/\s+/g, " ").trim();
