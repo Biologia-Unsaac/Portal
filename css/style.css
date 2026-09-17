@@ -115,8 +115,10 @@ body.modal-open {
 
 .promo-comentarios .comentarios-card {
   text-align: left;
-  background: #ffffff;
-  border: 1px solid rgba(12, 113, 32, 0.14);
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
@@ -126,31 +128,46 @@ body.modal-open {
   display: block;
   font-size: 0.82rem;
   font-weight: 800;
-  color: #155f2d;
+  color: #ffffff;
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  text-shadow: 0 4px 12px rgba(15, 23, 42, 0.32);
+}
+
+.promo-comentarios .comentarios-aviso {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+  text-shadow: 0 4px 12px rgba(15, 23, 42, 0.32);
 }
 
 .promo-comentarios .comentarios-textarea {
   width: 100%;
   min-height: 72px;
   resize: vertical;
-  border: 1px solid rgba(12, 113, 32, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 12px;
   padding: 12px 14px;
   font-family: inherit;
   font-size: 1rem;
-  color: #2d3748;
-  background: #fbfefb;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
   box-sizing: border-box;
   display: block;
 }
 
+.promo-comentarios .comentarios-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .promo-comentarios .comentarios-textarea:focus {
   outline: none;
-  border-color: #2d9b46;
-  box-shadow: 0 0 0 3px rgba(45, 155, 70, 0.15);
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .promo-comentarios .comentarios-bar {
@@ -163,8 +180,9 @@ body.modal-open {
 
 .promo-comentarios .comentarios-contador {
   font-size: 0.78rem;
-  color: #5d7b5d;
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 700;
+  text-shadow: 0 4px 12px rgba(15, 23, 42, 0.32);
 }
 
 .promo-comentarios .comentarios-btn {
@@ -172,22 +190,23 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   padding: 10px 22px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 999px;
-  background: linear-gradient(135deg, #0c7120, #2d9b46);
+  background: rgba(255, 255, 255, 0.22);
   color: #ffffff;
   font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 8px 16px rgba(12, 113, 32, 0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, background 0.15s ease;
 }
 
 .promo-comentarios .comentarios-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(12, 113, 32, 0.3);
+  background: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);
 }
 
 .promo-comentarios .comentarios-btn:disabled {
@@ -199,8 +218,9 @@ body.modal-open {
 .promo-comentarios .comentarios-estado {
   margin-top: 10px;
   font-size: 0.88rem;
-  color: #155f2d;
+  color: #ffffff;
   min-height: 1.2em;
+  text-shadow: 0 4px 12px rgba(15, 23, 42, 0.32);
 }
 
 .back-home-wrap {
