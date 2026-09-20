@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/temas.css">
   <script src="js/temas.js"></script>
   <script src="js/messages.js" defer></script>
-  <script src="js/botoso.js" defer></script>
+  <script src="js/botoso.js?v=2" defer></script>
   <script src="js/revolver-nav.js" defer></script>
   <script src="js/popup-anuncio.js?v=2" defer></script>
 <script src="js/visitas.js" defer></script>
@@ -64,14 +64,17 @@
   <!-- ============================================================
      WIDGET EXPOSICIÓN DE BIOLOGÍA
      ============================================================ -->
-  <a href="https://expobio.github.io/INSCRIPCION/index.html" target="_blank" class="expobio-widget-link">
-    <div class="expobio-widget">
-        <div class="speech-bubble" id="expobio-message">
-            ¿Te interesa el Expobio?
-        </div>
-        <img src="https://media.tenor.com/SIWQYnjZC3EAAAAi/bear-party-bear.gif" alt="Bear Party" class="bear-image">
-    </div>
-  </a>
+  <div class="expobio-wrap" id="expobio-float">
+    <button type="button" id="expobio-close" class="expobio-close" aria-label="Cerrar aviso del Expobio" title="Cerrar aviso del Expobio">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <a href="https://expobio.github.io/INSCRIPCION/index.html" target="_blank" class="expobio-widget-link">
+      <div class="expobio-widget">
+          <div class="speech-bubble" id="expobio-message">¿Te interesa el Expobio?</div>
+          <img src="https://media.tenor.com/SIWQYnjZC3EAAAAi/bear-party-bear.gif" alt="Bear Party" class="bear-image">
+      </div>
+    </a>
+  </div>
 <!-- ============================================================
      NAVEGACIÓN PRINCIPAL
      ============================================================ -->

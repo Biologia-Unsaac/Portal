@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const float = document.getElementById('expobio-float');
+    const close = document.getElementById('expobio-close');
+    if (float && close) {
+        try {
+            if (localStorage.getItem('expobioOculto') === '1') {
+                float.classList.add('oculto');
+            }
+        } catch (e) {}
+        close.addEventListener('click', () => {
+            float.classList.add('oculto');
+            try { localStorage.setItem('expobioOculto', '1'); } catch (e) {}
+        });
+    }
+
     const messages = [
         "¡Click Aqui!",
         "¿Te interesa el Expobio?",
