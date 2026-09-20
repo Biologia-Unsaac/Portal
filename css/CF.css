@@ -47,7 +47,7 @@
 .manual-label {
   display: inline-block;
   background: var(--suave);
-  color: #14562c;
+  color: var(--texto);
   padding: 7px 12px;
   border-radius: 999px;
   font-weight: 700;
@@ -59,7 +59,7 @@
 
 .hierarchy-header h2 {
   margin: 0 0 10px;
-  color: #183227;
+  color: var(--texto);
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
@@ -164,13 +164,13 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #446c4d;
+  color: var(--muted);
 }
 
 .section-title-wrap h3 {
   margin: 8px 0 0;
   font-size: clamp(1.5rem, 2vw, 2rem);
-  color: #163328;
+  color: var(--muted);
 }
 
 .secretary-grid {
@@ -203,7 +203,7 @@
 .card-badge {
   display: inline-block;
   background: var(--suave);
-  color: #155d2d;
+  color: var(--muted);
   padding: 5px 9px;
   border-radius: 999px;
   font-size: 0.65rem;
@@ -234,7 +234,7 @@
   height: 64px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #d4ebd8;
+  border: 3px solid var(--borde);
   box-shadow: 0 10px 22px rgba(19, 111, 51, 0.15);
 }
 

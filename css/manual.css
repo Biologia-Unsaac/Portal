@@ -144,7 +144,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  background: linear-gradient(135deg, var(--ac) 0%, var(--ac-suave) 60%, #c2c81f 130%);
+  background: linear-gradient(135deg, var(--ac) 0%, var(--ac-suave) 60%, var(--oliva) 130%);
   border: 4px solid #ffffff;
   box-shadow: 0 10px 26px var(--tinta2);
 }
@@ -218,7 +218,7 @@
   width: 80%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--ac), #c2c81f);
+  background: linear-gradient(90deg, var(--ac), var(--oliva));
 }
 
 /* Cuerpo Tarjeta */
@@ -285,14 +285,14 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--ac), #c2c81f);
+  background: linear-gradient(180deg, var(--ac), var(--oliva));
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
 .curso-item:hover {
   transform: translateX(4px);
-  border-color: #c2c81f;
+  border-color: var(--oliva);
 }
 
 .curso-item:hover::before {

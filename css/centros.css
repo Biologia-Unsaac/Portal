@@ -62,7 +62,7 @@
 .centro-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px var(--tinta);
-  border-color: #c2c81f;
+  border-color: var(--oliva);
 }
 
 .centro-badge {
@@ -131,7 +131,7 @@
 .circulo-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px rgba(194, 200, 31, 0.15);
-  border-color: #c2c81f;
+  border-color: var(--oliva);
 }
 
 .circulo-badge {

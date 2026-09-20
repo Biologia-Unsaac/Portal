@@ -34,6 +34,12 @@ html[data-tema="noche"] {
   --tinta2: rgba(111, 177, 245, 0.24);
   --tinta3: rgba(111, 177, 245, 0.45);
   --burbuja: #1e3d6e;
+  --oliva: #5aa2e8;
+  --oliva-osc: #3f7ccf;
+  --tl-hl-grad: linear-gradient(135deg, #1a3552, #1f4670);
+  --tl-ok-grad: linear-gradient(135deg, #2f6fb5, #6fb1f5);
+  --tl-dot-grad: linear-gradient(135deg, #4d94e0, #6fb1f5);
+  --event-border: rgba(111, 177, 245, 0.45);
 }
 
 html[data-tema="contra"] {
@@ -56,6 +62,12 @@ html[data-tema="contra"] {
   --tinta2: rgba(255, 255, 255, 0.32);
   --tinta3: rgba(255, 255, 255, 0.55);
   --burbuja: #000000;
+  --oliva: #ffffff;
+  --oliva-osc: #d9d9d9;
+  --tl-hl-grad: linear-gradient(135deg, #181818, #232323);
+  --tl-ok-grad: linear-gradient(135deg, #ffffff, #d9d9d9);
+  --tl-dot-grad: linear-gradient(135deg, #ffffff, #e0e0e0);
+  --event-border: #ffffff;
 }
 
 /* ---------------------------------------------------------------------------
@@ -304,6 +316,14 @@ html[data-tema="noche"] .promo-modal {
   border-color: rgba(120, 180, 240, 0.25);
 }
 
+html[data-tema="noche"] .tema-cipham,
+html[data-tema="noche"] .tema-cima {
+  --tc: #6fb1f5;
+  --tc-suave: rgba(111, 177, 245, 0.14);
+  --tc-borde: rgba(111, 177, 245, 0.40);
+  --tc-oscuro: #4d94e0;
+}
+
 /* --- CONTRASTE (negro) --- */
 html[data-tema="contra"] .bloque_msg_overlay {
   background: rgba(0, 0, 0, 0.85);
@@ -334,6 +354,14 @@ html[data-tema="contra"] .noticia-imagen,
 html[data-tema="contra"] .cal-cell.selected,
 html[data-tema="contra"] .cal-cell.has-event {
   background-color: #ffffff;
+}
+
+html[data-tema="contra"] .tema-cipham,
+html[data-tema="contra"] .tema-cima {
+  --tc: #ffffff;
+  --tc-suave: rgba(255, 255, 255, 0.16);
+  --tc-borde: rgba(255, 255, 255, 0.60);
+  --tc-oscuro: #ffffff;
 }
 
 /* ==========================================================================

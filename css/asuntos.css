@@ -126,7 +126,7 @@
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #55765a;
+  color: var(--muted);
 }
 
 .timeline-summary-head h2 {
@@ -173,7 +173,7 @@
   padding: 12px 14px;
   border-radius: 12px;
   background: var(--tinta);
-  color: #1d4d2c;
+  color: var(--muted);
   font-size: 0.96rem;
   font-weight: 700;
   line-height: 1.5;
@@ -235,7 +235,7 @@
 }
 
 .timeline-item.active .timeline-dot {
-  background: linear-gradient(135deg, #1ea74b, #a5d72d);
+  background: var(--tl-dot-grad);
 }
 
 .timeline-content {
@@ -263,7 +263,7 @@
 
 .timeline-content strong {
   font-size: 0.92rem;
-  color: #183d2a;
+  color: var(--texto);
   font-weight: 800;
 }
 
@@ -906,7 +906,7 @@
 
 .cal-cell.has-event {
   background-color: var(--suave);
-  border-color: #c8e0be;
+  border-color: var(--event-border);
 }
 
 .cal-event-dot {

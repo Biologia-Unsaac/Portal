@@ -607,7 +607,7 @@ body.modal-open {
 }
 
 .Box-2:hover .icon-circle {
-  background: linear-gradient(145deg, #c2c81f, #aab018);
+  background: linear-gradient(145deg, var(--oliva), var(--oliva-osc));
   box-shadow: 0 16px 28px rgba(194, 200, 31, 0.38);
   transform: scale(1.08) rotate(6deg);
 }
@@ -669,7 +669,7 @@ body.modal-open {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #5d7b5d;
+  color: var(--muted);
   font-weight: 800;
   margin-bottom: 4px;
 }
@@ -733,7 +733,7 @@ body.modal-open {
   padding: 10px 14px;
   border-radius: 12px;
   background: var(--tinta);
-  color: #1b4d2c;
+  color: var(--texto);
   font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.5;
@@ -803,7 +803,7 @@ body.modal-open {
 }
 
 .timeline-item--highlight .timeline-card {
-  background: linear-gradient(135deg, #f2fbe8, #e3f5d9);
+  background: var(--tl-hl-grad);
   border-color: var(--tinta2);
 }
 
@@ -812,7 +812,7 @@ body.modal-open {
 }
 
 .timeline-item.is-completed .timeline-marker {
-  background: linear-gradient(135deg, #6f9c4f, #b9d98a);
+  background: var(--tl-ok-grad);
 }
 
 .timeline-item.is-current {
@@ -835,13 +835,13 @@ body.modal-open {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 800;
-  color: #56715d;
+  color: var(--muted);
 }
 
 .progreso-fecha {
   font-size: 0.92rem;
   font-weight: 800;
-  color: #173d2a;
+  color: var(--muted);
 }
 
 .cal-link {
@@ -950,7 +950,7 @@ a.card {
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px var(--tinta);
-  border-color: #c2c81f;
+  border-color: var(--oliva);
 }
 
 .card-tag {
@@ -1027,7 +1027,7 @@ a.card {
 .noticia-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px var(--tinta);
-  border-color: #c2c81f;
+  border-color: var(--oliva);
 }
 
 .noticia-imagen {
