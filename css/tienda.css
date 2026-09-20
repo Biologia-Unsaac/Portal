@@ -4,8 +4,8 @@
   padding: 28px;
   border-radius: 28px;
   background: linear-gradient(135deg, #f4faf5 0%, var(--superficie) 50%, #ecf8ef 100%);
-  border: 1px solid rgba(12, 113, 32, 0.08);
-  box-shadow: 0 20px 48px rgba(12, 113, 32, 0.08);
+  border: 1px solid var(--tinta);
+  box-shadow: 0 20px 48px var(--tinta);
 }
 
 .tienda-portada-shell {
@@ -71,11 +71,11 @@
 .tienda-btn-primary {
   background: linear-gradient(135deg, var(--ac), var(--ac-suave));
   color: #ffffff;
-  box-shadow: 0 10px 22px rgba(12, 113, 32, 0.22);
+  box-shadow: 0 10px 22px var(--tinta2);
 }
 
 .tienda-btn-secondary {
-  border: 1px solid rgba(12, 113, 32, 0.12);
+  border: 1px solid var(--tinta2);
   background: var(--superficie);
   color: var(--ac);
 }
@@ -89,7 +89,7 @@
 .tienda-mini-stat {
   padding: 16px 12px;
   background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(12, 113, 32, 0.08);
+  border: 1px solid var(--tinta);
   border-radius: 16px;
 }
 
@@ -119,7 +119,7 @@
   border-radius: 26px;
   box-shadow: 0 22px 42px rgba(16, 79, 33, 0.12);
   overflow: hidden;
-  border: 1px solid rgba(12, 113, 32, 0.08);
+  border: 1px solid var(--tinta);
 }
 
 .tienda-hero-card img {
@@ -204,7 +204,7 @@
 
 .tienda-cat {
   background: var(--superficie);
-  border: 1px solid rgba(12, 113, 32, 0.08);
+  border: 1px solid var(--tinta);
   color: var(--texto);
   font-weight: 700;
   border-radius: 999px;
@@ -220,7 +220,7 @@
 
 .tienda-card {
   background: var(--superficie);
-  border: 1px solid rgba(12, 113, 32, 0.08);
+  border: 1px solid var(--tinta);
   border-radius: 22px;
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(13, 57, 28, 0.05);

@@ -61,7 +61,7 @@
 
 .centro-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(12, 113, 32, 0.1);
+  box-shadow: 0 10px 24px var(--tinta);
   border-color: #c2c81f;
 }
 

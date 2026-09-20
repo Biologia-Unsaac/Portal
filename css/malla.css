@@ -3,7 +3,7 @@
   --portal-green-deep: var(--ac-profundo);
   --portal-green-soft: var(--suave);
   --portal-card: var(--superficie);
-  --portal-line: rgba(12, 113, 32, 0.12);
+  --portal-line: var(--tinta2);
   --portal-text: var(--texto);
   --portal-muted: var(--muted);
   --portal-bone: var(--claro);
@@ -193,7 +193,7 @@ svg.linelayer {
 
 .edge {
   fill: none;
-  stroke: rgba(12, 113, 32, 0.24);
+  stroke: var(--tinta2);
   stroke-width: 1.4;
 }
 
@@ -229,7 +229,7 @@ svg.linelayer {
   background: var(--accent-color, var(--portal-green));
   color: #ffffff;
   border-color: var(--accent-color, var(--portal-green));
-  box-shadow: 0 10px 20px rgba(12, 113, 32, 0.16);
+  box-shadow: 0 10px 20px var(--tinta2);
 }
 
 .area-panel {
@@ -434,7 +434,7 @@ svg.linelayer {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(12, 113, 32, 0.55); }
+  0% { box-shadow: 0 0 0 0 var(--tinta3); }
   70% { box-shadow: 0 0 0 9px rgba(12, 113, 32, 0); }
   100% { box-shadow: 0 0 0 0 rgba(12, 113, 32, 0); }
 }

@@ -62,11 +62,11 @@
 }
 
 .faq-item:hover {
-  box-shadow: 0 4px 16px rgba(12, 113, 32, 0.08);
+  box-shadow: 0 4px 16px var(--tinta);
 }
 
 .faq-item[open] {
-  box-shadow: 0 4px 16px rgba(12, 113, 32, 0.1);
+  box-shadow: 0 4px 16px var(--tinta);
   border-color: var(--ac);
 }
 

@@ -42,7 +42,7 @@ align-items: flex-end;
 
 /* Globo de texto (Speech Bubble) */
 .speech-bubble {
-background-color: #2D5086; /* Color azul oscuro del globo */
+background-color: var(--burbuja); /* Color azul oscuro del globo */
 color: white;
 padding: 15px 25px;
 border-radius: 15px;
@@ -62,7 +62,7 @@ bottom: -15px; /* Ajuste para que salga de la base */
 right: 30px;   /* Alineación horizontal del triángulo */
 border-width: 15px 15px 0; /* Triángulo hacia abajo */
 border-style: solid;
-border-color: #2D5086 transparent transparent;
+border-color: var(--burbuja) transparent transparent;
 }
 
 /* Imagen del oso */
