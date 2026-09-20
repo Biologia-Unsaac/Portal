@@ -28,6 +28,7 @@
   color: #4a5568;
   background-color: transparent;
   cursor: pointer;
+  touch-action: manipulation;
   transition: all 0.25s ease;
 }
 
@@ -394,6 +395,42 @@
 
 .centro-der {
   flex-direction: row-reverse;
+}
+
+/* Móvil: apilar la tarjeta en columna (debe ir DESPUÉS de .centro-izq/.centro-der
+   porque ambos comparten especificidad y el orden del cascade gana) */
+@media (max-width: 600px) {
+  .centro-item,
+  .centro-izq,
+  .centro-der {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 26px 18px;
+  }
+
+  .centro-contenido {
+    width: 100%;
+  }
+
+  .centro-director {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .centro-director .dir-tel,
+  .centro-redes .web-btn {
+    margin-left: 0;
+  }
+
+  .centro-redes,
+  .centro-teams {
+    justify-content: center;
+  }
+
+  .centro-lista {
+    gap: 22px;
+  }
 }
 
 .centro-contenido {

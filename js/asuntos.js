@@ -1,20 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtns = document.querySelectorAll('.toggle-btn');
-    const panels = document.querySelectorAll('.asuntos-panel');
+(function () {
+  document.addEventListener("click", function (ev) {
+    var btn = ev.target && ev.target.closest ? ev.target.closest(".toggle-btn") : null;
+    if (!btn || !btn.dataset || !btn.dataset.target) return;
+    var target = btn.dataset.target;
 
-    toggleBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.target;
-
-            toggleBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            panels.forEach(panel => {
-                panel.classList.remove('active');
-                if (panel.id === target) {
-                    panel.classList.add('active');
-                }
-            });
-        });
+    document.querySelectorAll(".toggle-btn").forEach(function (b) {
+      b.classList.toggle("active", b === btn);
     });
-});
+
+    document.querySelectorAll(".asuntos-panel").forEach(function (panel) {
+      panel.classList.toggle("active", panel.id === target);
+    });
+  });
+})();
