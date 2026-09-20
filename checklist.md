@@ -8,7 +8,7 @@ Lista viva de ideas y pendientes. Marca lo que ya se hizo. (Nuevas ideas siempre
 - [x] Botón (X) para cerrar el aviso del índice: funcionando + estilo cristal/transparente
 - [x] Centros de investigación: presidentes/representantes + teléfonos + sitios web (CIBIOGEN, ICTIOS)
 - [x] Centros en **2 columnas**, info ordenada (logo → título → desc → tags → director → redes) y layout móvil corregido
-- [x] Toggle Centros/Círculos robusto (inmune a timing/caché, sin doble-tap lento)
+- [x] Centros y círculos unificados (sin botón toggle) con etiqueta de categoría: Centro de investigación / Círculo de estudio (SINAPSIS) / Centro juvenil (ICTIOS) / Laboratorio (LIMI)
 - [x] Contador de visitas: backend `visitas_appscript` + `js/visitas.js` en las 9 páginas
 
 ## 🚨 PRINCIPAL → ✓ RESUELTO
