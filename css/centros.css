@@ -168,3 +168,66 @@
   color: #64748b;
   font-style: italic;
 }
+
+.centro-director {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background-color: var(--tc-suave, #f4f9f2);
+  border: 1px dashed var(--tc-borde, #cfe0c8);
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.centro-director .dir-rol {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--tc, #0c7120);
+  background-color: #ffffff;
+  border: 1px solid var(--tc-borde, #cfe0c8);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.centro-director .dir-nombre {
+  font-weight: 700;
+}
+
+.centro-director .dir-tel {
+  margin-left: auto;
+  color: var(--tc-oscuro, #0c7120);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.centro-director .dir-tel:hover {
+  text-decoration: underline;
+}
+
+.centro-redes .web-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--tc-oscuro, #4a5568);
+  background-color: var(--tc-suave, #f1f5f9);
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.centro-redes .web-btn:hover {
+  background-color: var(--tc-oscuro, #0c7120);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
