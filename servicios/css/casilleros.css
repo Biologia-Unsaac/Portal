@@ -157,7 +157,7 @@
 .cas-field select:focus {
   outline: none;
   border-color: var(--ac);
-  box-shadow: 0 0 0 3px rgba(12, 113, 32, 0.12);
+  box-shadow: 0 0 0 3px var(--tinta2);
 }
 
 .cas-fila-doble {
@@ -324,7 +324,7 @@
 .cas-spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(12, 113, 32, 0.25);
+  border: 2px solid var(--borde);
   border-top-color: var(--ac);
   border-radius: 50%;
   animation: cas-gira 0.7s linear infinite;

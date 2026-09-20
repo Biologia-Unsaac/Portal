@@ -34,6 +34,12 @@ html[data-tema="noche"] {
   --tinta2: rgba(111, 177, 245, 0.24);
   --tinta3: rgba(111, 177, 245, 0.45);
   --burbuja: #1e3d6e;
+  --huella: rgba(255, 255, 255, 0.06);
+  --huella-fuerte: rgba(255, 255, 255, 0.10);
+  --sobra-carta: rgba(2, 8, 18, 0.5);
+  --sobra-carta-fuerte: rgba(2, 8, 18, 0.72);
+  --acc2: #a78bfa;
+  --acc2-grad: linear-gradient(135deg, #a78bfa, #6d5ac7);
   --oliva: #5aa2e8;
   --oliva-osc: #3f7ccf;
   --tl-hl-grad: linear-gradient(135deg, #1a3552, #1f4670);
@@ -62,6 +68,12 @@ html[data-tema="contra"] {
   --tinta2: rgba(255, 255, 255, 0.32);
   --tinta3: rgba(255, 255, 255, 0.55);
   --burbuja: #000000;
+  --huella: rgba(255, 255, 255, 0.08);
+  --huella-fuerte: rgba(255, 255, 255, 0.16);
+  --sobra-carta: rgba(0, 0, 0, 0.65);
+  --sobra-carta-fuerte: rgba(0, 0, 0, 0.9);
+  --acc2: #e5e7eb;
+  --acc2-grad: linear-gradient(135deg, #ffffff, #9ca3af);
   --oliva: #ffffff;
   --oliva-osc: #d9d9d9;
   --tl-hl-grad: linear-gradient(135deg, #181818, #232323);
@@ -303,7 +315,7 @@ html[data-tema="noche"] .bloque_msg_overlay {
 }
 
 html[data-tema="noche"] :is(.back-home-btn, .barra-progreso-badge, .progreso-bar-fill) {
-  background: linear-gradient(135deg, #2f77c9, #24558f);
+  background: var(--acc2-grad);
 }
 
 html[data-tema="noche"] .site-footer {
@@ -584,9 +596,18 @@ html[data-tema] .tienda-mini-stat {
 
 /* --- NOCHE: degradados verdes pasan a azules --- */
 html[data-tema="noche"] :is(
-  .promo-btn-primary, .icon-circle, .progreso-bar-pct, .tienda-btn-primary
+  .promo-btn-primary, .progreso-bar-pct, .tienda-btn-primary
 ) {
   background: linear-gradient(135deg, #2f77c9, #24558f);
+}
+
+html[data-tema="noche"] .icon-circle,
+html[data-tema="noche"] .box-icono {
+  background: var(--acc2-grad);
+}
+
+html[data-tema] .icon-circle svg {
+  color: var(--t-bg);
 }
 
 html[data-tema="noche"] .tienda-portada {
@@ -595,9 +616,15 @@ html[data-tema="noche"] .tienda-portada {
 
 /* --- CONTRASTE: degradados y chips pasan a negro/blanco --- */
 html[data-tema="contra"] :is(
-  .promo-btn-primary, .icon-circle, .progreso-bar-pct, .tienda-btn-primary
+  .promo-btn-primary, .progreso-bar-pct, .tienda-btn-primary
 ) {
   background: #ffffff;
+  color: #000000;
+}
+
+html[data-tema="contra"] .icon-circle,
+html[data-tema="contra"] .box-icono {
+  background: var(--acc2-grad);
   color: #000000;
 }
 

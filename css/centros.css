@@ -130,7 +130,7 @@
 
 .circulo-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(194, 200, 31, 0.15);
+  box-shadow: 0 10px 24px var(--sobra-carta-fuerte);
   border-color: var(--oliva);
 }
 
@@ -178,7 +178,7 @@
   padding: 10px 14px;
   border-radius: 10px;
   background-color: var(--tc-suave, var(--claro));
-  border: 1px dashed var(--tc-borde, #cfe0c8);
+  border: 1px dashed var(--tc-borde, var(--borde));
   font-size: 0.85rem;
   color: var(--muted);
 }
@@ -190,7 +190,7 @@
   letter-spacing: 0.6px;
   color: var(--tc, var(--ac));
   background-color: var(--superficie);
-  border: 1px solid var(--tc-borde, #cfe0c8);
+  border: 1px solid var(--tc-borde, var(--borde));
   padding: 3px 8px;
   border-radius: 20px;
 }

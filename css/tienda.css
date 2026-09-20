@@ -3,7 +3,7 @@
   margin: 26px auto 0;
   padding: 28px;
   border-radius: 28px;
-  background: linear-gradient(135deg, #f4faf5 0%, var(--superficie) 50%, #ecf8ef 100%);
+  background: linear-gradient(135deg, var(--claro) 0%, var(--superficie) 50%, var(--suave) 100%);
   border: 1px solid var(--tinta);
   box-shadow: 0 20px 48px var(--tinta);
 }
@@ -117,7 +117,7 @@
   width: min(100%, 430px);
   background: var(--superficie);
   border-radius: 26px;
-  box-shadow: 0 22px 42px rgba(16, 79, 33, 0.12);
+  box-shadow: 0 22px 42px var(--sobra-carta-fuerte);
   overflow: hidden;
   border: 1px solid var(--tinta);
 }
@@ -223,13 +223,13 @@
   border: 1px solid var(--tinta);
   border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(13, 57, 28, 0.05);
+  box-shadow: 0 12px 30px var(--sobra-carta);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .tienda-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 38px rgba(13, 57, 28, 0.08);
+  box-shadow: 0 18px 38px var(--sobra-carta);
 }
 
 .tienda-card img {

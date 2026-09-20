@@ -7,7 +7,7 @@
   --portal-text: var(--texto);
   --portal-muted: var(--muted);
   --portal-bone: var(--claro);
-  --portal-shadow: rgba(15, 61, 30, 0.08);
+  --portal-shadow: var(--sobra-carta);
 }
 
 .malla-page-shell {
@@ -129,18 +129,18 @@
 .node {
   position: relative;
   background: var(--portal-card);
-  border: 1px solid rgba(31, 47, 40, 0.12);
+  border: 1px solid var(--borde);
   border-radius: 14px;
   padding: 8px 10px 7px;
   margin-bottom: 9px;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(15, 61, 30, 0.04);
+  box-shadow: 0 8px 18px var(--sobra-carta);
   transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.15s ease;
 }
 
 .node:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 22px rgba(15, 61, 30, 0.08);
+  box-shadow: 0 12px 22px var(--sobra-carta);
 }
 
 .node .code {
@@ -170,11 +170,11 @@
 }
 
 .node.hl-self {
-  box-shadow: 0 0 0 2px rgba(15, 61, 30, 0.8);
+  box-shadow: 0 0 0 2px var(--ac-profundo);
 }
 
 .node.hl-req {
-  outline: 2px dashed rgba(84, 107, 95, 0.9);
+  outline: 2px dashed rgba(100, 116, 139, 0.9);
   outline-offset: 1px;
 }
 
@@ -239,7 +239,7 @@ svg.linelayer {
   background: rgba(255,255,255,0.7);
   min-height: 120px;
   overflow: hidden;
-  box-shadow: 0 16px 28px rgba(15, 61, 30, 0.04);
+  box-shadow: 0 16px 28px var(--sobra-carta);
 }
 
 .area-panel .empty-state {
@@ -325,7 +325,7 @@ svg.linelayer {
   margin-top: 4px;
   font-size: 0.6rem;
   padding-top: 4px;
-  border-top: 1px dotted rgba(31, 47, 40, 0.2);
+  border-top: 1px dotted var(--borde);
   color: var(--portal-muted);
   cursor: default;
 }
