@@ -3,3 +3,6 @@
 
 # Sistema de comentarios/sugerencias (Apps Script): backend NO se publica.
 /servicios/comentarios_appscript/
+
+# Contador de visitas (Apps Script): backend NO se publica.
+/servicios/visitas_appscript/
