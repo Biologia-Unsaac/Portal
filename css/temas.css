@@ -357,3 +357,194 @@ html[data-tema="contra"] #temaSwitch {
   background: #000000;
   border-color: #ffffff;
 }
+
+/* ==========================================================================
+   5. COBERTURA EXTENDIDA (respetar los colores en todo el portal)
+   Permite que cualquier componente con color fijo (blanco, verde, textos
+   oscuros) adopte la paleta del tema activo.
+   ========================================================================== */
+
+/* --- Textos genéricos adicionales (h5/h6, spans, strong, small) --- */
+html[data-tema] :is(h5, h6) {
+  color: var(--t-texto);
+}
+
+html[data-tema] :is(
+  .tienda-mini-stat span, .profesor-rango > span, .stat-box span,
+  .cal-day-header, .no-eventos-msg, .seccion-titulo p,
+  .faq-respuesta p, .tramite-respuesta p, .hierarchy-header p
+) {
+  color: var(--t-sec);
+}
+
+/* --- malla.css (usa variables --portal-*) --- */
+html[data-tema] {
+  --portal-green: var(--t-ac);
+  --portal-green-deep: var(--t-ac-profundo);
+  --portal-green-soft: var(--t-ac-tinto);
+  --portal-card: var(--t-panel);
+  --portal-line: var(--t-borde);
+  --portal-text: var(--t-texto);
+  --portal-muted: var(--t-sec);
+  --portal-bone: var(--t-soft);
+  --portal-shadow: var(--t-sombra);
+}
+
+html[data-tema] :is(.timeline-wrap, .area-panel) {
+  background: var(--t-soft);
+  border-color: var(--t-borde);
+}
+
+html[data-tema] .area-btn {
+  background-color: var(--t-panel);
+  color: var(--t-texto);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .area-btn:hover,
+html[data-tema] .area-btn.active {
+  background: var(--t-ac-fuerte);
+  color: var(--t-bg);
+}
+
+/* --- style.css: botones y adornos con degradado verde --- */
+html[data-tema] :is(
+  .promo-btn-primary, .icon-circle, .progreso-bar-pct
+) {
+  background: linear-gradient(135deg, var(--t-ac-suave), var(--t-ac-profundo));
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .promo-btn-secondary {
+  color: var(--t-ac);
+  border: 1px solid var(--t-borde2);
+  background: transparent;
+}
+
+/* --- asuntos.css --- */
+html[data-tema] .timeline-content {
+  background: var(--t-soft);
+  border-color: var(--t-borde);
+}
+
+html[data-tema] .centro-categoria {
+  background-color: var(--t-soft);
+  color: var(--t-texto);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .centro-nota {
+  background-color: var(--t-soft);
+  color: var(--t-sec);
+}
+
+html[data-tema] .centro-director {
+  background-color: var(--t-soft);
+  border-color: var(--t-borde2);
+  color: var(--t-sec);
+}
+
+html[data-tema] .centro-director .dir-rol {
+  background-color: var(--t-panel);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .cal-cell.has-event {
+  background-color: var(--t-ac-tinto);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .cal-nav-btn:hover {
+  background-color: var(--t-ac-fuerte);
+  color: var(--t-bg);
+}
+
+/* --- centros.css --- */
+html[data-tema] :is(.circulo-badge, .circulos-label) {
+  background-color: var(--t-ac-tinto);
+  color: var(--t-ac);
+  border: 1px solid var(--t-borde2);
+}
+
+/* --- CF.css --- */
+html[data-tema] .vice-tag {
+  background: var(--t-ac-tinto);
+  color: var(--t-ac);
+  border: 1px solid var(--t-borde2);
+}
+
+html[data-tema] .management-logo-image {
+  background-color: var(--t-panel);
+}
+
+/* --- manual.css --- */
+html[data-tema] .buscador-profesor {
+  background: var(--t-panel);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .buscador-profesor input::placeholder {
+  color: var(--t-atenuado);
+}
+
+html[data-tema] .profesor-rango > span {
+  color: var(--t-sec);
+}
+
+/* --- tienda.css --- */
+html[data-tema] .tienda-portada {
+  background: linear-gradient(135deg, var(--t-panel) 0%, var(--t-soft) 50%, var(--t-panel) 100%);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .tienda-badge {
+  background-color: var(--t-ac-tinto);
+  color: var(--t-ac);
+  border: 1px solid var(--t-borde2);
+}
+
+html[data-tema] .tienda-btn-primary {
+  background: linear-gradient(135deg, var(--t-ac-suave), var(--t-ac-profundo));
+  color: #ffffff;
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .tienda-btn-secondary {
+  color: var(--t-ac);
+  background: var(--t-panel);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .tienda-cat {
+  background-color: var(--t-panel);
+  color: var(--t-texto);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .tienda-mini-stat {
+  background: var(--t-soft);
+  border-color: var(--t-borde2);
+}
+
+/* --- NOCHE: degradados verdes pasan a azules --- */
+html[data-tema="noche"] :is(
+  .promo-btn-primary, .icon-circle, .progreso-bar-pct, .tienda-btn-primary
+) {
+  background: linear-gradient(135deg, #2f77c9, #24558f);
+}
+
+html[data-tema="noche"] .tienda-portada {
+  background: linear-gradient(135deg, #142b42 0%, #10253a 50%, #142b42 100%);
+}
+
+/* --- CONTRASTE: degradados y chips pasan a negro/blanco --- */
+html[data-tema="contra"] :is(
+  .promo-btn-primary, .icon-circle, .progreso-bar-pct, .tienda-btn-primary
+) {
+  background: #ffffff;
+  color: #000000;
+}
+
+html[data-tema="contra"] .tienda-portada {
+  background: #000000;
+}
