@@ -25,7 +25,7 @@ Lista viva de ideas y pendientes. Marca lo que ya se hizo. (Nuevas ideas siempre
 - [ ] Probar en celulares reales (iPhone + Android) todas las páginas
 - [ ] Favicon/metas OpenGraph (vista previa bonita al compartir en WhatsApp)
 - [ ] Quitar el aviso "Página en construcción" cuando casilleros esté operativo (o convertirlo en "Novedades")
-- [ ] Modo oscuro opcional
+- [x] Modo oscuro y de contraste: 2 temas en `css/temas.css` (noche azul + contraste negro) con interruptor flotante (`js/temas.js`, guarda la elección en localStorage)
 
 ## 🔧 Mantenimiento
 - [ ] Limpiar/descartar `index2.html` (backup viejo del amigo) cuando ya no se necesite

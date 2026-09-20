@@ -1,0 +1,359 @@
+/* ==========================================================================
+   TEMAS DEL PORTAL
+   --------------------------------------------------------------------------
+   Activación: se pone un atributo sobre la etiqueta <html>:
+     <html lang="es" data-tema="noche">
+     <html lang="es" data-tema="contra">
+   Sin atributo (o data-tema vacío) se mantiene el tema claro original.
+   - "noche"  : modo oscuro con colores azulados.
+   - "contra" : modo de alto contraste con negros intensos.
+   La base del tema claro sigue siendo el CSS original del portal; aquí solo
+   se sobrescriben superficies, textos y acentos para los dos temas nuevos.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. PALETA POR TEMA (variables que consumen las reglas compartidas)
+   --------------------------------------------------------------------------- */
+html[data-tema="noche"] {
+  color-scheme: dark;
+  --t-bg: #0e1c2c;          /* fondo de página              */
+  --t-panel: #142b42;       /* tarjetas / cajas blancas     */
+  --t-soft: #10253a;        /* superficies suaves claras    */
+  --t-texto: #e3eef9;
+  --t-sec: #a9c5e2;         /* texto secundario             */
+  --t-atenuado: #8fb1ce;    /* texto atenuado / placeholders */
+  --t-borde: rgba(141, 190, 240, 0.16);
+  --t-borde2: rgba(141, 190, 240, 0.42);
+  --t-ac: #6fb1f5;          /* acento azul (texto/iconos)   */
+  --t-ac-suave: #4d94e0;    /* acento para contorno/hover   */
+  --t-ac-fuerte: #2f6fb5;   /* acento sólido (botones)      */
+  --t-ac-profundo: #214b79;
+  --t-ac-tinto: rgba(111, 177, 245, 0.14);
+  --t-sombra: rgba(2, 8, 18, 0.45);
+}
+
+html[data-tema="contra"] {
+  color-scheme: dark;
+  --t-bg: #000000;
+  --t-panel: #000000;
+  --t-soft: #0a0a0a;
+  --t-texto: #ffffff;
+  --t-sec: #e6e6e6;
+  --t-atenuado: #cccccc;
+  --t-borde: #ffffff;
+  --t-borde2: #ffffff;
+  --t-ac: #ffffff;
+  --t-ac-suave: #ffffff;
+  --t-ac-fuerte: #ffffff;
+  --t-ac-profundo: #ffffff;
+  --t-ac-tinto: rgba(255, 255, 255, 0.18);
+  --t-sombra: none;
+}
+
+/* ---------------------------------------------------------------------------
+   2. REGLAS COMPARTIDAS (se aplican en cualquiera de los temas nuevos)
+   --------------------------------------------------------------------------- */
+
+html[data-tema] body {
+  background-color: var(--t-bg);
+  color: var(--t-texto);
+}
+
+html[data-tema] :is(h1, h2, h3, h4) {
+  color: var(--t-texto);
+}
+
+html[data-tema] p {
+  color: var(--t-sec);
+}
+
+html[data-tema] a {
+  color: var(--t-ac);
+}
+
+/* --- Superficies principales (cajas blancas → panel oscuro) --- */
+html[data-tema] :is(
+  .Servicios, .mapa-contenedor, .noticia-card,
+  .centro-item, .calendario-wrapper, .evento-card,
+  .centro-card, .circulos-section,
+  .faq-item, .tramite-item,
+  .profile-card, .secretary-card, .accessory-item, .support-card,
+  .management-logo-image, .profesor-card,
+  .tienda-hero-card, .tienda-cat, .tienda-card,
+  .area-btn
+) {
+  background-color: var(--t-panel);
+  background-image: none;
+  border-color: var(--t-borde2);
+  box-shadow: 0 6px 20px var(--t-sombra);
+}
+
+html[data-tema] .centro-item {
+  background-image: linear-gradient(160deg, var(--tc-suave, rgba(111,177,245,0.10)) 0%, var(--t-panel) 60%);
+}
+
+/* --- Superficies suaves (verdes/grises claros → neutro oscuro) --- */
+html[data-tema] :is(
+  .card, .circulo-card, .curso-item, .stat-box, .grafica-container,
+  .tramite-paso, .cal-cell, .evento-card-popup, .manual-profesores
+) {
+  background-color: var(--t-soft);
+  border-color: var(--t-borde);
+}
+
+html[data-tema] .noticia-imagen {
+  background-color: var(--t-ac-tinto);
+}
+
+/* --- Etiquetas / chips (fondo verde claro + texto verde) --- */
+html[data-tema] :is(
+  .asuntos-label, .evento-tag, .card-tag, .noticia-fecha,
+  .faq-label, .tramites-label, .manual-label,
+  .centros-label, .circulos-label,
+  .profesor-info .card-tag, .buscador-icon
+) {
+  background-color: var(--t-ac-tinto);
+  color: var(--t-ac);
+  border: 1px solid var(--t-borde2);
+}
+
+html[data-tema] .badge-tag {
+  background-color: var(--t-ac-fuerte);
+  color: var(--t-bg);
+}
+
+/* --- Texto con acento verde → acento del tema --- */
+html[data-tema] :is(
+  .header-content .logo p, .cal-link, .noticia-cta,
+  .mapa-cargar-txt strong, .faq-categoria-titulo, .tramites-categoria-titulo,
+  .tienda-price, .tienda-kicker, .tienda-mini-stat strong,
+  .profesor-rango strong, .stat-box strong,
+  .buscador-profesor:focus-within, .Servicios_titulo h2,
+  .seccion-titulo > span, .mapa-titulo h2,
+  .timeline-summary-main h3, .progreso-bar-pct
+) {
+  color: var(--t-ac);
+}
+
+html[data-tema] :is(.faq-pregunta::after, .tramite-pregunta::after) {
+  color: var(--t-ac);
+}
+
+html[data-tema] :is(.faq-item[open], .tramite-item[open]) {
+  border-color: var(--t-ac-suave);
+}
+
+/* --- Títulos/Textos que eran color oscuro fijo --- */
+html[data-tema] :is(
+  .card h3, .noticia-contenido h3,
+  .asuntos-header h2, .evento-info h3, .cal-controls h3, .cal-cell-num,
+  .centros-header h2, .centro-card h3,
+  .profesor-info h2, .seccion-titulo h3, .curso-item strong,
+  .faq-pregunta, .faq-header h2, .faq-answer,
+  .tramite-pregunta, .tramites-header h2,
+  .progreso-fecha, .timeline-label, .progreso-etiqueta,
+  .comentarios-label, .comentarios-aviso, .comentarios-contador
+) {
+  color: var(--t-texto);
+}
+
+html[data-tema] .centro-contenido p,
+html[data-tema] .evento-info p,
+html[data-tema] .noticia-contenido p,
+html[data-tema] .faq-respuesta,
+html[data-tema] .buscador-profesor input,
+html[data-tema] .timeline-status {
+  color: var(--t-sec);
+}
+
+/* --- Componentes con fondo verde sólido → acento del tema --- */
+html[data-tema] :is(
+  .back-home-btn, .cal-nav-btn, .carousel-btn:hover,
+  .barra-progreso-badge, .progreso-bar-fill,
+  .tramite-paso::before, .cal-event-dot,
+  .comentarios-btn, .buscador-profesor button
+) {
+  background: var(--t-ac-fuerte);
+  color: var(--t-bg);
+  border-color: var(--t-borde2);
+  box-shadow: none;
+}
+
+html[data-tema] .back-home-btn:hover {
+  filter: brightness(1.12);
+}
+
+html[data-tema] .carousel-btn {
+  background-color: var(--t-panel);
+  color: var(--t-ac);
+}
+
+/* --- Hito/timeline --- */
+html[data-tema] .timeline-card {
+  background: var(--t-panel);
+  border-color: var(--t-borde);
+  box-shadow: 0 6px 14px var(--t-sombra);
+}
+
+html[data-tema] .timeline-item--highlight .timeline-card {
+  background: linear-gradient(135deg, var(--t-ac-tinto), rgba(0, 0, 0, 0.15));
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .timeline-item.is-current .timeline-card {
+  border-color: var(--t-ac-fuerte);
+  box-shadow: 0 0 0 3px var(--t-ac-tinto), 0 10px 22px var(--t-sombra);
+}
+
+html[data-tema] .timeline-marker {
+  border-color: var(--t-bg);
+}
+
+html[data-tema] .barra-progreso-track {
+  background: var(--t-ac-tinto);
+}
+
+/* --- Cabecera y hero --- */
+html[data-tema] .header-trapezoid::before {
+  background: var(--t-panel);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.5);
+}
+
+html[data-tema] .bloque_msg_consejo,
+html[data-tema] .bloque_msg_consejo p {
+  color: #ffffff;
+}
+
+/* --- Pie de página --- */
+html[data-tema] .site-footer {
+  border-top: 1px solid var(--t-borde2);
+}
+
+/* --- Formulario de comentarios (modal) --- */
+html[data-tema] .promo-comentarios .comentarios-card {
+  background: var(--t-panel);
+  border-color: var(--t-borde2);
+  box-shadow: 0 12px 30px var(--t-sombra);
+}
+
+html[data-tema] .promo-comentarios .comentarios-textarea {
+  background: var(--t-soft);
+  color: var(--t-texto);
+  border-color: var(--t-borde2);
+}
+
+html[data-tema] .promo-comentarios .comentarios-textarea::placeholder {
+  color: var(--t-atenuado);
+}
+
+html[data-tema] :is(input, textarea, select) {
+  color-scheme: dark;
+  background-color: var(--t-soft);
+  color: var(--t-texto);
+  border-color: var(--t-borde2);
+}
+
+/* ---------------------------------------------------------------------------
+   3. AJUSTES ESPECÍFICOS POR TEMA
+   --------------------------------------------------------------------------- */
+
+/* --- NOCHE (azul) --- */
+html[data-tema="noche"] .bloque_msg_overlay {
+  background: radial-gradient(circle, rgba(30, 92, 158, 0.5) 0%, rgba(2, 10, 22, 0.82) 100%);
+}
+
+html[data-tema="noche"] :is(.back-home-btn, .barra-progreso-badge, .progreso-bar-fill) {
+  background: linear-gradient(135deg, #2f77c9, #24558f);
+}
+
+html[data-tema="noche"] .site-footer {
+  background: linear-gradient(180deg, #0a1a2e 0%, #07111f 100%);
+  color: #d6e5f5;
+}
+
+html[data-tema="noche"] .promo-modal {
+  background: rgba(10, 24, 44, 0.55);
+  border-color: rgba(120, 180, 240, 0.25);
+}
+
+/* --- CONTRASTE (negro) --- */
+html[data-tema="contra"] .bloque_msg_overlay {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+html[data-tema="contra"] :is(.back-home-btn, .barra-progreso-badge, .progreso-bar-fill) {
+  background: #ffffff;
+  color: #000000;
+}
+
+html[data-tema="contra"] .site-footer {
+  background: #000000;
+  color: #ffffff;
+}
+
+html[data-tema="contra"] .comentarios-card,
+html[data-tema="contra"] .promo-modal {
+  background: #000000;
+  border-color: #ffffff;
+}
+
+html[data-tema="contra"] .timeline-marker,
+html[data-tema="contra"] .cal-event-dot {
+  border-color: #ffffff;
+}
+
+html[data-tema="contra"] .noticia-imagen,
+html[data-tema="contra"] .cal-cell.selected,
+html[data-tema="contra"] .cal-cell.has-event {
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   4. INTERRUPTOR DE TEMA (widget flotante inyectado por js/temas.js)
+   ========================================================================== */
+#temaSwitch {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 950;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+#temaSwitch button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+#temaSwitch button:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+#temaSwitch button[aria-pressed="true"] {
+  color: #ffffff;
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+html[data-tema="contra"] #temaSwitch {
+  background: #000000;
+  border-color: #ffffff;
+}
