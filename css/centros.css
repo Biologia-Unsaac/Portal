@@ -22,8 +22,8 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: #0c7120;
-  background-color: #eaf3e8;
+  color: var(--ac);
+  background-color: var(--suave);
   padding: 4px 12px;
   border-radius: 6px;
   margin-bottom: 12px;
@@ -33,14 +33,14 @@
 .centros-header h2,
 .circulos-header h2 {
   font-size: 2rem;
-  color: #1c2826;
+  color: var(--texto);
   margin-bottom: 10px;
   font-weight: 700;
 }
 
 .centros-header p,
 .circulos-header p {
-  color: #64748b;
+  color: var(--muted);
   font-size: 1rem;
 }
 
@@ -51,10 +51,10 @@
 }
 
 .centro-card {
-  background-color: #ffffff;
+  background-color: var(--superficie);
   padding: 28px;
   border-radius: 16px;
-  border: 1px solid #e6ede4;
+  border: 1px solid var(--borde);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -71,7 +71,7 @@
   font-weight: 800;
   text-transform: uppercase;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--tc, #0c7120), var(--tc-oscuro, #095418));
+  background: linear-gradient(135deg, var(--tc, var(--ac)), var(--tc-oscuro, var(--ac-profundo)));
   padding: 5px 12px;
   border-radius: 6px;
   margin-bottom: 14px;
@@ -92,7 +92,7 @@
 
 .centro-card h3 {
   font-size: 1.1rem;
-  color: #1c2826;
+  color: var(--texto);
   margin-bottom: 8px;
   font-weight: 700;
   line-height: 1.4;
@@ -100,14 +100,14 @@
 
 .centro-card p {
   font-size: 0.92rem;
-  color: #4a5568;
+  color: var(--muted);
   line-height: 1.5;
 }
 
 /* Círculos de Estudio */
 .circulos-section {
-  background-color: #ffffff;
-  border-top: 1px solid #e2e8f0;
+  background-color: var(--superficie);
+  border-top: 1px solid var(--borde);
   max-width: 100%;
 }
 
@@ -120,10 +120,10 @@
 }
 
 .circulo-card {
-  background-color: #f8faf7;
+  background-color: var(--claro);
   padding: 28px;
   border-radius: 16px;
-  border: 1px solid #e6ede4;
+  border: 1px solid var(--borde);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -139,8 +139,8 @@
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: #0c7120;
-  background-color: #eaf3e8;
+  color: var(--ac);
+  background-color: var(--suave);
   padding: 5px 12px;
   border-radius: 6px;
   margin-bottom: 14px;
@@ -149,14 +149,14 @@
 
 .circulo-card h3 {
   font-size: 1.1rem;
-  color: #1c2826;
+  color: var(--texto);
   margin-bottom: 8px;
   font-weight: 700;
 }
 
 .circulo-card p {
   font-size: 0.92rem;
-  color: #4a5568;
+  color: var(--muted);
   line-height: 1.5;
   margin-bottom: 12px;
 }
@@ -165,7 +165,7 @@
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--muted);
   font-style: italic;
 }
 
@@ -177,10 +177,10 @@
   margin-top: 16px;
   padding: 10px 14px;
   border-radius: 10px;
-  background-color: var(--tc-suave, #f4f9f2);
+  background-color: var(--tc-suave, var(--claro));
   border: 1px dashed var(--tc-borde, #cfe0c8);
   font-size: 0.85rem;
-  color: #334155;
+  color: var(--muted);
 }
 
 .centro-director .dir-rol {
@@ -188,8 +188,8 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: var(--tc, #0c7120);
-  background-color: #ffffff;
+  color: var(--tc, var(--ac));
+  background-color: var(--superficie);
   border: 1px solid var(--tc-borde, #cfe0c8);
   padding: 3px 8px;
   border-radius: 20px;
@@ -201,7 +201,7 @@
 
 .centro-director .dir-tel {
   margin-left: auto;
-  color: var(--tc-oscuro, #0c7120);
+  color: var(--tc-oscuro, var(--ac));
   font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
@@ -218,8 +218,8 @@
   margin-left: auto;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--tc-oscuro, #4a5568);
-  background-color: var(--tc-suave, #f1f5f9);
+  color: var(--tc-oscuro, var(--muted));
+  background-color: var(--tc-suave, var(--claro));
   padding: 8px 14px;
   border-radius: 8px;
   text-decoration: none;
@@ -227,7 +227,7 @@
 }
 
 .centro-redes .web-btn:hover {
-  background-color: var(--tc-oscuro, #0c7120);
+  background-color: var(--tc-oscuro, var(--ac));
   color: #ffffff;
   transform: translateY(-2px);
 }

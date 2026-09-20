@@ -3,7 +3,7 @@
   margin: 26px auto 0;
   padding: 28px;
   border-radius: 28px;
-  background: linear-gradient(135deg, #f4faf5 0%, #ffffff 50%, #ecf8ef 100%);
+  background: linear-gradient(135deg, #f4faf5 0%, var(--superficie) 50%, #ecf8ef 100%);
   border: 1px solid rgba(12, 113, 32, 0.08);
   box-shadow: 0 20px 48px rgba(12, 113, 32, 0.08);
 }
@@ -21,8 +21,8 @@
 
 .tienda-kicker {
   display: inline-block;
-  background: #eaf7ec;
-  color: #0f6a2a;
+  background: var(--suave);
+  color: var(--ac-profundo);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -34,14 +34,14 @@
 
 .tienda-portada-copy h2 {
   margin: 0 0 12px;
-  color: #153b2b;
+  color: var(--texto);
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 1.1;
 }
 
 .tienda-portada-copy p {
   margin: 0 0 18px;
-  color: #52675b;
+  color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.7;
 }
@@ -69,15 +69,15 @@
 }
 
 .tienda-btn-primary {
-  background: linear-gradient(135deg, #0c7120, #2d9b46);
-  color: #fff;
+  background: linear-gradient(135deg, var(--ac), var(--ac-suave));
+  color: #ffffff;
   box-shadow: 0 10px 22px rgba(12, 113, 32, 0.22);
 }
 
 .tienda-btn-secondary {
   border: 1px solid rgba(12, 113, 32, 0.12);
-  background: #fff;
-  color: #0c7120;
+  background: var(--superficie);
+  color: var(--ac);
 }
 
 .tienda-mini-stats {
@@ -95,13 +95,13 @@
 
 .tienda-mini-stat strong {
   display: block;
-  color: #0f6a2a;
+  color: var(--ac-profundo);
   font-size: 1.3rem;
   margin-bottom: 4px;
 }
 
 .tienda-mini-stat span {
-  color: #586d66;
+  color: var(--muted);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -115,7 +115,7 @@
 
 .tienda-hero-card {
   width: min(100%, 430px);
-  background: #fff;
+  background: var(--superficie);
   border-radius: 26px;
   box-shadow: 0 22px 42px rgba(16, 79, 33, 0.12);
   overflow: hidden;
@@ -135,8 +135,8 @@
 
 .tienda-badge {
   display: inline-block;
-  background: #edf8ee;
-  color: #0b6624;
+  background: var(--suave);
+  color: var(--ac-profundo);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -153,7 +153,7 @@
 
 .tienda-hero-card-body p {
   margin: 0;
-  color: #566b60;
+  color: var(--muted);
   line-height: 1.6;
 }
 
@@ -169,8 +169,8 @@
 
 .tienda-header .manual-label {
   display: inline-block;
-  background: #eaf7ec;
-  color: #0f6a2a;
+  background: var(--suave);
+  color: var(--ac-profundo);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -182,14 +182,14 @@
 
 .tienda-header h1 {
   margin: 0;
-  color: #17372b;
+  color: var(--texto);
   font-size: clamp(2.2rem, 4vw, 3.2rem);
 }
 
 .tienda-header p {
   margin: 12px auto 0;
   max-width: 700px;
-  color: #586d66;
+  color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.7;
 }
@@ -203,9 +203,9 @@
 }
 
 .tienda-cat {
-  background: #fff;
+  background: var(--superficie);
   border: 1px solid rgba(12, 113, 32, 0.08);
-  color: #244b33;
+  color: var(--texto);
   font-weight: 700;
   border-radius: 999px;
   padding: 10px 16px;
@@ -219,7 +219,7 @@
 }
 
 .tienda-card {
-  background: #fff;
+  background: var(--superficie);
   border: 1px solid rgba(12, 113, 32, 0.08);
   border-radius: 22px;
   overflow: hidden;
@@ -253,8 +253,8 @@
 
 .tienda-label {
   display: inline-block;
-  background: #edf8ee;
-  color: #0d6d2d;
+  background: var(--suave);
+  color: var(--ac-profundo);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -264,20 +264,20 @@
 }
 
 .tienda-price {
-  color: #0c7120;
+  color: var(--ac);
   font-weight: 900;
   font-size: 1.2rem;
 }
 
 .tienda-card h3 {
   margin: 0 0 8px;
-  color: #1a2f28;
+  color: var(--texto);
   font-size: 1.2rem;
 }
 
 .tienda-card p {
   margin: 0 0 14px;
-  color: #5d6d64;
+  color: var(--muted);
   line-height: 1.6;
 }
 

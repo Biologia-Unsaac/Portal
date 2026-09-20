@@ -5,7 +5,7 @@
 .manual-profesores {
   width: 100%;
   padding: 75px 20px 90px;
-  background: #f8faf7;
+  background: var(--claro);
 }
 
 .profesores-header {
@@ -19,15 +19,15 @@
   padding: 5px 13px;
   margin-bottom: 12px;
   border-radius: 20px;
-  background: #eaf3e8;
-  color: #0c7120;
+  background: var(--suave);
+  color: var(--ac);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 1.4px;
 }
 
 .profesores-header h2 {
-  color: #0c7120;
+  color: var(--ac);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.1;
   margin-bottom: 12px;
@@ -36,7 +36,7 @@
 .profesores-header > p {
   max-width: 600px;
   margin: 0 auto 28px;
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.95rem;
 }
 
@@ -48,15 +48,15 @@
   display: flex;
   align-items: center;
   padding: 7px;
-  background: #ffffff;
-  border: 1px solid #dce7da;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
   border-radius: 14px;
   box-shadow: 0 8px 25px rgba(12, 113, 32, 0.08);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .buscador-profesor:focus-within {
-  border-color: #0c7120;
+  border-color: var(--ac);
   box-shadow: 0 8px 30px rgba(12, 113, 32, 0.16);
 }
 
@@ -64,7 +64,7 @@
   width: 45px;
   display: flex;
   justify-content: center;
-  color: #0c7120;
+  color: var(--ac);
   font-size: 1.7rem;
   font-weight: 700;
 }
@@ -75,19 +75,19 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #1c2826;
+  color: var(--texto);
   font-size: 0.95rem;
 }
 
 .buscador-profesor input::placeholder {
-  color: #94a3b8;
+  color: var(--muted);
 }
 
 .buscador-profesor button {
   border: none;
   padding: 12px 23px;
   border-radius: 10px;
-  background: #0c7120;
+  background: var(--ac);
   color: #ffffff;
   font-size: 0.85rem;
   font-weight: 700;
@@ -96,7 +96,7 @@
 }
 
 .buscador-profesor button:hover {
-  background: #095418;
+  background: var(--ac-profundo);
   transform: translateY(-1px);
 }
 
@@ -106,8 +106,8 @@
   max-width: 1100px;
   margin: 0 auto;
   overflow: hidden;
-  background: #ffffff;
-  border: 1px solid #e0e9de;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
   border-radius: 22px;
   box-shadow: 0 15px 45px rgba(12, 113, 32, 0.09);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -125,8 +125,8 @@
   justify-content: space-between;
   gap: 30px;
   padding: 32px;
-  background: linear-gradient(135deg, #ffffff 0%, #f3f8f1 100%);
-  border-bottom: 1px solid #e4ece2;
+  background: linear-gradient(135deg, var(--superficie) 0%, var(--claro) 100%);
+  border-bottom: 1px solid var(--borde);
 }
 
 .profesor-identidad {
@@ -144,7 +144,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  background: linear-gradient(135deg, #0c7120 0%, #159c39 60%, #c2c81f 130%);
+  background: linear-gradient(135deg, var(--ac) 0%, var(--ac-suave) 60%, #c2c81f 130%);
   border: 4px solid #ffffff;
   box-shadow: 0 10px 26px rgba(12, 113, 32, 0.28);
 }
@@ -161,13 +161,13 @@
 
 .profesor-info h2 {
   margin: 4px 0 7px;
-  color: #1c2826;
+  color: var(--texto);
   font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
 .profesor-descripcion {
   max-width: 600px;
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -177,8 +177,8 @@
   margin: 0;
   padding: 4px 11px;
   border-radius: 20px;
-  color: #0c7120;
-  background: #eaf3e8;
+  color: var(--ac);
+  background: var(--suave);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.6px;
@@ -193,7 +193,7 @@
 .profesor-rango > span {
   display: block;
   margin-bottom: 7px;
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 1px;
@@ -202,7 +202,7 @@
 .profesor-rango strong {
   display: block;
   margin-top: 5px;
-  color: #0c7120;
+  color: var(--ac);
   font-size: 1.25rem;
 }
 
@@ -211,14 +211,14 @@
   height: 9px;
   overflow: hidden;
   border-radius: 20px;
-  background: #e2e8f0;
+  background: var(--borde);
 }
 
 .dificultad-fill {
   width: 80%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #0c7120, #c2c81f);
+  background: linear-gradient(90deg, var(--ac), #c2c81f);
 }
 
 /* Cuerpo Tarjeta */
@@ -243,19 +243,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: #0c7120;
+  background: var(--ac);
   color: #ffffff;
   font-size: 0.7rem;
   font-weight: 800;
 }
 
 .seccion-titulo h3 {
-  color: #1c2826;
+  color: var(--texto);
   font-size: 1rem;
 }
 
 .seccion-titulo p {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.75rem;
 }
 
@@ -272,9 +272,9 @@
   gap: 14px;
   padding: 13px 13px 13px 17px;
   overflow: hidden;
-  border: 1px solid #e5ece3;
+  border: 1px solid var(--borde);
   border-radius: 12px;
-  background: #f8faf7;
+  background: var(--claro);
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -285,7 +285,7 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, #0c7120, #c2c81f);
+  background: linear-gradient(180deg, var(--ac), #c2c81f);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -307,7 +307,7 @@
   justify-content: center;
   flex-shrink: 0;
   border-radius: 10px;
-  background: linear-gradient(135deg, #0c7120, #159c39);
+  background: linear-gradient(135deg, var(--ac), var(--ac-suave));
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 800;
@@ -315,12 +315,12 @@
 
 .curso-item strong {
   display: block;
-  color: #1c2826;
+  color: var(--texto);
   font-size: 0.88rem;
 }
 
 .curso-item small {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.72rem;
 }
 
@@ -333,14 +333,14 @@
 .stat-box {
   padding: 18px 10px;
   text-align: center;
-  background: #f8faf7;
-  border: 1px solid #e5ece3;
+  background: var(--claro);
+  border: 1px solid var(--borde);
   border-radius: 12px;
 }
 
 .stat-box strong {
   display: block;
-  color: #0c7120;
+  color: var(--ac);
   font-size: 1.4rem;
   line-height: 1.2;
 }
@@ -348,7 +348,7 @@
 .stat-box span {
   display: block;
   margin-top: 5px;
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -363,8 +363,8 @@
   width: 100%;
   height: 300px;
   padding: 20px;
-  border: 1px solid #e5ece3;
+  border: 1px solid var(--borde);
   border-radius: 15px;
-  background: #f8faf7;
+  background: var(--claro);
 }
 

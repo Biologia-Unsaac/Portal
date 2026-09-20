@@ -19,8 +19,8 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: #0c7120;
-  background-color: #eaf3e8;
+  color: var(--ac);
+  background-color: var(--suave);
   padding: 4px 12px;
   border-radius: 6px;
   margin-bottom: 12px;
@@ -29,13 +29,13 @@
 
 .tramites-header h2 {
   font-size: 2rem;
-  color: #1c2826;
+  color: var(--texto);
   margin-bottom: 10px;
   font-weight: 700;
 }
 
 .tramites-header p {
-  color: #64748b;
+  color: var(--muted);
   font-size: 1rem;
 }
 
@@ -45,16 +45,16 @@
 
 .tramites-categoria-titulo {
   font-size: 1.2rem;
-  color: #0c7120;
+  color: var(--ac);
   font-weight: 700;
   margin-bottom: 16px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #e6ede4;
+  border-bottom: 2px solid var(--borde);
 }
 
 .tramite-item {
-  background-color: #ffffff;
-  border: 1px solid #e6ede4;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
   border-radius: 12px;
   margin-bottom: 12px;
   overflow: hidden;
@@ -67,14 +67,14 @@
 
 .tramite-item[open] {
   box-shadow: 0 4px 16px rgba(12, 113, 32, 0.1);
-  border-color: #0c7120;
+  border-color: var(--ac);
 }
 
 .tramite-pregunta {
   padding: 18px 24px;
   font-size: 1rem;
   font-weight: 600;
-  color: #1c2826;
+  color: var(--texto);
   cursor: pointer;
   list-style: none;
   display: flex;
@@ -92,7 +92,7 @@
   content: '+';
   font-size: 1.4rem;
   font-weight: 700;
-  color: #0c7120;
+  color: var(--ac);
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -102,7 +102,7 @@
 }
 
 .tramite-item[open] .tramite-pregunta {
-  color: #0c7120;
+  color: var(--ac);
 }
 
 .tramite-respuesta {
@@ -111,7 +111,7 @@
 
 .tramite-respuesta p {
   font-size: 0.95rem;
-  color: #4a5568;
+  color: var(--muted);
   line-height: 1.7;
   margin-bottom: 16px;
 }
@@ -128,18 +128,18 @@
   align-items: center;
   gap: 10px;
   font-size: 0.9rem;
-  color: #1c2826;
-  background-color: #f8faf7;
+  color: var(--texto);
+  background-color: var(--claro);
   padding: 10px 14px;
   border-radius: 8px;
-  border-left: 3px solid #0c7120;
+  border-left: 3px solid var(--ac);
 }
 
 .tramite-paso::before {
   content: '';
   width: 8px;
   height: 8px;
-  background-color: #0c7120;
+  background-color: var(--ac);
   border-radius: 50%;
   flex-shrink: 0;
 }

@@ -51,6 +51,27 @@ html[data-tema="contra"] {
 }
 
 /* ---------------------------------------------------------------------------
+   1b. MAPEO DE LA PALETA BASE DEL PORTAL (style.css :root) AL TEMA ACTIVO
+   Con esto, cualquier componente declarado con var(--texto, --superficie,
+   --ac, etc.) respeta automáticamente el color del tema.
+   --------------------------------------------------------------------------- */
+html[data-tema] {
+  --texto: var(--t-texto);
+  --muted: var(--t-sec);
+  --atenuado: var(--t-atenuado);
+  --ac: var(--t-ac);
+  --ac-suave: var(--t-ac-suave);
+  --ac-profundo: var(--t-ac-profundo);
+  --ac-brillo: var(--t-ac-suave);
+  --suave: var(--t-soft);
+  --claro: var(--t-soft);
+  --superficie: var(--t-panel);
+  --borde: var(--t-borde);
+  --sombra: var(--t-sombra);
+  --mancha: var(--t-ac-tinto);
+}
+
+/* ---------------------------------------------------------------------------
    2. REGLAS COMPARTIDAS (se aplican en cualquiera de los temas nuevos)
    --------------------------------------------------------------------------- */
 

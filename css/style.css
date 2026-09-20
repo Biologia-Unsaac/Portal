@@ -7,10 +7,28 @@
   padding: 0;
 }
 
+/* Paleta base (tema claro). Los temas de css/temas.css sobrescriben estas
+   variables para que todo el portal respete los colores del tema activo. */
+:root {
+  --texto: #1c2826;
+  --muted: #64748b;
+  --atenuado: #94a3b8;
+  --ac: #0c7120;
+  --ac-suave: #2d9b46;
+  --ac-profundo: #095418;
+  --ac-brillo: #90c84f;
+  --suave: #eaf3e8;
+  --claro: #f8faf7;
+  --superficie: #ffffff;
+  --borde: #e6ede4;
+  --sombra: rgba(0, 0, 0, 0.03);
+  --mancha: rgba(12, 113, 32, 0.08);
+}
+
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #f8faf7;
-  color: #1c2826;
+  background-color: var(--claro);
+  color: var(--texto);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -244,7 +262,7 @@ body.modal-open {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #0c7120, #0a5a1d);
+  background: linear-gradient(135deg, var(--ac), var(--ac-profundo));
   color: #ffffff;
   text-decoration: none;
   font-size: 0.9rem;
@@ -292,14 +310,14 @@ body.modal-open {
 }
 
 .promo-btn-primary {
-  background: linear-gradient(135deg, #0c7120, #2d9b46);
+  background: linear-gradient(135deg, var(--ac), var(--ac-suave));
   color: #ffffff;
   box-shadow: 0 10px 22px rgba(12, 113, 32, 0.25);
 }
 
 .promo-btn-secondary {
   background: #eef7ee;
-  color: #0c7120;
+  color: var(--ac);
   border: 1px solid rgba(12, 113, 32, 0.12);
 }
 
@@ -408,7 +426,7 @@ body.modal-open {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  background: linear-gradient(135deg, var(--superficie) 0%, var(--superficie) 100%);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   
   /* Inclinación 3D para la forma de trapecio */
@@ -424,7 +442,7 @@ body.modal-open {
 .header-content .logo p {
   font-weight: 800;
   font-size: 1.25rem;
-  color: #0c7120;
+  color: var(--ac);
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
@@ -477,7 +495,7 @@ body.modal-open {
 .badge-tag {
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.9);
-  color: #0c7120;
+  color: var(--ac);
   font-weight: 700;
   font-size: 0.85rem;
   padding: 6px 16px;
@@ -551,7 +569,7 @@ body.modal-open {
 .icon-circle {
   width: 88px;
   height: 88px;
-  background: linear-gradient(145deg, #0c7120, #095418);
+  background: linear-gradient(145deg, var(--ac), var(--ac-profundo));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -592,7 +610,7 @@ body.modal-open {
 }
 
 .Box-2:hover .icon-circle svg {
-  color: #0c7120;
+  color: var(--ac);
 }
 
 .Box-2 p {
@@ -655,7 +673,7 @@ body.modal-open {
 
 .timeline-summary-main h3 {
   font-size: clamp(1.2rem, 2vw, 1.7rem);
-  color: #155f2d;
+  color: var(--ac-profundo);
   font-weight: 900;
   letter-spacing: 0.02em;
 }
@@ -666,7 +684,7 @@ body.modal-open {
   justify-content: center;
   padding: 8px 14px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #0c7120, #2d9b46);
+  background: linear-gradient(135deg, var(--ac), var(--ac-suave));
   color: #ffffff;
   font-size: 0.72rem;
   font-weight: 800;
@@ -695,7 +713,7 @@ body.modal-open {
   height: 100%;
   width: 0%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #0c7120, #90c84f);
+  background: linear-gradient(90deg, var(--ac), var(--ac-brillo));
   transition: width 0.6s ease;
 }
 
@@ -704,7 +722,7 @@ body.modal-open {
   text-align: right;
   font-size: 0.85rem;
   font-weight: 800;
-  color: #155f2d;
+  color: var(--ac-profundo);
 }
 
 .timeline-status {
@@ -756,8 +774,8 @@ body.modal-open {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0c7120, #90c84f);
-  border: 3px solid #f8fff9;
+  background: linear-gradient(135deg, var(--ac), var(--ac-brillo));
+  border: 3px solid var(--claro);
   box-shadow: 0 0 0 3px rgba(12, 113, 32, 0.14);
   transform: translateY(-50%);
   z-index: 2;
@@ -827,7 +845,7 @@ body.modal-open {
   flex-shrink: 0;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #0c7120;
+  color: var(--ac);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -880,9 +898,9 @@ body.modal-open {
    ========================================================================== */
 .Servicios {
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--superficie);
   padding: 60px 0 80px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--borde);
 }
 
 .Servicios_titulo {
@@ -893,13 +911,13 @@ body.modal-open {
 
 .Servicios_titulo h2 {
   font-size: 2rem;
-  color: #0c7120;
+  color: var(--ac);
   margin-bottom: 10px;
   font-weight: 700;
 }
 
 .Servicios_titulo p {
-  color: #64748b;
+  color: var(--muted);
   font-size: 1rem;
 }
 
@@ -912,10 +930,10 @@ body.modal-open {
 }
 
 .card {
-  background-color: #f8faf7;
+  background-color: var(--claro);
   padding: 28px;
   border-radius: 16px;
-  border: 1px solid #e6ede4;
+  border: 1px solid var(--borde);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -937,8 +955,8 @@ a.card {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: #0c7120;
-  background-color: #eaf3e8;
+  color: var(--ac);
+  background-color: var(--suave);
   padding: 4px 10px;
   border-radius: 6px;
   margin-bottom: 12px;
@@ -946,13 +964,13 @@ a.card {
 
 .card h3 {
   font-size: 1.2rem;
-  color: #1c2826;
+  color: var(--texto);
   margin-bottom: 8px;
 }
 
 .card p {
   font-size: 0.92rem;
-  color: #4a5568;
+  color: var(--muted);
   line-height: 1.5;
 }
 
@@ -992,9 +1010,9 @@ a.card {
   flex: 0 0 300px;
   flex-shrink: 0;
   display: block;
-  background-color: #ffffff;
+  background-color: var(--superficie);
   border-radius: 16px;
-  border: 1px solid #e6ede4;
+  border: 1px solid var(--borde);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -1012,7 +1030,7 @@ a.card {
 .noticia-imagen {
   width: 100%;
   height: 160px;
-  background-color: #eaf3e8;
+  background-color: var(--suave);
   overflow: hidden;
 }
 
@@ -1034,8 +1052,8 @@ a.card {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #0c7120;
-  background-color: #eaf3e8;
+  color: var(--ac);
+  background-color: var(--suave);
   padding: 3px 10px;
   border-radius: 6px;
   margin-bottom: 10px;
@@ -1043,14 +1061,14 @@ a.card {
 
 .noticia-contenido h3 {
   font-size: 1.05rem;
-  color: #1c2826;
+  color: var(--texto);
   line-height: 1.3;
   margin-bottom: 6px;
 }
 
 .noticia-contenido p {
   font-size: 0.88rem;
-  color: #4a5568;
+  color: var(--muted);
   line-height: 1.5;
 }
 
@@ -1059,7 +1077,7 @@ a.card {
   margin-top: 12px;
   font-size: 0.82rem;
   font-weight: 800;
-  color: #0c7120;
+  color: var(--ac);
 }
 
 .noticia-card:hover .noticia-cta {
@@ -1073,9 +1091,9 @@ a.card {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 1px solid #e6ede4;
-  background-color: #ffffff;
-  color: #0c7120;
+  border: 1px solid var(--borde);
+  background-color: var(--superficie);
+  color: var(--ac);
   font-size: 1.1rem;
   font-weight: 700;
   display: flex;
@@ -1088,7 +1106,7 @@ a.card {
 }
 
 .carousel-btn:hover {
-  background-color: #0c7120;
+  background-color: var(--ac);
   color: #ffffff;
 }
 
@@ -1384,12 +1402,12 @@ a.card {
 
 .mapa-titulo h2 {
   font-size: 1.5rem;
-  color: #0c7120;
+  color: var(--ac);
   margin-bottom: 8px;
 }
 
 .mapa-titulo p {
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.95rem;
 }
 
@@ -1398,8 +1416,8 @@ a.card {
   margin: 0 auto;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #e6ede4;
-  background: #ffffff;
+  border: 1px solid var(--borde);
+  background: var(--superficie);
 }
 
 .mapa-contenedor iframe {
@@ -1437,12 +1455,12 @@ a.card {
 }
 
 .mapa-cargar-txt strong {
-  color: #0c7120;
+  color: var(--ac);
   font-size: 1.05rem;
 }
 
 .mapa-cargar-txt small {
-  color: #64748b;
+  color: var(--muted);
   font-size: 0.85rem;
 }
 
