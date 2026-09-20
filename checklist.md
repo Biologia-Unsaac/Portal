@@ -3,17 +3,16 @@
 Lista viva de ideas y pendientes. Marca lo que ya se hizo. (Nuevas ideas siempre son bienvenidas.)
 
 ## ✅ Hecho
-- [x] Sistema de casilleros: front v7 + admin (reservas, config en línea)
+- [x] Sistema de casilleros: front v7 + admin + **backend desplegado (Confirmado por el usuario: funciona)**
 - [x] Sistema de comentarios/sugerencias (Sheet + modal "Página en construcción") con anti-spam
-- [x] Botón (X) para cerrar el aviso del índice (recuerda el cierre por visitante)
+- [x] Botón (X) para cerrar el aviso del índice: funcionando + estilo cristal/transparente
 - [x] Centros de investigación: presidentes/representantes + teléfonos + sitios web (CIBIOGEN, ICTIOS)
-- [x] Layout móvil de centros corregido (tarjetas apiladas a todo el ancho)
+- [x] Centros en **2 columnas**, info ordenada (logo → título → desc → tags → director → redes) y layout móvil corregido
 - [x] Toggle Centros/Círculos robusto (inmune a timing/caché, sin doble-tap lento)
 - [x] Contador de visitas: backend `visitas_appscript` + `js/visitas.js` en las 9 páginas
 
-## 🚨 Pendiente PRINCIPAL (bloquea funcionalidad real)
-- [ ] **Casilleros backend en producción**: re-pegar `Code.gs`, `consulta.gs`, `admin.html` en
-      Apps Script y crear **implementación v4** (el front ya está listo, la reserva real no funciona hasta esto)
+## 🚨 PRINCIPAL → ✓ RESUELTO
+- [x] **Casilleros backend en producción** — el usuario confirmó que funciona; no tocar
 
 ## 🖥️ Funcionalidad
 - [ ] Tienda: decidir vitrina o venta real. Si es venta: botón "Pedir por WhatsApp/Yape" por producto

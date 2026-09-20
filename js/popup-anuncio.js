@@ -1,36 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('promoOverlay');
-  const closeBtn = document.getElementById('promoClose');
-
+(function () {
+  var overlay = document.getElementById("promoOverlay");
   if (!overlay) return;
 
-  function cerrar() {
-    overlay.classList.remove('is-visible');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('modal-open');
-    try {
-      localStorage.setItem('promoAnuncioCerrado', '1');
-    } catch (e) {}
+  var cerradoGuardado = false;
+  try { cerradoGuardado = localStorage.getItem("promoAnuncioCerrado") === "1"; } catch (e) {}
+
+  function ocultar() {
+    overlay.classList.remove("is-visible");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    try { localStorage.setItem("promoAnuncioCerrado", "1"); } catch (e) {}
   }
 
-  if (localStorage.getItem('promoAnuncioCerrado') === '1') {
-    cerrar();
-    return;
+  function mostrar() {
+    overlay.classList.add("is-visible");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
   }
 
-  overlay.classList.add('is-visible');
-  overlay.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('modal-open');
+  if (cerradoGuardado) { ocultar(); return; }
+  mostrar();
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', cerrar);
-  }
-
-  overlay.addEventListener('click', (ev) => {
-    if (ev.target === overlay) cerrar();
+  document.addEventListener("click", function (ev) {
+    var t = ev.target;
+    if (t && t.closest && t.closest("#promoClose")) { ocultar(); return; }
+    if (t === overlay) { ocultar(); }
   });
 
-  document.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape') cerrar();
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" || ev.key === "Esc") ocultar();
   });
-});
+})();

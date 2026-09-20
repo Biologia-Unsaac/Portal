@@ -363,20 +363,22 @@
   line-height: 1.5;
 }
 
-/* Centros de Investigación - Layout Alternado */
+/* Centros de Investigación - Rejilla de 2 columnas */
 .centros-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
 }
 
 .centro-item {
   display: flex;
-  align-items: center;
-  gap: 40px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
   background-color: #ffffff;
   background-image: linear-gradient(160deg, var(--tc-suave, rgba(12,113,32,0.04)) 0%, #ffffff 45%);
-  padding: 36px;
+  padding: 30px;
   border-radius: 20px;
   border: 1px solid var(--tc-borde, #e6ede4);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
@@ -390,22 +392,24 @@
 }
 
 .centro-izq {
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .centro-der {
-  flex-direction: row-reverse;
+  flex-direction: column;
 }
 
-/* Móvil: apilar la tarjeta en columna (debe ir DESPUÉS de .centro-izq/.centro-der
-   porque ambos comparten especificidad y el orden del cascade gana) */
+/* Móvil/tablet: colapsar la rejilla a 1 columna y centrar la tarjeta */
+@media (max-width: 900px) {
+  .centros-lista {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 @media (max-width: 600px) {
-  .centro-item,
-  .centro-izq,
-  .centro-der {
-    flex-direction: column;
+  .centro-item {
     text-align: center;
-    gap: 20px;
     padding: 26px 18px;
   }
 
@@ -427,18 +431,40 @@
   .centro-teams {
     justify-content: center;
   }
-
-  .centro-lista {
-    gap: 22px;
-  }
 }
 
 .centro-contenido {
   flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Orden visual: descripción → etiquetas → director → redes (pie de tarjeta) */
+.centro-contenido > .centro-teams {
+  order: 1;
+}
+
+.centro-contenido > .centro-director {
+  order: 2;
+}
+
+.centro-contenido > .centro-redes {
+  order: 4;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px dashed var(--tc-borde, #e6ede4);
+}
+
+.centro-contenido > .centro-decoracion {
+  order: 3;
 }
 
 .centro-visual {
   flex-shrink: 0;
+  align-self: center;
+  order: -1;
+  margin-bottom: 20px;
 }
 
 .centro-icono {
@@ -513,10 +539,9 @@
 .centro-decoracion {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 16px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px dashed var(--tc-borde, #e6ede4);
+  margin-top: 12px;
 }
 
 .deco-icon {
