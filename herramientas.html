@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramientas - C.F. Biología UNSAAC</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/herramientas.css">
+<link rel="stylesheet" href="css/temas.css">
+<script src="js/temas.js"></script>
+<script src="js/visitas.js" defer></script>
+</head>
+<body>
+    <div class="back-home-wrap">
+        <a href="index.html" class="back-home-btn">Volver</a>
+    </div>
+
+    <div class="hero-container">
+        <header class="header-trapezoid">
+            <div class="header-content">
+                <div class="logo"><p>Herramientas del estudiante</p></div>
+            </div>
+        </header>
+
+        <div class="bloque_msg">
+            <div class="bloque_msg_overlay"></div>
+            <div class="bloque_msg_consejo">
+                <p>Con tu planilla en la mano, hasta los grupos de WhatsApp se forman solos.</p>
+            </div>
+        </div>
+    </div>
+
+    <main class="herr-wrap">
+
+        <!-- ACCESOS OFICIALES UNSAAC -->
+        <section class="herr-card herr-accesos">
+            <h2>Accesos UNSAAC</h2>
+            <p class="herr-sub">La data vive en la intranet (con tu sesión). Entra, baja tu plantilla y procésala aquí abajo. Todo se hace en tu navegador: nada se sube a ningún servidor.</p>
+            <div class="herr-accesos-grid">
+                <a class="herr-acceso" href="https://intranetalumnos.unsaac.edu.pe/catalogo-horario/BI/0" target="_blank" rel="noreferrer">
+                    <span class="herr-acceso-icon" aria-hidden="true">&#128202;</span>
+                    <span class="herr-acceso-txt">
+                        <b>Catálogo de horarios</b>
+                        <span>Horarios, vacantes y cursos de Biología. Entra directo a la Escuela BI.</span>
+                    </span>
+                </a>
+                <a class="herr-acceso" href="https://intranetalumnos.unsaac.edu.pe/webmatriculados" target="_blank" rel="noreferrer">
+                    <span class="herr-acceso-icon" aria-hidden="true">&#128203;</span>
+                    <span class="herr-acceso-txt">
+                        <b>Estudiantes por curso</b>
+                        <span>Consulta cuántos matriculados hay por curso y descarga la lista (Excel/CSV).</span>
+                    </span>
+                </a>
+            </div>
+
+            <details class="herr-guide">
+                <summary>Cómo bajar tu planilla de estudiantes</summary>
+                <ol>
+                    <li>Entra a <b>Estudiantes por curso</b> y entra con tu cuenta UNSAAC (Google).</li>
+                    <li>Busca tu curso (ej. <code>BI-120</code>) y revisa la lista de matrícula.</li>
+                    <li>Exporta o descarga el archivo (Excel <code>.xlsx</code> o <code>.csv</code>).</li>
+                    <li>Súbelo en la pestaña <b>Planilla</b>: en segundos tienes grupos, contactos y el resumen del curso.</li>
+                </ol>
+            </details>
+        </section>
+
+        <!-- TABS -->
+        <nav class="herr-tabs" id="herrTabs" aria-label="Herramientas">
+            <button type="button" class="herr-tab active" data-tab="planilla">Planilla</button>
+            <button type="button" class="herr-tab" data-tab="grupos">Grupos</button>
+            <button type="button" class="herr-tab" data-tab="whatsapp">WhatsApp</button>
+            <button type="button" class="herr-tab" data-tab="curso">Datos del curso</button>
+        </nav>
+
+        <!-- PANE PLANILLA -->
+        <section id="tab-planilla" class="herr-pane active">
+            <div class="herr-card">
+                <div class="herr-grid2">
+                    <div>
+                        <label class="herr-label" for="herrFile">Subir archivo</label>
+                        <input type="file" id="herrFile" class="herr-input" accept=".csv,.txt,.xlsx,.xls">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrCursoManual">Curso (si la columna no viene)</label>
+                        <input type="text" id="herrCursoManual" class="herr-input" placeholder="ej. BI-120" autocomplete="off">
+                    </div>
+                </div>
+
+                <label class="herr-label" for="herrPaste">O pega el texto (CSV / texto separado por ; , o tabulador)</label>
+                <textarea id="herrPaste" class="herr-input herr-paste" rows="4" placeholder="Apellidos;Nombres;Codigo;Seccion;Celular&#10;…"></textarea>
+
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn" id="herrCargar">Procesar planilla</button>
+                    <button type="button" class="herr-btn-sec" id="herrEjemplo">Cargar ejemplo de prueba</button>
+                    <span class="herr-estado" id="herrEstado">Sin planilla cargada.</span>
+                </div>
+            </div>
+
+            <div class="herr-card herr-hidden" id="herrDetectarCard">
+                <h3>Columnas detectadas</h3>
+                <div class="herr-grid4" id="herrCols">
+                    <!-- selects de columnas generados por JS -->
+                </div>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn-sec" id="herrAplCols" disabled>Actualizar columna y volver a leer</button>
+                </div>
+            </div>
+
+            <div class="herr-card herr-hidden" id="herrPrevCard">
+                <div class="herr-prev-head">
+                    <h3>Vista previa</h3>
+                    <span class="herr-resumen" id="herrResumen"></span>
+                </div>
+                <div class="herr-table-wrap">
+                    <table class="herr-table" id="herrTabla"></table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANE GRUPOS -->
+        <section id="tab-grupos" class="herr-pane">
+            <div class="herr-card">
+                <div class="herr-grid3">
+                    <div>
+                        <label class="herr-label" for="herrNgrupos">Número de grupos</label>
+                        <input type="number" id="herrNgrupos" class="herr-input" min="2" max="40" value="5">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrFiltro">Filtrar por curso</label>
+                        <select id="herrFiltro" class="herr-input"><option value="__todos">Todos</option></select>
+                    </div>
+                    <div class="herr-check">
+                        <label class="herr-chk">
+                            <input type="checkbox" id="herrOrder" checked> Repartir en orden aleatorio
+                        </label>
+                    </div>
+                </div>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn" id="herrGenGrupos">Generar grupos</button>
+                    <button type="button" class="herr-btn-sec" id="herrExpCsv">Bajar grupos (.csv)</button>
+                    <button type="button" class="herr-btn-sec" id="herrExpXlsx">Bajar grupos (Excel)</button>
+                    <span class="herr-estado" id="herrGEstado"></span>
+                </div>
+                <div class="herr-grupos-grid" id="herrGrupos"></div>
+            </div>
+        </section>
+
+        <!-- PANE WHATSAPP -->
+        <section id="tab-whatsapp" class="herr-pane">
+            <div class="herr-card">
+                <p class="herr-nota">Necesita una columna de <b>celular</b> en la planilla. WhatsApp no permite crear grupos automáticamente, pero con estos contactos el grupo queda armado en menos de un minuto.</p>
+                <div class="herr-grid3">
+                    <div>
+                        <label class="herr-label" for="herrPrefijo">Prefijo del país</label>
+                        <input type="text" id="herrPrefijo" class="herr-input" value="+51">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrWaFiltro">Solo este curso</label>
+                        <select id="herrWaFiltro" class="herr-input"><option value="__todos">Todos</option></select>
+                    </div>
+                    <div class="herr-check">
+                        <label class="herr-chk"><input type="checkbox" id="herrSolo9" checked> Solo números que empiecen con 9</label>
+                    </div>
+                </div>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn" id="herrGenVcf">Descargar contactos (.vcf)</button>
+                    <button type="button" class="herr-btn-sec" id="herrCopiarNum">Copiar lista de números</button>
+                    <span class="herr-estado" id="herrWaEstado"></span>
+                </div>
+                <div class="herr-wa-list" id="herrWaList"></div>
+            </div>
+        </section>
+
+        <!-- PANE CURSO -->
+        <section id="tab-curso" class="herr-pane">
+            <div class="herr-card">
+                <p class="herr-nota">Guarda un resumen del curso que estás viendo (alumnos por sección, fecha). Es el inicio de una mini-base local para comparar semestres.</p>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn" id="herrGuardarCurso">Guardar resumen del curso actual</button>
+                    <button type="button" class="herr-btn-sec" id="herrLimpiarCurso">Borrar todo</button>
+                    <span class="herr-estado" id="herrCEstado"></span>
+                </div>
+                <div class="herr-table-wrap">
+                    <table class="herr-table" id="herrCursoTabla"></table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="site-footer-section">
+                <h3>Herramientas</h3>
+                <p>Todo el procesamiento ocurre en tu navegador; no guardamos tus listas en ningún servidor.</p>
+            </div>
+            <div class="site-footer-section">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="asuntos.html">Asuntos académicos</a></li>
+                    <li><a href="servicios/casilleros.html">Casilleros</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Portal Biología • C.F. Biología UNSAAC</p>
+        </div>
+    </footer>
+
+    <script src="js/xlsx.full.min.js"></script>
+    <script src="js/herramientas.js"></script>
+</body>
+</html>

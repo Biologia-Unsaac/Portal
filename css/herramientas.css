@@ -1,0 +1,405 @@
+/* ==========================================================================
+   Herramientas del estudiante
+   ========================================================================== */
+
+.herr-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 22px 16px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.herr-card {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--sobra-carta);
+}
+
+.herr-card h2 {
+  font-size: 1.35rem;
+  color: var(--texto);
+  margin: 0 0 4px;
+}
+
+.herr-card h3 {
+  font-size: 1rem;
+  color: var(--texto);
+  margin: 0 0 10px;
+}
+
+.herr-sub,
+.herr-nota {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+.herr-hidden {
+  display: none !important;
+}
+
+.herr-pane {
+  display: none;
+  animation: herr-fade 0.25s ease;
+}
+
+.herr-pane.active {
+  display: block;
+}
+
+@keyframes herr-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --- Accesos UNSAAC --- */
+.herr-accesos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.herr-acceso {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--claro);
+  border: 1px solid var(--borde);
+  color: var(--texto);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.herr-acceso:hover {
+  transform: translateY(-3px);
+  border-color: var(--ac-suave);
+  box-shadow: var(--sobra-carta-fuerte);
+}
+
+.herr-acceso-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.herr-acceso-txt {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.88rem;
+}
+
+.herr-acceso-txt span {
+  color: var(--muted);
+}
+
+.herr-guide {
+  background: var(--claro);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 6px 14px;
+}
+
+.herr-guide summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ac);
+  padding: 8px 0;
+}
+
+.herr-guide ol {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--texto);
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
+.herr-guide code {
+  background: var(--suave);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* --- Tabs --- */
+.herr-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.herr-tab {
+  border: 1px solid var(--borde);
+  background: var(--superficie);
+  color: var(--muted);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.herr-tab:hover {
+  border-color: var(--ac-suave);
+  color: var(--ac);
+}
+
+.herr-tab.active {
+  background: var(--ac);
+  border-color: var(--ac);
+  color: #ffffff;
+}
+
+/* --- Formularios --- */
+.herr-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.herr-grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.herr-grid4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+.herr-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.herr-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--borde);
+  background: var(--claro);
+  color: var(--texto);
+  font-size: 0.9rem;
+}
+
+.herr-input:focus {
+  outline: none;
+  border-color: var(--ac-suave);
+  box-shadow: 0 0 0 3px var(--tinta);
+}
+
+.herr-paste {
+  margin-top: 12px;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.8rem;
+  resize: vertical;
+}
+
+.herr-check {
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+.herr-chk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.herr-chk input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ac);
+}
+
+.herr-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.herr-btn,
+.herr-btn-sec {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 800;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.herr-btn {
+  background: var(--ac);
+  color: #ffffff;
+}
+
+.herr-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: var(--sobra-carta);
+}
+
+.herr-btn:disabled,
+.herr-btn-sec:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.herr-btn-sec {
+  background: var(--claro);
+  border: 1px solid var(--borde);
+  color: var(--texto);
+}
+
+.herr-btn-sec:hover {
+  border-color: var(--ac-suave);
+  color: var(--ac);
+}
+
+.herr-estado {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* --- Tablas --- */
+.herr-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+.herr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  min-width: 560px;
+}
+
+.herr-table th,
+.herr-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--borde);
+  white-space: nowrap;
+}
+
+.herr-table th {
+  background: var(--claro);
+  color: var(--muted);
+  font-weight: 800;
+  position: sticky;
+  top: 0;
+}
+
+.herr-table td {
+  color: var(--texto);
+}
+
+.herr-table tr:last-child td {
+  border-bottom: none;
+}
+
+.herr-prev-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.herr-resumen {
+  font-size: 0.82rem;
+  color: var(--ac);
+  font-weight: 700;
+}
+
+/* --- Grupos --- */
+.herr-grupos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.herr-grupo {
+  background: var(--claro);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.herr-grupo h4 {
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+  color: var(--ac);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.herr-grupo ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--texto);
+  font-size: 0.84rem;
+  line-height: 1.8;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* --- WhatsApp --- */
+.herr-wa-list {
+  margin-top: 14px;
+  font-size: 0.86rem;
+  color: var(--texto);
+  line-height: 1.9;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 6px 14px;
+}
+
+@media (max-width: 640px) {
+  .herr-grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .herr-card {
+    padding: 14px;
+  }
+
+  .herr-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .herr-btn,
+  .herr-btn-sec {
+    text-align: center;
+  }
+}
