@@ -592,4 +592,455 @@
   });
 
   renderCursoTabla();
+
+  // ===== CATÁLOGO DE HORARIOS / MI HORARIO =====
+  var DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+  var PALETTA = ["#1e8a5a", "#2c6fb0", "#8a5fc0", "#c05a4a", "#b38616", "#b04e7a", "#2d8f8f", "#6b8f2f"];
+
+  var CATFIELDS = [
+    { key: "codigo", label: "Código" },
+    { key: "curso", label: "Curso" },
+    { key: "seccion", label: "Sección" },
+    { key: "docente", label: "Docente" },
+    { key: "dia", label: "Día" },
+    { key: "desde", label: "Hora inicio" },
+    { key: "hasta", label: "Hora fin" },
+    { key: "aula", label: "Aula" }
+  ];
+
+  var catalogo = [];
+  var selIds = {};
+  var catCols = { codigo: -1, curso: -1, seccion: -1, docente: -1, dia: -1, desde: -1, hasta: -1, aula: -1 };
+  var catPendRows = [];
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function catSave() {
+    localStorage.setItem("herrCatalogo", JSON.stringify(catalogo));
+    localStorage.setItem("herrHorarioSel", JSON.stringify(Object.keys(selIds)));
+  }
+
+  function catLoad() {
+    try {
+      catalogo = JSON.parse(localStorage.getItem("herrCatalogo") || "[]");
+      var ids = JSON.parse(localStorage.getItem("herrHorarioSel") || "[]");
+      catalogo.forEach(function (s) {
+        if (ids.indexOf(s.id) !== -1) selIds[s.id] = true;
+      });
+    } catch (e) { catalogo = []; selIds = {}; }
+  }
+
+  function catId() {
+    return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function colorCurso(curso) {
+    var h = 0, s = norm(curso || "");
+    for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    return PALETTA[h % PALETTA.length];
+  }
+
+  function fmtHora(m) {
+    if (m === null || m === undefined) return "—";
+    var h = Math.floor(m / 60), mi = m % 60;
+    return (h < 10 ? "0" : "") + h + ":" + (mi < 10 ? "0" : "") + mi;
+  }
+
+  function horaMin(v) {
+    if (v === null || v === undefined) return null;
+    v = String(v).trim();
+    if (!v) return null;
+    var m = v.match(/(\d{1,2})[:.]?\s*(\d{2})?\s*(am|pm)?/i);
+    if (!m) return null;
+    var h = parseInt(m[1], 10), mi = m[2] ? parseInt(m[2], 10) : 0;
+    var ap = (m[3] || "").toLowerCase();
+    if (ap === "pm" && h < 12) h += 12;
+    if (ap === "am" && h === 12) h = 0;
+    if (h > 23) h = 23;
+    if (mi > 59) mi = 59;
+    return h * 60 + mi;
+  }
+
+  function parseDia(v) {
+    var n = norm(v);
+    if (/^lun/.test(n)) return 0;
+    if (/^mar/.test(n)) return 1;
+    if (/^mie/.test(n)) return 2;
+    if (/^jue/.test(n)) return 3;
+    if (/^vie/.test(n)) return 4;
+    if (/^sab/.test(n)) return 5;
+    if (/^dom/.test(n)) return 6;
+    return -1;
+  }
+
+  function scanRango(cell) {
+    var c = String(cell || "").trim();
+    var m = c.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|a|hasta)\s*(\d{1,2}(?::\d{2})?)/i);
+    if (!m) return null;
+    var a = horaMin(m[1]), b = horaMin(m[2]);
+    if (a === null || b === null) return null;
+    if (b <= a) b = Math.min(1440, a + 60);
+    return { desde: a, hasta: b };
+  }
+
+  function heurRow(cells) {
+    var codigo = "", curso = "", seccion = "", docente = "", aula = "";
+    var dia = -1, desde = null, hasta = null;
+    cells.forEach(function (c) {
+      c = String(c || "").trim();
+      if (!c) return;
+      if (!codigo && /^bi-\d/i.test(c)) codigo = c;
+      if (!seccion && /^[A-Za-z]$/.test(c)) seccion = c;
+      if (dia < 0) dia = parseDia(c);
+      if (!curso && c.length >= 3 && c.length <= 45 &&
+        !/^bi-\d/i.test(c) &&
+        parseDia(c) < 0 &&
+        !scanRango(c) &&
+        !/^[\d:.\s]+$/.test(c) &&
+        !/^l-\d|\baula\b|\baud\b|\blab/i.test(c) &&
+        !/(\bm\.?\s?sc\.?|\bmg\b|\bing\.?|\blic\.?|\bdr[oa]?\.?|\bprof\.?|docente)/i.test(c) &&
+        !/(seccion|docente|d[ií]a|hora (inicio|fin)|inicio|hasta|aula|vacantes|c[oó]digo|curso)/i.test(c)) curso = c;
+      if ((desde === null || hasta === null) && !/^bi/i.test(c)) {
+        var r = scanRango(c);
+        if (r) {
+          if (desde === null) desde = r.desde;
+          if (hasta === null) hasta = r.hasta;
+        }
+      }
+      if (!docente && /(\bm\.?\s?sc\.?|\bmg\b|\bing\.?|\blic\.?|\bdr[oa]?\.?|\bprof\.?|docente)/i.test(c)) docente = c;
+      if (!aula && (/^l-\d|\baula\b|\baud\b|\blab/i.test(c)) && !/^bi-/i.test(c)) aula = c;
+    });
+    return { curso: curso || codigo, codigo: codigo, seccion: seccion || "A", dia: dia, desde: desde, hasta: hasta, docente: docente, aula: aula };
+  }
+
+  function detectCatMap(headers) {
+    var map = { codigo: -1, curso: -1, seccion: -1, docente: -1, dia: -1, desde: -1, hasta: -1, aula: -1 };
+    var used = {};
+    CATFIELDS.forEach(function (f) {
+      for (var i = 0; i < headers.length; i++) {
+        if (used[i]) continue;
+        var n = norm(headers[i]);
+        var ok = f.key === "codigo" ? (/(^|\b)(codigo|cod\.?|matricula|#)\b|^cod$/.test(n) || /^bi-\d/.test(n))
+          : f.key === "curso" ? /(^|\b)(curso|asignatura|materia)\b/.test(n)
+          : f.key === "seccion" ? /(^|\b)(seccion|grupo|grp|paralelo|turno)\b/.test(n)
+          : f.key === "docente" ? /(^|\b)(docente|profesor|profe)\b/.test(n)
+          : f.key === "dia" ? (/(^|\b)dia\b/.test(n) || parseDia(n) >= 0)
+          : f.key === "desde" ? /(^|\b)(inicio|inicia|inicio de|desde|empieza|comienzo)\b/.test(n)
+          : f.key === "hasta" ? /(^|\b)(fin|final|termina|hasta|fin de)\b/.test(n)
+          : /(^|\b)(aula|salon|ambiente|laboratorio|lab)\b/.test(n);
+        if (ok) { map[f.key] = i; used[i] = true; break; }
+      }
+    });
+    return map;
+  }
+
+  function renderCatMapCard(headers, rows) {
+    catPendRows = rows;
+    var wrap = $("herrCatCols");
+    wrap.innerHTML = "";
+    CATFIELDS.forEach(function (f) {
+      var lab = document.createElement("label");
+      lab.className = "herr-label";
+      lab.textContent = f.label;
+      var sel = document.createElement("select");
+      sel.className = "herr-input";
+      sel.dataset.key = f.key;
+      var opt = document.createElement("option");
+      opt.value = "-1"; opt.textContent = "— No viene —";
+      sel.appendChild(opt);
+      headers.forEach(function (h, i) {
+        var o = document.createElement("option");
+        o.value = String(i); o.textContent = (h || "?");
+        if (catCols[f.key] === i) o.selected = true;
+        sel.appendChild(o);
+      });
+      var col = document.createElement("div");
+      col.appendChild(lab); col.appendChild(sel);
+      wrap.appendChild(col);
+    });
+    $("herrCatMapCard").classList.remove("herr-hidden");
+  }
+
+  function aplicarCatCols() {
+    $("herrCatCols").querySelectorAll("select").forEach(function (sel) {
+      catCols[sel.dataset.key] = parseInt(sel.value, 10);
+    });
+    if (catPendRows.length) procesarCatRows(catPendRows);
+  }
+
+  function catKey(s) {
+    return (s.curso || "") + "|" + s.seccion + "|" + s.dia + "|" + s.desde + "|" + s.hasta;
+  }
+
+  function procesarCatRows(rows) {
+    rows = cleanRows(rows || []);
+    var headerMode = !(catCols.curso === -1 && catCols.desde === -1);
+    var conocidos = {};
+    catalogo.forEach(function (s) { conocidos[catKey(s)] = true; });
+    var agregadas = 0, ignoradas = 0;
+    rows.forEach(function (cells) {
+      var sec;
+      if (!headerMode) {
+        sec = heurRow(cells);
+      } else {
+        var get = function (k) {
+          var i = catCols[k];
+          return (i >= 0 && i < cells.length) ? String(cells[i] || "").trim() : "";
+        };
+        sec = {
+          curso: get("curso"), codigo: get("codigo"), seccion: get("seccion") || "A",
+          dia: parseDia(get("dia")), desde: horaMin(get("desde")), hasta: horaMin(get("hasta")),
+          docente: get("docente"), aula: get("aula")
+        };
+        var hr = heurRow(cells);
+        if (sec.dia < 0) sec.dia = hr.dia;
+        if (sec.desde === null) sec.desde = hr.desde;
+        if (sec.hasta === null) sec.hasta = hr.hasta;
+        if (!sec.docente) sec.docente = hr.docente;
+        if (!sec.aula) sec.aula = hr.aula;
+        if (!sec.curso && !sec.codigo) { sec.curso = hr.curso; sec.codigo = hr.codigo; }
+      }
+      if (!sec.curso && !sec.codigo) { ignoradas++; return; }
+      if (sec.dia < 0 || sec.desde === null || sec.hasta === null) { ignoradas++; return; }
+      if (sec.hasta <= sec.desde) sec.hasta = Math.min(1440, sec.desde + 60);
+      if (!sec.curso) sec.curso = sec.codigo;
+      sec.id = catId();
+      if (conocidos[catKey(sec)]) { ignoradas++; return; }
+      conocidos[catKey(sec)] = true;
+      catalogo.push(sec);
+      agregadas++;
+    });
+    catSave();
+    renderCat();
+    renderHorario();
+    setEstado("herrCatEstado", "Secciones agregadas: " + agregadas + (ignoradas ? " · sin día u hora válida o repetidas: " + ignoradas : "") + ".");
+  }
+
+  function filtraCat() {
+    var q = norm($("herrCatBusq").value);
+    if (!q) return catalogo;
+    return catalogo.filter(function (s) {
+      return norm(s.curso + " " + s.codigo + " " + s.docente + " " + s.seccion + " " + s.aula).indexOf(q) !== -1;
+    });
+  }
+
+  function renderCat() {
+    var t = $("herrCatTabla");
+    var lista = filtraCat();
+    $("herrCatResumen").textContent = catalogo.length + " secciones · " + Object.keys(selIds).length + " en tu horario";
+    if (!catalogo.length) {
+      t.innerHTML = "<tbody><tr><td style=\"color:var(--muted)\">El catálogo está vacío: pega las tablas del catálogo de horarios o agrega una sección a mano.</td></tr></tbody>";
+      return;
+    }
+    if (!lista.length) {
+      t.innerHTML = "<tbody><tr><td style=\"color:var(--muted)\">Nada coincide con la búsqueda.</td></tr></tbody>";
+      return;
+    }
+    var html = "<thead><tr><th class=\"herr-cat-n\"></th><th>Curso</th><th>Código</th><th>Sec.</th><th>Día</th><th>Horario</th><th>Docente</th><th>Aula</th><th></th></tr></thead><tbody>";
+    lista.forEach(function (s) {
+      var sel = !!selIds[s.id];
+      html += "<tr class=\"" + (sel ? "herr-envi" : "") + "\">" +
+        "<td class=\"herr-cat-n\"><input type=\"checkbox\" class=\"herr-cat-chk\" data-id=\"" + s.id + "\"" + (sel ? " checked" : "") + "></td>" +
+        "<td>" + esc(s.curso) + "</td>" +
+        "<td>" + esc(s.codigo || "—") + "</td>" +
+        "<td>" + esc(s.seccion) + "</td>" +
+        "<td><span class=\"herr-cat-dia\">" + (s.dia <= 5 ? DIAS[s.dia] : (s.dia === 6 ? "Dom" : "?")) + "</span></td>" +
+        "<td class=\"herr-cat-hora\">" + fmtHora(s.desde) + " – " + fmtHora(s.hasta) + "</td>" +
+        "<td>" + esc(s.docente || "—") + "</td>" +
+        "<td>" + esc(s.aula || "—") + "</td>" +
+        "<td><button type=\"button\" class=\"herr-quitar\" title=\"Quitar del catálogo\" data-del=\"" + s.id + "\">✕</button></td>" +
+        "</tr>";
+    });
+    html += "</tbody>";
+    t.innerHTML = html;
+    t.querySelectorAll(".herr-cat-chk").forEach(function (chk) {
+      chk.addEventListener("change", function () {
+        var id = chk.dataset.id;
+        if (chk.checked) selIds[id] = true; else delete selIds[id];
+        catSave(); renderCat(); renderHorario();
+      });
+    });
+    t.querySelectorAll("[data-del]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var id = b.dataset.del;
+        catalogo = catalogo.filter(function (x) { return x.id !== id; });
+        delete selIds[id];
+        catSave(); renderCat(); renderHorario();
+      });
+    });
+  }
+
+  function renderHorario() {
+    var sel = catalogo.filter(function (s) { return !!selIds[s.id]; });
+    var vis = sel.filter(function (s) { return s.dia >= 0 && s.dia <= 5; });
+    var w = $("herrHorario");
+    var lista = $("herrHorLista");
+    var h0 = 7 * 60, h9 = 21 * 60;
+    vis.forEach(function (s) {
+      if (s.desde != null) h0 = Math.min(h0, Math.floor(s.desde / 60) * 60);
+      if (s.hasta != null) h9 = Math.max(h9, Math.ceil(s.hasta / 60) * 60);
+    });
+    if (h9 - h0 <= 0) h9 = h0 + 14 * 60;
+    var horas = (h9 - h0) / 60;
+
+    var clash = {};
+    for (var d = 0; d <= 5; d++) {
+      var gg = vis.filter(function (s) { return s.dia === d; }).sort(function (a, b) { return a.desde - b.desde; });
+      for (var i = 0; i < gg.length; i++) {
+        for (var j = i + 1; j < gg.length; j++) {
+          if (gg[j].desde < gg[i].hasta) { clash[gg[i].id] = true; clash[gg[j].id] = true; }
+          else break;
+        }
+      }
+    }
+
+    var html = '<div class="herr-hcorner" style="grid-row:1;grid-column:1">Hora</div>';
+    DIAS.forEach(function (nm, d) {
+      html += '<div class="herr-dhead' + (d === 5 ? " sabado" : "") + '" style="grid-row:1;grid-column:' + (d + 2) + '">' + nm + "</div>";
+    });
+    html += '<div class="herr-hours" style="grid-row:2;grid-column:1">';
+    for (var h = 0; h < horas; h++) html += '<div class="herr-hour">' + fmtHora(h0 + h * 60) + "</div>";
+    html += "</div>";
+    for (var d2 = 0; d2 < 6; d2++) {
+      var hh = vis.filter(function (s) { return s.dia === d2; });
+      var hpx = horas * 44;
+      html += '<div class="herr-td" style="grid-row:2;grid-column:' + (d2 + 2) + ';height:' + hpx + 'px">';
+      html += '<div class="herr-lines"></div>';
+      hh.forEach(function (s) {
+        var top = (s.desde - h0) / 60 * 44;
+        var height = Math.max((s.hasta - s.desde) / 60 * 44, 22);
+        var estilo = "background:" + colorCurso(s.curso) + ";top:" + top + "px;height:" + height + "px";
+        var txt = "<b>" + esc(s.curso) + " " + esc(s.seccion) + "</b>" + esc(s.docente || "") + (s.aula ? " · " + esc(s.aula) : "");
+        html += '<div class="herr-block' + (clash[s.id] ? " herr-choque" : "") + '" title="Quitar de tu horario" data-id="' + s.id + '" style="' + estilo + '">' + txt + "</div>";
+      });
+      html += "</div>";
+    }
+    w.innerHTML = html;
+    w.querySelectorAll(".herr-block").forEach(function (b) {
+      b.addEventListener("click", function () {
+        delete selIds[b.dataset.id];
+        catSave(); renderCat(); renderHorario();
+      });
+    });
+
+    var nClash = Object.keys(clash).length;
+    $("herrHorResumen").textContent = vis.length + " bloques en tu semana";
+    $("herrHorEstado").textContent = vis.length
+      ? (nClash ? "Atención: " + nClash + " secciones con choque horario" : "Sin choques · todo cuadra")
+      : "Sin secciones elegidas aún. Marca en la pestaña Catálogo.";
+    if (!vis.length) {
+      lista.innerHTML = "";
+      return;
+    }
+    var porCurso = {};
+    vis.forEach(function (s) {
+      if (!porCurso[s.curso]) porCurso[s.curso] = [];
+      porCurso[s.curso].push(s);
+    });
+    lista.innerHTML = Object.keys(porCurso).map(function (c) {
+      var items = porCurso[c].map(function (s) {
+        var est = clash[s.id] ? " class=\"herr-choque\"" : "";
+        return "<li" + est + ">" + DIAS[s.dia] + " " + fmtHora(s.desde) + "–" + fmtHora(s.hasta) +
+          (s.docente ? " · " + esc(s.docente) : "") +
+          '<button type="button" class="herr-quitar" data-id="' + s.id + '">✕</button></li>';
+      }).join("");
+      return '<div class="herr-grupo"><h4><span class="herr-dot" style="background:' + colorCurso(c) + '"></span>' + esc(c) + " <span>" + porCurso[c].length + " bloques</span></h4><ul>" + items + "</ul></div>";
+    }).join("");
+    lista.querySelectorAll(".herr-quitar").forEach(function (b) {
+      b.addEventListener("click", function () {
+        delete selIds[b.dataset.id];
+        catSave(); renderCat(); renderHorario();
+      });
+    });
+  }
+
+  $("herrProcCat").addEventListener("click", function () {
+    var txt = $("herrCatPaste").value;
+    if (!txt.trim()) { setEstado("herrCatEstado", "Pega las tablas del catálogo primero."); return; }
+    var rows = rowsFromText(txt);
+    if (!rows.length) { setEstado("herrCatEstado", "No se entendió lo pegado."); return; }
+    catCols = detectCatMap(rows[0]);
+    var headerMode = !(catCols.curso === -1 && catCols.desde === -1);
+    if (headerMode) {
+      renderCatMapCard(rows[0], rows.slice(1));
+      procesarCatRows(rows.slice(1));
+    } else {
+      $("herrCatMapCard").classList.add("herr-hidden");
+      procesarCatRows(rows);
+    }
+  });
+
+  $("herrCatApl").addEventListener("click", aplicarCatCols);
+
+  $("herrCatEjemplo").addEventListener("click", function () {
+    var ej = [
+      ["BI-120", "Botánica General", "A", "Miércoles", "07:00", "08:50", "Dra. C. Huamán", "L-101"],
+      ["BI-120", "Botánica General", "B", "Miércoles", "09:00", "10:50", "Dra. C. Huamán", "L-102"],
+      ["BI-121", "Zoología I", "A", "Lunes", "08:00", "09:50", "M.Sc. R. Quispe", "L-201"],
+      ["BI-121", "Zoología I", "A", "Viernes", "15:00", "16:50", "M.Sc. R. Quispe", "L-201"],
+      ["BI-130", "Genética", "A", "Martes", "10:00", "11:50", "Dr. J. Loaiza", "L-301"],
+      ["BI-131", "Evolución", "B", "Jueves", "17:00", "19:20", "Dr. G. Cusi", "L-303"],
+      ["BI-140", "Ecología General", "A", "Lunes", "13:00", "14:50", "Dra. L. Sumire", "Aud 03"],
+      ["BI-140", "Ecología General", "A", "Martes", "13:00", "14:50", "Dra. L. Sumire", "Aud 03"],
+      ["BI-150", "Biología Molecular", "A", "Sábado", "09:00", "12:00", "Dr. D. Huanca", "Lab Mol"]
+    ];
+    var tmp = catCols;
+    catCols = { codigo: 0, curso: 1, seccion: 2, dia: 3, desde: 4, hasta: 5, docente: 6, aula: 7 };
+    procesarCatRows(ej.map(function (r) { return r.map(String); }));
+    catCols = tmp;
+    setEstado("herrCatEstado", "Catálogo de ejemplo listo. Marca tus secciones y pasa a Mi horario.");
+  });
+
+  $("herrMAgr").addEventListener("click", function () {
+    var curso = $("herrMCurso").value.trim();
+    if (!curso) { setEstado("herrMEstado", "Pon el curso (código o nombre)."); return; }
+    var desde = horaMin($("herrMDesde").value);
+    var hasta = horaMin($("herrMHasta").value);
+    if (desde === null || hasta === null || hasta <= desde) {
+      setEstado("herrMEstado", "Horario no válido: la hora fin debe ser después del inicio.");
+      return;
+    }
+    var sec = {
+      id: catId(),
+      curso: curso, codigo: "", seccion: $("herrMSecc").value.trim() || "A",
+      dia: parseInt($("herrMDia").value, 10),
+      desde: desde, hasta: hasta,
+      docente: $("herrMDoc").value.trim(), aula: $("herrMAula").value.trim()
+    };
+    catalogo.push(sec);
+    selIds[sec.id] = true;
+    catSave(); renderCat(); renderHorario();
+    $("herrMCurso").value = "";
+    $("herrMSecc").value = "";
+    setEstado("herrMEstado", "Sección agregada y marcada en tu horario.");
+  });
+
+  var catBusqTmr = null;
+  $("herrCatBusq").addEventListener("input", function () {
+    if (catBusqTmr) clearTimeout(catBusqTmr);
+    catBusqTmr = setTimeout(renderCat, 120);
+  });
+
+  $("herrHorLimpiar").addEventListener("click", function () {
+    selIds = {};
+    catSave(); renderCat(); renderHorario();
+  });
+
+  $("herrHorCSV").addEventListener("click", function () {
+    var sel = catalogo.filter(function (s) { return !!selIds[s.id]; }).sort(function (a, b) { return (a.dia - b.dia) || (a.desde - b.desde); });
+    if (!sel.length) { setEstado("herrHorEstado", "Marca secciones primero."); return; }
+    var lines = [["Curso", "Seccion", "Dia", "Desde", "Hasta", "Docente", "Aula"]];
+    sel.forEach(function (s) {
+      lines.push([s.curso, s.seccion, s.dia <= 5 ? DIAS[s.dia] : "Dom", fmtHora(s.desde), fmtHora(s.hasta), s.docente, s.aula]);
+    });
+    download("mi-horario.csv", "\uFEFF" + lines.map(function (r) { return r.map(csvEscape).join(";"); }).join("\n"), "text/csv;charset=utf-8");
+  });
+
+  catLoad();
+  renderCat();
+  renderHorario();
 })();

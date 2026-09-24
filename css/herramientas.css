@@ -384,6 +384,142 @@
   padding: 6px 14px;
 }
 
+/* --- Catálogo de horarios --- */
+.herr-cat-n { width: 26px; padding: 0 !important; text-align: center; }
+.herr-cat-chk {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ac);
+  cursor: pointer;
+}
+
+.herr-cat-dia {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 0.72rem;
+  background: var(--suave);
+  color: var(--ac);
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  padding: 1px 8px;
+  text-transform: capitalize;
+}
+
+.herr-cat-hora { font-variant-numeric: tabular-nums; }
+
+tr.herr-envi td { background: var(--tinta); }
+
+.herr-table tbody tr:hover td { background: var(--claro); }
+tr.herr-envi:hover td { background: var(--tinta); }
+
+.herr-quitar {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 2px 6px;
+}
+.herr-quitar:hover { color: #e5484d; }
+
+/* --- Mi horario (tabla semanal) --- */
+.herr-horario-wrap {
+  overflow-x: auto;
+  padding: 10px;
+  background: var(--claro);
+  border-radius: 10px;
+}
+
+.herr-horario {
+  display: grid;
+  grid-template-columns: 54px repeat(6, minmax(96px, 1fr));
+  gap: 2px;
+  min-width: 700px;
+  padding-bottom: 4px;
+}
+
+.herr-hcorner,
+.herr-dhead {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--muted);
+  text-align: center;
+  padding: 6px 4px;
+  background: var(--claro);
+  border-bottom: 2px solid var(--borde);
+}
+
+.herr-dhead.sabado { color: var(--ac); }
+
+.herr-hours {
+  display: flex;
+  flex-direction: column;
+}
+
+.herr-hour {
+  height: 44px;
+  line-height: 44px;
+  font-size: 0.66rem;
+  color: var(--muted);
+  text-align: right;
+  padding-right: 8px;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.herr-td {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.herr-td .herr-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--tinta2) 0 1px,
+    transparent 1px 44px
+  );
+  border-left: 1px solid var(--borde);
+}
+
+.herr-block {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  z-index: 2;
+  border-radius: 8px;
+  padding: 3px 6px;
+  font-size: 0.64rem;
+  line-height: 1.35;
+  color: #ffffff;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--sobra-carta);
+  box-sizing: border-box;
+  transition: filter 0.2s ease;
+}
+
+.herr-block b {
+  display: block;
+  font-size: 0.72rem;
+}
+
+.herr-block:hover { filter: brightness(1.15); }
+.herr-block.herr-choque {
+  outline: 2px solid #e5484d;
+  outline-offset: -2px;
+}
+
+.herr-grupo .herr-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: 1px;
+}
+
 @media (max-width: 640px) {
   .herr-grid2 {
     grid-template-columns: 1fr;

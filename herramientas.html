@@ -26,7 +26,7 @@
         <div class="bloque_msg">
             <div class="bloque_msg_overlay"></div>
             <div class="bloque_msg_consejo">
-                <p>Con tu planilla en la mano, hasta los grupos de WhatsApp se forman solos.</p>
+                <p>Del catálogo de horarios salen tus cursos y horas; aquí se vuelven tu horario semanal sin choques.</p>
             </div>
         </div>
     </div>
@@ -36,13 +36,13 @@
         <!-- ACCESOS OFICIALES UNSAAC -->
         <section class="herr-card herr-accesos">
             <h2>Accesos UNSAAC</h2>
-            <p class="herr-sub">La data vive en la intranet (con tu sesión). Entra, baja tu plantilla y procésala aquí abajo. Todo se hace en tu navegador: nada se sube a ningún servidor.</p>
+            <p class="herr-sub">La data vive en la intranet (con tu sesión): de ahí sales tú para el catálogo de horarios y la lista de matriculados. Aquí procesas todo local: nada se sube a ningún servidor.</p>
             <div class="herr-accesos-grid">
                 <a class="herr-acceso" href="https://intranetalumnos.unsaac.edu.pe/catalogo-horario/BI/0" target="_blank" rel="noreferrer">
                     <span class="herr-acceso-icon" aria-hidden="true">&#128202;</span>
                     <span class="herr-acceso-txt">
                         <b>Catálogo de horarios</b>
-                        <span>Horarios, vacantes y cursos de Biología. Entra directo a la Escuela BI.</span>
+                        <span>Los cursos, secciones, días y horas reales de Biología. Pega las tablas aquí abajo y arma tu horario.</span>
                     </span>
                 </a>
                 <a class="herr-acceso" href="https://intranetalumnos.unsaac.edu.pe/webmatriculados" target="_blank" rel="noreferrer">
@@ -55,11 +55,11 @@
             </div>
 
             <details class="herr-guide">
-                <summary>Cómo bajar tu planilla de estudiantes</summary>
+                <summary>Cómo armar tu horario y bajar tu planilla</summary>
                 <ol>
-                    <li>Entra a <b>Estudiantes por curso</b> y entra con tu cuenta UNSAAC (Google).</li>
-                    <li>Busca tu curso (ej. <code>BI-120</code>) y revisa la lista de matrícula.</li>
-                    <li>Exporta o descarga el archivo (Excel <code>.xlsx</code> o <code>.csv</code>).</li>
+                    <li>Entra a <b>Catálogo de horarios</b> (cuenta UNSAAC vía Google) y abre los cursos que te interesan.</li>
+                    <li>Copia las tablas de secciones (Ctrl+C) y pégalas en la pestaña <b>Catálogo</b>; también las puedes marcar a mano. Tu <b>Mi horario</b> se dibuja solo y avisa si dos secciones chocan.</li>
+                    <li>Para tus listas de estudiantes: entra a <b>Estudiantes por curso</b>, busca tu curso (ej. <code>BI-120</code>) y exporta el archivo (<code>.xlsx</code> o <code>.csv</code>).</li>
                     <li>Súbelo en la pestaña <b>Planilla</b>: en segundos tienes grupos, contactos y el resumen del curso.</li>
                 </ol>
             </details>
@@ -70,6 +70,8 @@
             <button type="button" class="herr-tab active" data-tab="planilla">Planilla</button>
             <button type="button" class="herr-tab" data-tab="grupos">Grupos</button>
             <button type="button" class="herr-tab" data-tab="whatsapp">WhatsApp</button>
+            <button type="button" class="herr-tab" data-tab="catalogo">Catálogo</button>
+            <button type="button" class="herr-tab" data-tab="horario">Mi horario</button>
             <button type="button" class="herr-tab" data-tab="curso">Datos del curso</button>
         </nav>
 
@@ -169,6 +171,118 @@
                     <span class="herr-estado" id="herrWaEstado"></span>
                 </div>
                 <div class="herr-wa-list" id="herrWaList"></div>
+            </div>
+        </section>
+
+        <!-- PANE CATÁLOGO -->
+        <section id="tab-catalogo" class="herr-pane">
+            <div class="herr-card">
+                <p class="herr-nota">El catálogo de horarios está en la intranet (con tu sesión). De ahí salen los días, horas, docentes y aulas de cada sección. Llena este catálogo local y con él ves tu horario en la pestaña <b>Mi horario</b>. Se guarda en este navegador, sin enviar nada.</p>
+
+                <details class="herr-guide">
+                    <summary>Cómo pegar las tablas del catálogo (lo más rápido)</summary>
+                    <ol>
+                        <li>Abre <b>Catálogo de horarios</b> (acceso arriba) y entra con tu cuenta UNSAAC.</li>
+                        <li>Abre los cursos que te interesan y selecciona con el mouse las filas de sus secciones.</li>
+                        <li>Copia (Ctrl+C) y pega aquí abajo (Ctrl+V); si copias con encabezados, la herramienta adivina las columnas y puedes corregirlas.</li>
+                        <li>Busca con la lupa, marca secciones y pasa a <b>Mi horario</b>.</li>
+                    </ol>
+                </details>
+
+                <label class="herr-label" for="herrCatPaste">Pegar tablas del catálogo (separadas por tabulación, coma o punto y coma)</label>
+                <textarea id="herrCatPaste" class="herr-input herr-paste" rows="4" placeholder="Codigo;Curso;Seccion;Docente;Dia;Hora inicio;Hora fin;Aula&#10;BI-120;Botánica General;A;Dra. Huamán;Lunes;07:00;08:50;L-101"></textarea>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn" id="herrProcCat">Procesar catálogo</button>
+                    <button type="button" class="herr-btn-sec" id="herrCatEjemplo">Cargar ejemplo de prueba</button>
+                    <span class="herr-estado" id="herrCatEstado"></span>
+                </div>
+            </div>
+
+            <div class="herr-card herr-hidden" id="herrCatMapCard">
+                <h3>Corrige las columnas si salieron mal</h3>
+                <div class="herr-grid4" id="herrCatCols"></div>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn-sec" id="herrCatApl">Actualizar columnas y volver a leer</button>
+                </div>
+            </div>
+
+            <div class="herr-card">
+                <div class="herr-prev-head">
+                    <h3>Agregar sección a mano</h3>
+                </div>
+                <div class="herr-grid4">
+                    <div>
+                        <label class="herr-label" for="herrMCurso">Curso (código o nombre)</label>
+                        <input type="text" id="herrMCurso" class="herr-input" placeholder="BI-120" autocomplete="off">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrMSecc">Sección</label>
+                        <input type="text" id="herrMSecc" class="herr-input" placeholder="A" autocomplete="off">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrMDia">Día</label>
+                        <select id="herrMDia" class="herr-input">
+                            <option value="0">Lunes</option>
+                            <option value="1">Martes</option>
+                            <option value="2">Miércoles</option>
+                            <option value="3">Jueves</option>
+                            <option value="4">Viernes</option>
+                            <option value="5">Sábado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrMDesde">Hora inicio</label>
+                        <input type="time" id="herrMDesde" class="herr-input" value="07:00">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrMHasta">Hora fin</label>
+                        <input type="time" id="herrMHasta" class="herr-input" value="08:50">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrMDoc">Docente</label>
+                        <input type="text" id="herrMDoc" class="herr-input" autocomplete="off">
+                    </div>
+                    <div>
+                        <label class="herr-label" for="herrMAula">Aula</label>
+                        <input type="text" id="herrMAula" class="herr-input" autocomplete="off">
+                    </div>
+                </div>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn" id="herrMAgr">Agregar sección</button>
+                    <span class="herr-estado" id="herrMEstado"></span>
+                </div>
+            </div>
+
+            <div class="herr-card">
+                <div class="herr-prev-head">
+                    <h3>Catálogo local</h3>
+                    <span class="herr-resumen" id="herrCatResumen"></span>
+                </div>
+                <label class="herr-label" for="herrCatBusq">Buscar curso, código o docente</label>
+                <input type="search" id="herrCatBusq" class="herr-input" placeholder="ej. Botánica, BI-120, Huamán…" autocomplete="off">
+                <div class="herr-table-wrap">
+                    <table class="herr-table" id="herrCatTabla"></table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANE MI HORARIO -->
+        <section id="tab-horario" class="herr-pane">
+            <div class="herr-card">
+                <div class="herr-prev-head">
+                    <h3>Mi horario semanal</h3>
+                    <span class="herr-resumen" id="herrHorResumen"></span>
+                </div>
+                <p class="herr-nota">Marca secciones en la pestaña <b>Catálogo</b> y se pintan en la semana. En rojo aparecen los choques: mismo día y horario solapado.</p>
+                <div class="herr-table-wrap">
+                    <div class="herr-horario-wrap" id="herrHorario"></div>
+                </div>
+                <div class="herr-bar">
+                    <button type="button" class="herr-btn-sec" id="herrHorCSV">Bajar horario (.csv)</button>
+                    <button type="button" class="herr-btn-sec" id="herrHorLimpiar">Vaciar horario</button>
+                    <span class="herr-estado" id="herrHorEstado"></span>
+                </div>
+                <div class="herr-grupos-grid" id="herrHorLista"></div>
             </div>
         </section>
 
