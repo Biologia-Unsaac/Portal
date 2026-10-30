@@ -394,6 +394,70 @@
 
   <script src="js/noticias-movimiento.js" defer></script>
 
+  <div class="comentarios-cta-wrap">
+    <button type="button" class="comentarios-cta-btn" data-open-comments>
+      Comentarios y sugerencias
+    </button>
+  </div>
+
+  <div class="comentarios-modal" id="comentariosModal" aria-hidden="true">
+    <div class="comentarios-modal-backdrop" data-close-comments></div>
+    <div class="comentarios-modal-panel" role="dialog" aria-modal="true" aria-labelledby="comentariosTitulo">
+      <button type="button" class="comentarios-modal-close" id="comentariosClose" aria-label="Cerrar comentarios">×</button>
+      <div class="promo-comentarios">
+        <div class="comentarios-card">
+          <label class="comentarios-label" id="comentariosTitulo" for="comentario-texto">Comentarios y sugerencias</label>
+          <p class="comentarios-aviso">Tu opinión nos ayuda a mejorar el portal.</p>
+          <form id="form-comentario">
+            <textarea id="comentario-texto" class="comentarios-textarea" maxlength="600" placeholder="Escribe aquí tu comentario..."></textarea>
+            <div class="comentarios-bar">
+              <span class="comentarios-contador" id="comentario-contador">0 / 600</span>
+              <button type="submit" class="comentarios-btn" id="comentario-btn">Enviar</button>
+            </div>
+            <div class="comentarios-estado" id="comentario-estado" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.COMENTARIOS_URL = "https://script.google.com/macros/s/AKfycbzIGxBHDcbtJAySBVZIR1uz96OEqsps6bpjEE-TEeuEL0nMce52LIQroT6WaOmM6r6A-A/exec";
+  </script>
+  <script src="js/comentarios.js?v=20260917c2"></script>
+  <script>
+    (function () {
+      const modal = document.getElementById('comentariosModal');
+      const trigger = document.querySelector('[data-open-comments]');
+      const closeBtn = document.getElementById('comentariosClose');
+      if (!modal || !trigger) return;
+
+      function setOpen(isOpen) {
+        modal.classList.toggle('is-open', isOpen);
+        modal.setAttribute('aria-hidden', String(!isOpen));
+        document.body.classList.toggle('modal-open', isOpen);
+      }
+
+      trigger.addEventListener('click', function () {
+        setOpen(true);
+        const area = document.getElementById('comentario-texto');
+        if (area) area.focus();
+      });
+
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); });
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal || event.target.matches('[data-close-comments]')) {
+          setOpen(false);
+        }
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          setOpen(false);
+        }
+      });
+    })();
+  </script>
+
 <section class="barra-progreso" aria-label="Cronograma académico">
   <details class="timeline-panel" open>
     <summary>
@@ -612,14 +676,14 @@
       <div class="site-footer-section">
         <h3>Equipo desarrollador</h3>
         <div class="dev-list">
-          <a class="dev-card" href="https://github.com/SamBioArt" target="_blank" rel="noreferrer">
+          <div class="dev-card">
             <img src="https://github.com/SamBioArt.png" alt="SamBioArt">
             <span>SamBioArt</span>
-          </a>
-          <a class="dev-card" href="https://github.com/K-Kr0en3n" target="_blank" rel="noreferrer">
+          </div>
+          <div class="dev-card">
             <img src="https://github.com/K-Kr0en3n.png" alt="K-Kr0en3n">
             <span>K-Kr0en3n</span>
-          </a>
+          </div>
         </div>
       </div>
     </div>

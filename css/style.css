@@ -250,6 +250,84 @@ body.modal-open {
   text-shadow: 0 4px 12px rgba(15, 23, 42, 0.32);
 }
 
+.comentarios-cta-wrap {
+  max-width: 1200px;
+  margin: 28px auto 14px;
+  padding: 0 20px;
+}
+
+.comentarios-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1b8a3a 0%, #115d2d 100%);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(10, 78, 32, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.comentarios-cta-btn:hover,
+.comentarios-cta-btn:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(10, 78, 32, 0.32);
+}
+
+.comentarios-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.comentarios-modal.is-open {
+  display: flex;
+}
+
+.comentarios-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 17, 12, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.comentarios-modal-panel {
+  position: relative;
+  width: min(540px, calc(100vw - 32px));
+  background: linear-gradient(180deg, rgba(16, 92, 38, 0.96), rgba(9, 58, 24, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(8, 34, 17, 0.52);
+  overflow: hidden;
+}
+
+.comentarios-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
 .back-home-wrap {
   position: fixed;
   top: 14px;
@@ -1202,13 +1280,17 @@ a.card {
 
 .dev-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 8px 10px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
   text-decoration: none;
+  cursor: default;
 }
 
 .dev-card img {
@@ -1217,11 +1299,15 @@ a.card {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.18);
+  display: block;
 }
 
 .dev-card span {
   color: #ffffff;
+  font-size: 0.78rem;
   font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .footer-bottom {

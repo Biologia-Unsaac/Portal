@@ -18,32 +18,6 @@
 </head>
   
 <body>
-  <div class="promo-overlay is-visible" id="promoOverlay" aria-hidden="false">
-    <div class="promo-modal promo-modal-simple" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
-      <button type="button" class="promo-close" id="promoClose" aria-label="Cerrar aviso">✕</button>
-      <div class="promo-message">
-        <span class="promo-tag">Portal Biología</span>
-        <h2 id="promoTitle">Página en construcción</h2>
-        <p>Esperemos que les haya gustado el sistema de casilleros. Estamos afinando los detalles para dejarlo aún mejor :3</p>
-        <img src="img/pony_chamba2.gif" alt="Pony chamba" class="promo-pony" aria-hidden="true">
-      </div>
-
-      <div class="promo-comentarios">
-        <div class="comentarios-card" id="form-comentario">
-          <label class="comentarios-label" for="comentario-texto">Comentarios y sugerencias</label>
-          <p class="comentarios-aviso">Si el portal te gustó, ¡dínoslo! Los mensajes positivos nos ayudan a darle más prioridad y seguir mejorando.</p>
-          <textarea id="comentario-texto" class="comentarios-textarea" rows="3"
-            maxlength="600" placeholder="¿Qué te gustaría mejorar del portal? Cuéntanos y lo tendremos en cuenta."></textarea>
-          <div class="comentarios-bar">
-            <span class="comentarios-contador" id="comentario-contador">0 / 600</span>
-            <button type="button" class="comentarios-btn" id="comentario-btn">Enviar</button>
-          </div>
-          <p class="comentarios-estado" id="comentario-estado" role="status"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- BANNER PRINCIPAL (INCLUYE HEADER SUPERPUESTO) -->
   <div class="hero-container">
     <header class="header-trapezoid">
@@ -61,20 +35,6 @@
         <p id="mensaje-random">Cargando mensaje de supervivencia...</p>
       </div>
     </div>
-  </div>
-  <!-- ============================================================
-     WIDGET EXPOSICIÓN DE BIOLOGÍA
-     ============================================================ -->
-  <div class="expobio-wrap" id="expobio-float">
-    <button type="button" id="expobio-close" class="expobio-close" aria-label="Cerrar aviso del Expobio" title="Cerrar aviso del Expobio">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <a href="https://expobio.github.io/INSCRIPCION/index.html" target="_blank" class="expobio-widget-link">
-      <div class="expobio-widget">
-          <div class="speech-bubble" id="expobio-message">¿Te interesa el Expobio?</div>
-          <img src="https://media.tenor.com/SIWQYnjZC3EAAAAi/bear-party-bear.gif" alt="Bear Party" class="bear-image">
-      </div>
-    </a>
   </div>
 <!-- ============================================================
      NAVEGACIÓN PRINCIPAL
@@ -118,36 +78,6 @@
       <p>Centro Federado</p>
     </a>
 
-    <!-- 2. ASUNTOS ACADÉMICOS -->
-    <a class="Box-2" href="asuntos.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.12) translate(-50 -50)">
-            <path d="M12 79C30 74 66 75 88 79"/>
-            <path d="M24 77C28 66 30 57 27 48"/>
-            <path d="M76 77C72 67 70 57 73 47"/>
-            <path d="M28 58C19 56 16 50 18 45C25 46 30 51 28 58Z" fill="currentColor" opacity=".18"/>
-            <path d="M72 58C81 56 84 50 82 45C75 46 70 51 72 58Z" fill="currentColor" opacity=".18"/>
-            <path d="M29 48C26 36 29 22 39 17L45 22C48 20 52 20 55 22L61 17C71 22 74 36 71 48C68 63 57 69 50 69C43 69 32 63 29 48Z" fill="currentColor" opacity=".10"/>
-            <path d="M30 30L27 20L39 25"/>
-            <path d="M70 30L73 20L61 25"/>
-            <circle cx="40" cy="38" r="8"/>
-            <circle cx="60" cy="38" r="8"/>
-            <circle cx="40" cy="38" r="3" fill="currentColor"/>
-            <circle cx="60" cy="38" r="3" fill="currentColor"/>
-            <path d="M50 42L46 48H54Z" fill="currentColor"/>
-            <path d="M35 54C41 51 46 52 50 56C54 52 59 51 65 54V68C59 65 54 65 50 69C46 65 41 65 35 68Z" fill="currentColor" opacity=".12"/>
-            <path d="M50 56V68"/>
-            <path d="M39 57L47 59"/>
-            <path d="M39 61L47 63"/>
-            <path d="M61 57L53 59"/>
-            <path d="M61 61L53 63"/>
-          </g>
-        </svg>
-      </div>
-      <p>Asuntos Académicos</p>
-    </a>
-
     <!-- 3. CENTROS DE INVESTIGACIÓN -->
     <a class="Box-2" href="centros.html">
       <div class="icon-circle">
@@ -178,128 +108,6 @@
       <p>Centros de Investigación</p>
     </a>
 
-    <!-- 3. MANUAL DE SUPERVIVENCIA -->
-    <a class="Box-2" href="manual.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.20) translate(-50 -50)">
-            <path d="M50 12V88"/>
-            <path d="M12 50H88"/>
-            <path d="M23 23L77 77"/>
-            <path d="M77 23L23 77"/>
-            <path d="M50 22C34 22 22 34 22 50C22 66 34 78 50 78C66 78 78 66 78 50C78 34 66 22 50 22Z"/>
-            <path d="M50 32C40 32 32 40 32 50C32 60 40 68 50 68C60 68 68 60 68 50C68 40 60 32 50 32Z"/>
-            <path d="M50 41C45 41 41 45 41 50C41 55 45 59 50 59C55 59 59 55 59 50C59 45 55 41 50 41Z"/>
-            <ellipse cx="50" cy="59" rx="12" ry="15" fill="currentColor" opacity=".18"/>
-            <ellipse cx="50" cy="42" rx="8" ry="7" fill="currentColor" opacity=".25"/>
-            <circle cx="46.5" cy="40" r="1.3" fill="currentColor"/>
-            <circle cx="53.5" cy="40" r="1.3" fill="currentColor"/>
-            <circle cx="48" cy="37.5" r="1" fill="currentColor"/>
-            <circle cx="52" cy="37.5" r="1" fill="currentColor"/>
-            <path d="M43 44L34 37L27 39"/>
-            <path d="M42 48L32 47L25 51"/>
-            <path d="M42 53L32 57L27 64"/>
-            <path d="M44 57L37 65L36 73"/>
-            <path d="M57 44L66 37L73 39"/>
-            <path d="M58 48L68 47L75 51"/>
-            <path d="M58 53L68 57L73 64"/>
-            <path d="M56 57L63 65L64 73"/>
-            <path d="M27 39L19 32" stroke-dasharray="2 3"/>
-            <path d="M25 51L15 51" stroke-dasharray="2 3"/>
-            <path d="M27 64L20 72" stroke-dasharray="2 3"/>
-            <path d="M73 39L81 32" stroke-dasharray="2 3"/>
-            <path d="M75 51L85 51" stroke-dasharray="2 3"/>
-            <path d="M73 64L80 72" stroke-dasharray="2 3"/>
-            <path d="M82 20C82 17 85 14 85 12C85 16 88 18 88 21C88 24 82 24 82 20Z" fill="currentColor" opacity=".35"/>
-          </g>
-        </svg>
-      </div>
-      <p>Manual de Supervivencia</p>
-    </a>
-
-    <!-- 4. CONSULTA DE TRÁMITES -->
-    <a class="Box-2" href="tramites.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.18) translate(-50 -50)">
-            <path d="M50 17C34 17 23 29 21 45C19 61 27 77 39 82C45 85 55 85 61 82C73 77 81 61 79 45C77 29 66 17 50 17Z" fill="currentColor" opacity=".15"/>
-            <path d="M50 21C36 21 27 31 25 45C23 59 30 73 41 78C47 81 53 81 59 78C70 73 77 59 75 45C73 31 64 21 50 21Z"/>
-            <path d="M50 23C44 28 42 38 43 49C44 61 45 70 50 77C55 70 56 61 57 49C58 38 56 28 50 23Z" fill="currentColor" opacity=".10"/>
-            <path d="M39 27C34 35 33 43 35 50C37 58 38 66 41 73"/>
-            <path d="M61 27C66 35 67 43 65 50C63 58 62 66 59 73"/>
-            <path d="M29 43C35 45 39 47 43 50"/>
-            <path d="M71 43C65 45 61 47 57 50"/>
-            <path d="M27 54C33 54 38 56 43 59"/>
-            <path d="M73 54C67 54 62 56 57 59"/>
-            <path d="M43 18C45 13 55 13 57 18L57 24C55 27 45 27 43 24Z" fill="currentColor" opacity=".18"/>
-            <circle cx="47" cy="18" r="1"/>
-            <circle cx="53" cy="18" r="1"/>
-            <path d="M28 38L19 32L15 34"/>
-            <path d="M24 49L15 47L12 50"/>
-            <path d="M26 61L17 65L15 69"/>
-            <path d="M72 38L81 32L85 34"/>
-            <path d="M76 49L85 47L88 50"/>
-            <path d="M74 61L83 65L85 69"/>
-            <path d="M50 77L50 84L47 88L50 86L53 88"/>
-            <g transform="translate(70 70) scale(.55)">
-              <path d="M0 0H22V28H0Z" fill="currentColor" opacity=".15"/>
-              <path d="M4 7H17"/>
-              <path d="M4 13H17"/>
-              <path d="M4 19H13"/>
-              <path d="M15 20L17 22L21 17"/>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <p>Consulta de Trámites</p>
-    </a>
-
-    <!-- 5. PREGUNTAS FRECUENTES -->
-    <a class="Box-2" href="pfrecuentes.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.12) translate(-50 -50)">
-            <path d="M39 28C39 18 47 12 57 12C68 12 76 19 76 28C76 37 69 41 63 45C58 48 57 52 57 57"/>
-            <circle cx="57" cy="70" r="2.5" fill="currentColor"/>
-            <path d="M50 59C48 68 48 77 44 84"/>
-            <path d="M57 59C58 69 61 77 66 84"/>
-            <path d="M44 83C38 83 34 86 29 88"/>
-            <path d="M48 82C43 88 40 91 35 93"/>
-            <path d="M63 82C69 84 74 87 80 88"/>
-            <path d="M60 82C64 88 68 91 73 93"/>
-            <path d="M33 30C25 25 19 28 17 34C23 37 29 35 33 30Z" fill="currentColor" opacity=".18"/>
-            <path d="M73 32C80 26 87 29 88 35C82 38 77 36 73 32Z" fill="currentColor" opacity=".18"/>
-            <path d="M20 49C24 45 29 45 33 48C29 48 26 50 24 53C22 52 21 51 20 49Z"/>
-            <path d="M24 53L21 57"/>
-            <path d="M76 52C70 46 68 51 72 56C68 59 73 63 77 58C81 63 86 59 82 56C86 51 82 46 77 52Z"/>
-            <path d="M77 51V61"/>
-            <path d="M18 79C18 74 22 71 26 74C30 71 34 74 34 79Z"/>
-            <path d="M26 79V88"/>
-            <path d="M78 76C86 70 91 73 91 80C85 82 81 80 78 76Z" fill="currentColor" opacity=".18"/>
-            <circle cx="50" cy="88" r="2"/>
-            <circle cx="55" cy="91" r="1.5"/>
-            <circle cx="45" cy="91" r="1.5"/>
-          </g>
-        </svg>
-      </div>
-      <p>Preguntas Frecuentes</p>
-    </a>
-
-    <!-- 6. Malla Curricular -->
-    <a class="Box-2" href="malla.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.12) translate(-50 -50)">
-            <path d="M20 20H80V80H20Z" fill="currentColor" opacity=".15"/>
-            <path d="M20 20H80V80H20Z"/>
-            <path d="M20 40H80"/>
-            <path d="M20 60H80"/> 
-          </g>
-        </svg>
-      </div>
-      <p>Malla Curricular</p>
-    </a>
-
     <!-- 8. CASILLEROS -->
     <a class="Box-2" href="servicios/casilleros.html">
       <div class="icon-circle">
@@ -318,128 +126,36 @@
       </div>
       <p>Casilleros</p>
     </a>
-
-    <!-- 9. TIENDA -->
-    <a class="Box-2" href="tienda.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.12) translate(-50 -50)">
-            <path d="M23 36H77L72 80H28L23 36Z" fill="currentColor" opacity=".12"/>
-            <path d="M23 36H77L72 80H28L23 36Z"/>
-            <path d="M35 36V28C35 18 40 12 50 12C60 12 65 18 65 28V36"/>
-            <path d="M39 50H61"/>
-            <path d="M50 42V62"/>
-            <path d="M42 58C45 63 47 66 50 66C53 66 55 63 58 58"/>
-          </g>
-        </svg>
-      </div>
-      <p>Tienda</p>
-    </a>
-
-    <!-- 10. HERRAMIENTAS -->
-    <a class="Box-2" href="herramientas.html">
-      <div class="icon-circle">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <g transform="translate(50 50) scale(1.08) translate(-50 -50)">
-            <path d="M31 78L22 69V58L38 42H49L66 25C75 16 89 16 95 29L82 42C76 36 68 37 64 41C60 45 59 52 64 57L51 70" fill="currentColor" opacity=".10"/>
-            <path d="M31 78L22 69V58L38 42H49L66 25C76 15 90 15 95 29C95 40 88 48 79 48C74 48 69 46 66 43"/>
-            <circle cx="26" cy="80" r="7"/>
-            <path d="M33 86L49 70"/>
-            <path d="M49 70L60 82"/>
-            <path d="M26 73V64"/>
-            <path d="M20 78L12 78"/>
-            <path d="M33 86L33 94"/>
-          </g>
-        </svg>
-      </div>
-      <p>Herramientas</p>
-    </a>
-
     </nav>
 
     <button type="button" class="carousel-btn carousel-btn-next" id="menuNext" aria-label="Siguiente">&#10095;</button>
   </div>
+  <div class="comentarios-cta-wrap">
+    <button type="button" class="comentarios-cta-btn" data-open-comments>
+      Comentarios y sugerencias
+    </button>
+  </div>
 
-</section>
-
-  <!-- SECCIÓN DE SERVICIOS / RECURSOS -->
-  <section class="Servicios">
-    <div class="Servicios_titulo">
-      <h2>Convocatorias Abiertas para todos</h2>
-      <p>Unete a un CI y descubre el apasionante mundo de la biologia </p>
-    </div>
-
-    <div class="tablon-noticias">
-      <div class="noticias-carousel-wrapper">
-
-        <div class="noticias-track" id="noticiasTrack">
-
-          <a class="noticia-card" href="https://cibiogen.net.pe/formulario/" target="_blank" rel="noopener">
-            <div class="noticia-imagen">
-              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/AC84B177E1090642D167933E69D72EC3.jpg" alt="Convocatoria CIBIOGEN">
+  <div class="comentarios-modal" id="comentariosModal" aria-hidden="true">
+    <div class="comentarios-modal-backdrop" data-close-comments></div>
+    <div class="comentarios-modal-panel" role="dialog" aria-modal="true" aria-labelledby="comentariosTitulo">
+      <button type="button" class="comentarios-modal-close" id="comentariosClose" aria-label="Cerrar comentarios">×</button>
+      <div class="promo-comentarios">
+        <div class="comentarios-card">
+          <label class="comentarios-label" id="comentariosTitulo" for="comentario-texto">Comentarios y sugerencias</label>
+          <p class="comentarios-aviso">Tu opinión nos ayuda a mejorar el portal.</p>
+          <form id="form-comentario">
+            <textarea id="comentario-texto" class="comentarios-textarea" maxlength="600" placeholder="Escribe aquí tu comentario..."></textarea>
+            <div class="comentarios-bar">
+              <span class="comentarios-contador" id="comentario-contador">0 / 600</span>
+              <button type="submit" class="comentarios-btn" id="comentario-btn">Enviar</button>
             </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Convocatoria abierta</span>
-              <h3>🧬 Forma parte de CIBIOGEN 2026-II</h3>
-              <p>Súmate al Centro de Investigación en Biotecnología y Genética: salud y genética toxicológica, biociencias, genética poblacional y bioinformática.</p>
-              <span class="noticia-cta">Inscribirme →</span>
-            </div>
-          </a>
-
-          <a class="noticia-card" href="https://forms.gle/13T74Lds6Zag2Qt98" target="_blank" rel="noopener">
-            <div class="noticia-imagen">
-              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/ACFFA89205CB4D85213ACFBE917CA623.jpg" alt="Convocatoria ICTIOS-Cusco">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Cierra: 16 de septiembre</span>
-              <h3>🐟 ¡Convocatoria abierta en ICTIOS Cusco!</h3>
-              <p>Súmate al estudio y conservación de peces, anfibios y aves de nuestros ecosistemas acuáticos. Abierto a estudiantes, bachilleres y egresados de Biología.</p>
-              <span class="noticia-cta">Inscribirme →</span>
-            </div>
-          </a>
-
-          <a class="noticia-card" href="https://docs.google.com/forms/d/e/1FAIpQLSdJFgaNSciPQYHepxEhv4UCBe6tNNI3eWEaFj8Cj9_KQl426A/viewform?usp=dialog" target="_blank" rel="noopener">
-            <div class="noticia-imagen">
-              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/AC923D920BB77DD5AC4BA6125D1E4C4A.jpg" alt="Convocatoria CIMA">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Cierra: 21 de septiembre</span>
-              <h3>🌱 Nueva convocatoria CIMA 26-II</h3>
-              <p>Únete al Centro de Investigación Medio Ambiental: gestión ambiental, residuos sólidos, ecología microbiana y biorremediación, con proyectos y salidas de campo.</p>
-              <span class="noticia-cta">Inscribirme →</span>
-            </div>
-          </a>
-
-          <a class="noticia-card" href="https://forms.gle/LQefLoCmDzV6KLu98" target="_blank" rel="noopener">
-            <div class="noticia-imagen">
-              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/ACEDAD072844DB3B384050B6E9921E2C.jpg" alt="Convocatoria VERTEBRATE">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Convocatoria abierta</span>
-              <h3>🐦 CI VERTEBRATE abre sus puertas a nuevos integrantes</h3>
-              <p>¿Eres cachimbo de Biología? Mira, piensa, observa y descubre el mundo de peces, anfibios, aves y murciélagos.</p>
-              <span class="noticia-cta">Inscribirme →</span>
-            </div>
-          </a>
-
-          <a class="noticia-card" href="https://forms.gle/zRgG2raHc1qnePxE6" target="_blank" rel="noopener">
-            <div class="noticia-imagen">
-              <img src="https://res.cloudinary.com/k2mr5gwl/image/upload/v1789256705/ACD2C7F0D111697CFC18F3DD99D07E7F.jpg" alt="Convocatoria CEINZ">
-            </div>
-            <div class="noticia-contenido">
-              <span class="noticia-fecha">Cierra: 25 de septiembre</span>
-              <h3>🕷️ La convocatoria CEINZ 2026-II ya está aquí</h3>
-              <p>Descubre la entomología y aracnología: investigación científica, trabajo de campo y conservación de nuestra biodiversidad.</p>
-              <span class="noticia-cta">Inscribirme →</span>
-            </div>
-          </a>
-
+            <div class="comentarios-estado" id="comentario-estado" aria-live="polite"></div>
+          </form>
         </div>
       </div>
     </div>
-  </section>
-
-  <script src="js/noticias-movimiento.js" defer></script>
+  </div>
 
 <section class="barra-progreso" aria-label="Cronograma académico">
   <details class="timeline-panel" open>
@@ -629,12 +345,43 @@
   })();
 </script>
 
-  <!-- SECCIÓN DE COMENTARIOS Y SUGERENCIAS (vive dentro del modal de
-       "Página en construcción", arriba en el body) -->
+  <!-- SECCIÓN DE COMENTARIOS Y SUGERENCIAS -->
   <script>
     window.COMENTARIOS_URL = "https://script.google.com/macros/s/AKfycbzIGxBHDcbtJAySBVZIR1uz96OEqsps6bpjEE-TEeuEL0nMce52LIQroT6WaOmM6r6A-A/exec";
   </script>
   <script src="js/comentarios.js?v=20260917c2"></script>
+  <script>
+    (function () {
+      const modal = document.getElementById('comentariosModal');
+      const trigger = document.querySelector('[data-open-comments]');
+      const closeBtn = document.getElementById('comentariosClose');
+      if (!modal || !trigger) return;
+
+      function setOpen(isOpen) {
+        modal.classList.toggle('is-open', isOpen);
+        modal.setAttribute('aria-hidden', String(!isOpen));
+        document.body.classList.toggle('modal-open', isOpen);
+      }
+
+      trigger.addEventListener('click', function () {
+        setOpen(true);
+        const area = document.getElementById('comentario-texto');
+        if (area) area.focus();
+      });
+
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); });
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal || event.target.matches('[data-close-comments]')) {
+          setOpen(false);
+        }
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          setOpen(false);
+        }
+      });
+    })();
+  </script>
 
   <!-- PIE DE PÁGINA -->
   <footer class="site-footer">
@@ -667,14 +414,14 @@
       <div class="site-footer-section">
         <h3>Equipo desarrollador</h3>
         <div class="dev-list">
-          <a class="dev-card" href="https://github.com/SamBioArt" target="_blank" rel="noreferrer">
+          <div class="dev-card">
             <img src="https://github.com/SamBioArt.png" alt="SamBioArt">
             <span>SamBioArt</span>
-          </a>
-          <a class="dev-card" href="https://github.com/K-Kr0en3n" target="_blank" rel="noreferrer">
+          </div>
+          <div class="dev-card">
             <img src="https://github.com/K-Kr0en3n.png" alt="K-Kr0en3n">
             <span>K-Kr0en3n</span>
-          </a>
+          </div>
         </div>
       </div>
     </div>
